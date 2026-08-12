@@ -1,20 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
 // Third-party YouTube thumbnails — served unoptimized on purpose.
 import { FILMS, REELS } from '@/lib/content'
+import Reveal from './Reveal'
 
 export default function VideoSection() {
   return (
     <>
-      <div className="work-head">
-        <div>
-          <div className="eyebrow">02 · Video</div>
-          <h2 className="h2">Motion</h2>
+      <Reveal>
+        <div className="work-head">
+          <div>
+            <div className="eyebrow">02 · Video</div>
+            <h2 className="h2">Motion</h2>
+          </div>
+          <p className="prose">
+            Scripted, edited and animated in Premiere Pro and After Effects. Everything here ran on
+            owned channels.
+          </p>
         </div>
-        <p className="prose">
-          Scripted, edited and animated in Premiere Pro and After Effects. Everything here ran on
-          owned channels.
-        </p>
-      </div>
+      </Reveal>
 
       <div className="vidgrid">
         {FILMS.map((f) => (

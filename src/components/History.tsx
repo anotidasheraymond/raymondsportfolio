@@ -1,38 +1,37 @@
-'use client'
-
 import { ROLES, EDUCATION } from '@/lib/content'
-import { useReveal } from '@/hooks/useReveal'
+import Reveal from './Reveal'
+import TimelineRail from './TimelineRail'
 
 export default function History() {
-  const railRef = useReveal<HTMLSpanElement>(0.05)
-
   return (
     <>
-      <div>
+      <Reveal>
         <div className="eyebrow">05 · History</div>
         <h2 className="h2">Experience</h2>
-      </div>
+      </Reveal>
 
       <div className="timeline" style={{ marginTop: 'clamp(22px,3vw,34px)' }}>
-        <span className="timeline-rail" data-reveal-rail ref={railRef} aria-hidden="true" />
+        <TimelineRail />
         {ROLES.map((r) => (
-          <div className="exp" key={r.title + r.dates}>
-            <div>
-              <div className="exp-dates">{r.dates}</div>
-              <div className="exp-span">{r.span}</div>
-            </div>
-            <div>
-              <h3 className="exp-title">{r.title}</h3>
-              <div className="exp-org">{r.org}</div>
-              <div className="exp-bullets">
-                {r.bullets.map((b) => (
-                  <p className="prose" key={b} style={{ fontSize: 15.5 }}>
-                    {b}
-                  </p>
-                ))}
+          <Reveal key={r.title + r.dates}>
+            <div className="exp">
+              <div>
+                <div className="exp-dates">{r.dates}</div>
+                <div className="exp-span">{r.span}</div>
+              </div>
+              <div>
+                <h3 className="exp-title">{r.title}</h3>
+                <div className="exp-org">{r.org}</div>
+                <div className="exp-bullets">
+                  {r.bullets.map((b) => (
+                    <p className="prose" key={b} style={{ fontSize: 15.5 }}>
+                      {b}
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
 

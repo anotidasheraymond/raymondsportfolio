@@ -5,6 +5,7 @@ import { useRef, useState } from 'react'
 import { WORKS, CHIPS, OPTIONS, type Chip } from '@/lib/content'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import CursorPeek, { type PeekHandle } from './CursorPeek'
+import Reveal from './Reveal'
 
 export default function WorkList() {
   const [filter, setFilter] = useState<Chip>('All')
@@ -26,15 +27,17 @@ export default function WorkList() {
     <>
       {peekOn && <CursorPeek ref={peek} />}
 
-      <div className="work-head">
-        <div>
-          <div className="eyebrow">01 · Selected work</div>
-          <h2 className="h2">Star projects</h2>
+      <Reveal>
+        <div className="work-head">
+          <div>
+            <div className="eyebrow">01 · Selected work</div>
+            <h2 className="h2">Star projects</h2>
+          </div>
+          <p className="prose">
+            Five projects, five disciplines. Hover a row for the visual, open it for the work.
+          </p>
         </div>
-        <p className="prose">
-          Five projects, five disciplines. Hover a row for the visual, open it for the work.
-        </p>
-      </div>
+      </Reveal>
 
       <div className="pills" role="tablist" aria-label="Filter projects">
         {CHIPS.map((c) => (

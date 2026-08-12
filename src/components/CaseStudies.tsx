@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { STUDIES } from '@/lib/content'
+import Reveal from './Reveal'
 
 export default function CaseStudies() {
   const [studyIndex, setStudyIndex] = useState(0)
@@ -14,7 +15,9 @@ export default function CaseStudies() {
 
   return (
     <>
-      <div className="eyebrow">03 · Case studies</div>
+      <Reveal>
+        <div className="eyebrow">03 · Case studies</div>
+      </Reveal>
 
       <div className="casesw" role="tablist" aria-label="Case studies" style={{ marginTop: 16 }}>
         {STUDIES.map((st, i) => (

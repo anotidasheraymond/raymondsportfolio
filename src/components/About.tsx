@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import { ABOUT_PARAGRAPHS, PAST_EXPERIENCE, PRESENT_SKILLS, CAPS } from '@/lib/content'
+import Reveal from './Reveal'
 
 export default function About() {
   return (
     <>
       <div className="g2">
-        <div>
+        <Reveal>
           <div className="eyebrow">04 · About</div>
           <h2 className="h2">Who I am</h2>
           {ABOUT_PARAGRAPHS.map((p) => (
@@ -17,8 +18,8 @@ export default function About() {
               {p}
             </p>
           ))}
-        </div>
-        <div>
+        </Reveal>
+        <Reveal variant="pop">
           <div className="about-portrait">
             <Image
               src="/img/u26.png"
@@ -32,11 +33,11 @@ export default function About() {
             <span>Mississauga, ON</span>
             <span>2026</span>
           </div>
-        </div>
+        </Reveal>
       </div>
 
       <div className="g2" style={{ marginTop: 'clamp(30px,4.5vw,54px)' }}>
-        <div>
+        <Reveal>
           <h3 className="list-h">Past experience</h3>
           <div className="list-body">
             {PAST_EXPERIENCE.map((p) => (
@@ -45,8 +46,8 @@ export default function About() {
               </p>
             ))}
           </div>
-        </div>
-        <div>
+        </Reveal>
+        <Reveal>
           <h3 className="list-h">Present-day skills</h3>
           <div className="list-body">
             {PRESENT_SKILLS.map((p) => (
@@ -55,7 +56,7 @@ export default function About() {
               </p>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
 
       <div style={{ marginTop: 'clamp(30px,4.5vw,54px)' }}>
