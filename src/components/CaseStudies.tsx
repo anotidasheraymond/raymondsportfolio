@@ -2,42 +2,29 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { STUDIES } from '@/lib/content'
+import { STUDIES, type Study } from '@/lib/content'
 import Reveal from './Reveal'
 
-export default function CaseStudies() {
-  const [studyIndex, setStudyIndex] = useState(0)
-  const [tab, setTab] = useState(0)
-
-  const study = STUDIES[studyIndex]
+/**
+ * Every study and every panel is rendered; inactive ones carry `hidden`.
+ * Keeping them in the DOM puts all the case-study prose in the static HTML,
+ * which the handoff requires ("nothing important is client-rendered").
+ */
+function StudyBody({
+  study,
+  active,
+  tab,
+  onTab,
+}: {
+  study: Study
+  active: boolean
+  tab: number
+  onTab: (i: number) => void
+}) {
   const activeTab = Math.min(tab, study.panels.length - 1)
-  const panel = study.panels[activeTab]
 
   return (
-    <>
-      <Reveal>
-        <div className="eyebrow">03 · Case studies</div>
-      </Reveal>
-
-      <div className="casesw" role="tablist" aria-label="Case studies" style={{ marginTop: 16 }}>
-        {STUDIES.map((st, i) => (
-          <button
-            key={st.id}
-            type="button"
-            role="tab"
-            aria-selected={studyIndex === i}
-            className="casebtn"
-            onClick={() => {
-              setStudyIndex(i)
-              setTab(0)
-            }}
-          >
-            <span className="casebtn-n">{`0${i + 1}`}</span>
-            <span className="casebtn-l">{st.label}</span>
-          </button>
-        ))}
-      </div>
-
+    <div hidden={!active}>
       <h2 className="case-h2">{study.title}</h2>
       <p className="case-sub">{study.sub}</p>
 
@@ -83,7 +70,7 @@ export default function CaseStudies() {
         </>
       )}
 
-      <div className="case-tabs" role="tablist" aria-label="Case study sections">
+      <div className="case-tabs" role="tablist" aria-label={`${study.title} sections`}>
         {study.panels.map((p, i) => (
           <button
             key={p.label}
@@ -91,7 +78,7 @@ export default function CaseStudies() {
             role="tab"
             aria-selected={activeTab === i}
             className="pill"
-            onClick={() => setTab(i)}
+            onClick={() => onTab(i)}
           >
             {p.label}
           </button>
@@ -100,18 +87,22 @@ export default function CaseStudies() {
 
       <div className="case-body">
         <div>
-          <p className="panel-lede">{panel.lede}</p>
-          {panel.groups.map((g, gi) => (
-            <div className="panel-group" key={g.label || gi}>
-              {g.label && <div className="panel-group-label">{g.label}</div>}
-              <div className="panel-items">
-                {g.items.map((item) => (
-                  <p key={item}>{item}</p>
-                ))}
-              </div>
+          {study.panels.map((panel, i) => (
+            <div key={panel.label} hidden={activeTab !== i}>
+              <p className="panel-lede">{panel.lede}</p>
+              {panel.groups.map((g, gi) => (
+                <div className="panel-group" key={g.label || gi}>
+                  {g.label && <div className="panel-group-label">{g.label}</div>}
+                  <div className="panel-items">
+                    {g.items.map((item) => (
+                      <p key={item}>{item}</p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              {panel.close && <p className="panel-close">{panel.close}</p>}
             </div>
           ))}
-          {panel.close && <p className="panel-close">{panel.close}</p>}
         </div>
 
         <aside className="case-fig">
@@ -162,6 +153,48 @@ export default function CaseStudies() {
           ))}
         </div>
       </div>
+    </div>
+  )
+}
+
+export default function CaseStudies() {
+  const [studyIndex, setStudyIndex] = useState(0)
+  const [tab, setTab] = useState(0)
+
+  return (
+    <>
+      <Reveal>
+        <div className="eyebrow">03 · Case studies</div>
+      </Reveal>
+
+      <div className="casesw" role="tablist" aria-label="Case studies" style={{ marginTop: 16 }}>
+        {STUDIES.map((st, i) => (
+          <button
+            key={st.id}
+            type="button"
+            role="tab"
+            aria-selected={studyIndex === i}
+            className="casebtn"
+            onClick={() => {
+              setStudyIndex(i)
+              setTab(0)
+            }}
+          >
+            <span className="casebtn-n">{`0${i + 1}`}</span>
+            <span className="casebtn-l">{st.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {STUDIES.map((study, i) => (
+        <StudyBody
+          key={study.id}
+          study={study}
+          active={studyIndex === i}
+          tab={studyIndex === i ? tab : 0}
+          onTab={setTab}
+        />
+      ))}
     </>
   )
 }

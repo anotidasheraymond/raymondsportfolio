@@ -20,6 +20,10 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Inactive panels stay in the DOM so all prose ships in the static HTML.
+   Needed because several panel classes set `display`, which would win. */
+[hidden] { display: none !important; }
+
 html {
   scroll-behavior: smooth;
   background: #0d100c;

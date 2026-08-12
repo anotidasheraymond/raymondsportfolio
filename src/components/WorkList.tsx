@@ -81,8 +81,10 @@ export default function WorkList() {
                 <span className="wrow-glyph">{isOpen ? '−' : '+'}</span>
               </button>
 
-              {isOpen && (
-                <div id={`panel-${w.id}`}>
+              {/* Always rendered, hidden when closed, so every project's prose
+                  ships in the static HTML. Shots stay conditional — the spec
+                  wants their images mounted only while the row is open. */}
+              <div id={`panel-${w.id}`} hidden={!isOpen}>
                   <div className="wdet">
                     <div>
                       <div className="wdet-role">{w.role}</div>
@@ -102,7 +104,7 @@ export default function WorkList() {
                     </div>
                   </div>
 
-                  {shots.length > 0 && (
+                  {isOpen && shots.length > 0 && (
                     <div className="shots">
                       {shots.map((s) => (
                         <figure key={s.src + s.caption}>
@@ -122,8 +124,7 @@ export default function WorkList() {
                       ))}
                     </div>
                   )}
-                </div>
-              )}
+              </div>
             </div>
           )
         })}
