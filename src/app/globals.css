@@ -28,6 +28,11 @@ html {
   scroll-behavior: smooth;
   background: #0d100c;
   -webkit-text-size-adjust: 100%;
+  /* iOS Safari does not reliably clip when overflow-x sits on <body> alone —
+     the document pans sideways anyway. `clip` also avoids making these a
+     scroll container, which would break the sticky nav. */
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -35,6 +40,7 @@ body {
   margin: 0;
   color: var(--tx);
   overflow-x: hidden;
+  overflow-x: clip;
   font-family: var(--font-body), Georgia, serif;
 }
 

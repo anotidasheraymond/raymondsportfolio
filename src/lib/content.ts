@@ -208,7 +208,7 @@ export const STATS = [
   { count: 235, pre: '+', post: '%', final: '+235%', label: 'Followers' },
   { count: 120, pre: '+', post: '%', final: '+120%', label: 'Impressions' },
   { count: 200, pre: '+', post: '%', final: '+200%', label: 'Review platform traffic' },
-  { count: 72, pre: '$', post: 'K/mo', final: '$72K/mo', label: 'Revenue via G2' },
+  { count: 72, pre: '$', post: 'K/mo', final: '$72K/mo', label: 'Revenue generated from G2 leads' },
 ]
 
 export type Role = { dates: string; span: string; title: string; org: string; bullets: string[] }
