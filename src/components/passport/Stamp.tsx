@@ -9,7 +9,7 @@ export default function Stamp({ id, spec, size = 132, active = true }: { id: str
   return (
     <span
       className={`pp-stamp${active ? ' is-in' : ''}`}
-      style={{ ['--rot' as string]: `${spec.rot}deg`, width: size, height: size }}
+      style={{ ['--rot' as string]: `${spec.rot}deg`, ...(size ? { width: size, height: size } : null) }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element -- a static SVG; the image optimizer would rasterize it */}
       <img src={`/stamps/${id}?v=${hashSeed(JSON.stringify(spec)).toString(36)}`} alt={`${spec.business} stamp, ${spec.claim}, ${spec.year}`} loading="lazy" decoding="async" />

@@ -356,16 +356,15 @@
 .pp-ba-img { position: relative; display: block; aspect-ratio: 2.4 / 1; overflow: hidden; border: 1px solid var(--edge); border-radius: 3px; background: #111; transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s; }
 .pp-ba-item:hover .pp-ba-img { transform: scale(1.04) rotate(-.6deg); box-shadow: 0 10px 22px rgba(51, 37, 29, .22); }
 
-/* earlier entries */
-.pp-wells { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.4cqw 2.6cqw; }
-.pp-well {
-  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px;
-  padding: 2.4cqw 1.6cqw 3cqw; border: 1px dashed #d5c9ad; border-radius: 6px; background: rgba(255, 255, 255, .28);
-}
-.pp-well .pp-stamp { width: 21cqw !important; height: 21cqw !important; margin-bottom: 1.4cqw; }
-.pp-well b { font-size: clamp(9.5px, 2.3cqw, 12.5px); font-weight: 600; line-height: 1.2; }
-.pp-well span { font-size: clamp(9px, 2.05cqw, 11.5px); line-height: 1.3; color: var(--ink-2); }
-.pp-well em { font-style: normal; font-family: var(--pp-mono), monospace; font-size: clamp(7px, 1.65cqw, 9px); letter-spacing: .08em; color: var(--label); margin-top: 2px; }
+/* earlier entries: the app's stamps page, stamps placed rather than gridded */
+.pp-placed { position: relative; flex: none; width: 86%; margin: 0 auto; aspect-ratio: 325 / 382; }
+.pp-placed-stamp { position: absolute; aspect-ratio: 1; }
+.pp-placed-stamp .pp-stamp { width: 100%; height: 100%; }
+.pp-legend { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2cqw 2.6cqw; margin-top: 1.4cqw; padding-top: 1.8cqw; border-top: 1px solid var(--rule); }
+.pp-legend li { display: flex; flex-direction: column; gap: 1px; }
+.pp-legend b { font-size: clamp(9px, 2cqw, 11.5px); font-weight: 600; line-height: 1.2; }
+.pp-legend span { font-size: clamp(8.5px, 1.85cqw, 10.5px); line-height: 1.25; color: var(--ink-2); }
+.pp-legend em { font-style: normal; font-family: var(--pp-mono), monospace; font-size: clamp(7px, 1.6cqw, 9px); letter-spacing: .08em; color: var(--label); }
 
 /* skills */
 .pp-skills .pp-body { gap: 2.8cqw; }
@@ -392,16 +391,15 @@
 /* ---------- stamps ---------- */
 .pp-stamp {
   display: inline-block; position: relative;
-  mix-blend-mode: multiply;
   opacity: 0; transform: rotate(var(--rot)) scale(1.9);
 }
 .pp-stamp img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .pp-stamp.is-in { animation: ppThunk .5s cubic-bezier(.2, 1.6, .4, 1) .65s both; }
-.pp-well:nth-child(2) .pp-stamp.is-in { animation-delay: .75s; }
-.pp-well:nth-child(3) .pp-stamp.is-in { animation-delay: .9s; }
-.pp-well:nth-child(4) .pp-stamp.is-in { animation-delay: 1.05s; }
-.pp-well:nth-child(5) .pp-stamp.is-in { animation-delay: 1.2s; }
-.pp-well:nth-child(6) .pp-stamp.is-in { animation-delay: 1.35s; }
+.pp-placed-stamp:nth-child(2) .pp-stamp.is-in { animation-delay: .75s; }
+.pp-placed-stamp:nth-child(3) .pp-stamp.is-in { animation-delay: .9s; }
+.pp-placed-stamp:nth-child(4) .pp-stamp.is-in { animation-delay: 1.05s; }
+.pp-placed-stamp:nth-child(5) .pp-stamp.is-in { animation-delay: 1.2s; }
+.pp-placed-stamp:nth-child(6) .pp-stamp.is-in { animation-delay: 1.35s; }
 
 /* ---------- dock ---------- */
 .pp-dock {
@@ -541,13 +539,13 @@
 @keyframes ppSheen { 0%, 70%, 100% { background-position: 120% 0; } 85% { background-position: -20% 0; } }
 @keyframes ppThunk {
   0% { opacity: 0; transform: rotate(calc(var(--rot) - 10deg)) scale(1.9); }
-  60% { opacity: .9; transform: rotate(var(--rot)) scale(.94); }
-  100% { opacity: .9; transform: rotate(var(--rot)) scale(1); }
+  60% { opacity: 1; transform: rotate(var(--rot)) scale(.94); }
+  100% { opacity: 1; transform: rotate(var(--rot)) scale(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .coinPop, .coinFloat, .holoShimmer, .holoScan, .holoFlicker, .coinGlitchR, .coinGlitchC,
   .pp-bg-waves, .pp-bg-rosette, .pp-cover::after { animation: none !important; }
-  .pp-stamp { opacity: .9; transform: rotate(var(--rot)); }
+  .pp-stamp { opacity: 1; transform: rotate(var(--rot)); }
   .pp-leaf, .pp-book, .pp-single-cover { transition-duration: .01ms !important; }
 }

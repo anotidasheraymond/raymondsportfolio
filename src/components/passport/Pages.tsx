@@ -267,19 +267,43 @@ export function MotionPage({ side, folio }: { side: Side; folio: number }) {
 
 /* ---------- later pages ---------- */
 
+/**
+ * The app's passport stamps page (mobile passport-stamps-page.tsx): stamps are not in a grid, each
+ * sits at its own spot, size and tilt on a 325 × 520 reference page, scaled with the page.
+ */
+const PLACES: Array<{ top: number; left?: number; right?: number; size: number }> = [
+  { top: 28, left: 16, size: 126 },
+  { top: 22, right: 18, size: 118 },
+  { top: 118, left: 88, size: 128 },
+  { top: 154, left: 12, size: 114 },
+  { top: 168, right: 16, size: 120 },
+  { top: 254, left: 82, size: 124 },
+]
+
 export function EarlierPage({ side, folio, active }: { side: Side; folio: number; active: boolean }) {
   return (
-    <Paper side={side} folio={folio} head={['Earlier entries / Entrées antérieures', 'Visits']} className="pp-earlier">
-      <div className="pp-wells">
-        {EARLIER.map((e) => (
-          <div key={e.org} className="pp-well">
-            <Stamp id={e.id} spec={e.stamp} size={92} active={active} />
-            <b>{e.org}</b>
-            <span>{e.role}</span>
-            <em>{e.date}</em>
-          </div>
-        ))}
+    <Paper side={side} folio={folio} head={['Stamps / Timbres', 'Earlier entries']} className="pp-earlier">
+      <div className="pp-placed">
+        {EARLIER.map((e, i) => {
+          const p = PLACES[i % PLACES.length]
+          const style = {
+            // The app's slots at their own spacing; the area ends where the lowest stamp does.
+            top: `${(p.top / 382) * 100}%`,
+            width: `${(p.size / 325) * 100}%`,
+            ...(p.left !== undefined ? { left: `${(p.left / 325) * 100}%` } : { right: `${((p.right ?? 0) / 325) * 100}%` }),
+          }
+          return (
+            <div key={e.id} className="pp-placed-stamp" style={style}>
+              <Stamp id={e.id} spec={e.stamp} size={0} active={active} />
+            </div>
+          )
+        })}
       </div>
+      <ol className="pp-legend">
+        {EARLIER.map((e) => (
+          <li key={e.id}><b>{e.org}</b><span>{e.role}</span><em>{e.date}</em></li>
+        ))}
+      </ol>
     </Paper>
   )
 }

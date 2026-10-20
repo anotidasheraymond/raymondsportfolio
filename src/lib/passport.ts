@@ -4,7 +4,9 @@
 
 /**
  * A stamp as Stamp Studio cuts it (src/lib/stamps, ported verbatim from Petworking): the die picks
- * the layout family, the country picks the animal, the ink is one of the board's eight or OFFSET.
+ * the layout family, the country picks the animal, the ink is one of the board's eight. Studio's
+ * limits apply: business name up to 28 characters, claim up to 14, locality is neighbourhood and
+ * city, and a die that prints a date gets the visit's ISO day.
  * `rot` is only how it lands on the page.
  */
 export type StampSpec = {
@@ -20,10 +22,10 @@ export type StampSpec = {
   rot: number
 }
 
-/** Stamp Studio's board inks (stamp-studio.ts STAMP_INKS) and the two-pass print. */
+/** Stamp Studio's eight board inks (stamp-studio.ts STAMP_INKS). One colour, never a gradient. */
 export const INK = {
   terracotta: '#d3713c', bark: '#33251d', moss: '#4c6330', clay: '#7b5a48',
-  oxblood: '#7b3f3f', navy: '#2c4a6e', plum: '#6b4c8a', ochre: '#8f6b3f', offset: 'offset',
+  oxblood: '#7b3f3f', navy: '#2c4a6e', plum: '#6b4c8a', ochre: '#8f6b3f',
 } as const
 
 export type Visa = {
@@ -68,7 +70,7 @@ export const VISAS: Visa[] = [
       'Restructured the Squarespace site: unified the two event calendars, merged About Us, Board and Contact, and built All Services, Parents Hub, Sponsorships and Work With Us pages with URL redirects.',
       'Set the redesign direction, replaced AI-generated imagery with real DFCC photography, and took all 16 linked pages through a WCAG contrast check on desktop and mobile.',
     ],
-    stamp: { die: 'octagon', country: 'CA', ink: INK.terracotta, business: 'Durham FCC', claim: 'Consultant', date: '2026-10', year: '2026', rot: -6 },
+    stamp: { die: 'octagon', country: 'CA', ink: INK.terracotta, business: 'Durham FCC', claim: 'Consultant', date: '2026-10-11', year: '2026', rot: -6 },
   },
   {
     id: 'edsby', no: '02', org: 'Edsby', orgLine: 'K-12 education technology',
@@ -80,7 +82,7 @@ export const VISAS: Visa[] = [
       'Develop foundational SEO and answer-engine visibility through keyword and topic strategy, on-page and technical SEO, internal linking, content architecture, FAQs, schema and indexing.',
       'Monitor social, content, website and search performance while researching customer pain points, competitor positioning, K-12 trends and emerging conversations.',
     ],
-    stamp: { die: 'circle', country: 'CA', ink: INK.navy, business: 'Edsby', claim: 'Content', location: 'Hybrid', year: '2026', rot: -8 },
+    stamp: { die: 'circle', country: 'CA', ink: INK.navy, business: 'Edsby', claim: 'Content', location: 'Mississauga', year: '2026', rot: 5 },
   },
   {
     id: 'hostfully', no: '03', org: 'Hostfully', orgLine: 'Short-term-rental SaaS',
@@ -92,7 +94,7 @@ export const VISAS: Visa[] = [
       'Led review-platform strategy, increasing organic G2 and Trustpilot review traffic 200%, while managing partner marketing, customer stories, digital programming and events across Canada and the United States.',
       'Produced end-to-end creative across copy, graphic design, video and event production, using analytics and A/B testing to improve performance.',
     ],
-    stamp: { die: 'star', country: 'US', ink: INK.offset, business: 'Hostfully', claim: 'Marketing', location: 'Remote', year: '2023', rot: 6 },
+    stamp: { die: 'star', country: 'US', ink: INK.plum, business: 'Hostfully', claim: 'Marketing', location: 'Mississauga', year: '2023', rot: -3 },
   },
   {
     id: 'hostaway', no: '04', org: 'Hostaway', orgLine: 'Vacation-rental software',
@@ -102,7 +104,7 @@ export const VISAS: Visa[] = [
       'Managed concurrent merchant support workloads while troubleshooting platform issues and translating customer patterns into feedback for product, content and retention initiatives.',
       'Led software onboarding and staff training while producing technical and marketing content for internal teams and prospective customers.',
     ],
-    stamp: { die: 'hexagon', country: 'CA', ink: INK.clay, business: 'Hostaway', claim: 'Support', location: 'Toronto', year: '2022', rot: -5 },
+    stamp: { die: 'hexagon', country: 'CA', ink: INK.clay, business: 'Hostaway', claim: 'Support', location: 'Toronto', year: '2022', rot: 4 },
   },
   {
     id: 'shopify', no: '05', org: 'Shopify', orgLine: 'Commerce platform',
@@ -112,7 +114,7 @@ export const VISAS: Visa[] = [
       'Supported ecommerce brands ranging from sole proprietors to enterprise merchants across live service channels.',
       'Wrote technical copy for internal software and app integrations, onboarding documentation, staff training and product-launch communications.',
     ],
-    stamp: { die: 'rounded', country: 'CA', ink: INK.moss, business: 'Shopify', claim: 'Copywriter', location: 'Remote', year: '2021', rot: 4 },
+    stamp: { die: 'rounded', country: 'CA', ink: INK.moss, business: 'Shopify', claim: 'Copywriter', location: 'Mississauga', year: '2021', rot: -5 },
   },
   {
     id: 'c54', no: '06', org: 'Community 54', orgLine: 'New York / Toronto streetwear & cultural concept',
@@ -124,23 +126,23 @@ export const VISAS: Visa[] = [
       'Produced and operated Finale Fridays, Community 54’s recurring platform for emerging designers, coordinating promotion, in-store execution and brand/customer engagement.',
       'Identified and onboarded new brands while managing stock ordering and vendor relationships across independent labels and major brands including Nike, adidas and Supreme.',
     ],
-    stamp: { die: 'shield', country: 'CA', ink: INK.oxblood, business: 'Community 54', claim: 'Manager', location: 'Toronto', year: '2017', rot: -4 },
+    stamp: { die: 'shield', country: 'US', ink: INK.oxblood, business: 'Community 54', claim: 'Manager', location: 'Parkdale, Toronto', year: '2017', rot: 2 },
   },
 ]
 
 export const EARLIER: { id: string; org: string; role: string; date: string; stamp: StampSpec }[] = [
   { id: 'acce', org: 'ACCE International', role: 'Consumer Sensory Panelist', date: '2024 — Present',
-    stamp: { die: 'oval', country: 'CA', ink: INK.plum, business: 'ACCE International', claim: 'Panelist', date: '2024', location: 'Ontario', year: '2024', rot: 7 } },
+    stamp: { die: 'circle', country: 'CA', ink: INK.ochre, business: 'ACCE International', claim: 'Panelist', location: 'Mississauga', year: '2024', rot: -6 } },
   { id: 'rens', org: 'Rens Pet Depot', role: 'Warehouse Supervisor', date: 'Aug 2019 — Dec 2020',
-    stamp: { die: 'octagon', country: 'CA', ink: INK.bark, business: 'Rens Pet Depot', claim: 'Warehouse', date: '2019-08', year: '2019', rot: -6 } },
+    stamp: { die: 'shield', country: 'CA', ink: INK.bark, business: 'Rens Pet Depot', claim: 'Warehouse', location: 'Oakville', year: '2019', rot: 5 } },
   { id: 'paradiso', org: 'Paradiso Restaurant', role: 'Prep Supervisor & Line Cook', date: '2012 — 2019',
-    stamp: { die: 'ticket', country: 'CA', ink: INK.ochre, business: 'Paradiso', claim: 'Line Cook', location: 'Oakville', year: '2012', rot: 4 } },
+    stamp: { die: 'ticket', country: 'CA', ink: INK.terracotta, business: 'Paradiso', claim: 'Line Cook', location: 'Oakville', year: '2012', rot: -3 } },
   { id: 'getfresh', org: 'Get Fresh Company', role: 'Brand Ambassador', date: '2018',
-    stamp: { die: 'circle', country: 'CA', ink: INK.clay, business: 'Get Fresh Company', claim: 'Ambassador', location: 'Toronto', year: '2018', rot: -9 } },
+    stamp: { die: 'circle', country: 'CA', ink: INK.clay, business: 'Get Fresh Company', claim: 'Ambassador', location: 'Toronto', year: '2018', rot: 4 } },
   { id: 'pine', org: 'Pine Project Summer Camp', role: 'Camp Counsellor / Programmer', date: 'Jun — Aug 2017',
-    stamp: { die: 'hexagon', country: 'CA', ink: INK.moss, business: 'Pine Project', claim: 'Counsellor', location: 'Toronto', year: '2017', rot: 8 } },
+    stamp: { die: 'hexagon', country: 'CA', ink: INK.moss, business: 'Pine Project', claim: 'Counsellor', location: 'Toronto', year: '2017', rot: -5 } },
   { id: 'ymca', org: 'Peter Gilgan YMCA of Oakville', role: 'Summer Camp Counsellor', date: 'May — Aug 2013',
-    stamp: { die: 'rounded', country: 'CA', ink: INK.navy, business: 'YMCA of Oakville', claim: 'Camp', location: 'Oakville', year: '2013', rot: -3 } },
+    stamp: { die: 'rounded', country: 'CA', ink: INK.navy, business: 'YMCA of Oakville', claim: 'Camp', location: 'Oakville', year: '2013', rot: 2 } },
 ]
 
 export const EDUCATION_LINE = {

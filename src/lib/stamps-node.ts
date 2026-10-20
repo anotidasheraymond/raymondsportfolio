@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { parse } from 'opentype.js'
-import { OFFSET, type StampFonts } from '@/lib/stamps/compile'
+import type { StampFonts } from '@/lib/stamps/compile'
 import { renderStamp } from '@/lib/stamps/resolve'
 import type { StampSpec } from '@/lib/passport'
 
@@ -36,7 +36,7 @@ export async function pressStamp(id: string, s: StampSpec): Promise<string> {
       year: s.year,
       date: s.date,
       location: s.location,
-      ink: s.ink === 'offset' ? OFFSET : s.ink,
+      ink: s.ink,
     },
   }, await stampFonts())
   if ('gap' in result) throw new Error(`Stamp "${id}" cannot be pressed: ${JSON.stringify(result.gap)}`)
