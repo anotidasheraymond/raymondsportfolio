@@ -1,57 +1,19 @@
-import IntroCurtain from '@/components/IntroCurtain'
-import Nav from '@/components/Nav'
-import Hero from '@/components/Hero'
-import HeroStrip from '@/components/HeroStrip'
-import StatBand from '@/components/StatBand'
-import Marquee from '@/components/Marquee'
-import WorkList from '@/components/WorkList'
-import VideoSection from '@/components/VideoSection'
-import CaseStudies from '@/components/CaseStudies'
-import About from '@/components/About'
-import History from '@/components/History'
-import Contact from '@/components/Contact'
-import { OPTIONS } from '@/lib/content'
+import { Space_Grotesk, IBM_Plex_Mono, Saira_Condensed } from 'next/font/google'
+import PassportSite from '@/components/passport/PassportSite'
+
+// Passport faces: Space Grotesk + IBM Plex Mono are the Petworking passport
+// pair. Saira Condensed stands in for Kenyan Coffee on the coin, whose
+// desktop licence does not cover web embedding.
+const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '700'], display: 'swap', variable: '--pp-sans' })
+const mono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400', '500', '600'], display: 'swap', variable: '--pp-mono' })
+const coin = Saira_Condensed({ subsets: ['latin'], weight: ['700'], display: 'swap', variable: '--pp-coin' })
 
 export const dynamic = 'force-static'
 
 export default function Page() {
   return (
-    <>
-      {OPTIONS.introSequence && <IntroCurtain />}
-      <Nav />
-
-      <header id="top">
-        <Hero />
-        <HeroStrip />
-        <StatBand />
-        <Marquee />
-      </header>
-
-      <main>
-        <section id="work" className="wrap sec" style={{ paddingTop: 'clamp(56px,8vw,108px)' }}>
-          <WorkList />
-        </section>
-
-        <section id="motion" className="wrap sec">
-          <VideoSection />
-        </section>
-
-        <section id="case" className="wrap sec">
-          <CaseStudies />
-        </section>
-
-        <section id="about" className="wrap sec">
-          <About />
-        </section>
-
-        <section id="history" className="wrap sec">
-          <History />
-        </section>
-
-        <section id="contact" className="contact">
-          <Contact />
-        </section>
-      </main>
-    </>
+    <div className={`${sans.variable} ${mono.variable} ${coin.variable}`}>
+      <PassportSite />
+    </div>
   )
 }
