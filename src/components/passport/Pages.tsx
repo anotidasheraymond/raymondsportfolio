@@ -2,14 +2,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import Stamp from './Stamp'
+import Word, { WordInSvg } from './Lettering'
 import {
-  IDENTITY, VISAS, EARLIER, EDUCATION_LINE, PROJECT_LINE, SKILL_GROUPS, EXTRA_SHOTS, DFCC_BEFORE_AFTER, LINKEDIN, mrz,
+  IDENTITY, VISAS, EARLIER, EDUCATION_LINE, PROJECT_LINE, SKILL_GROUPS, EXTRA_SHOTS, DFCC_BEFORE_AFTER, JUNCTION_HOUSE, LINKEDIN, mrz,
   type Visa,
 } from '@/lib/passport'
 import { WORKS, STATS, STUDIES, FILMS, REELS, CONTACT, BEST_FIT } from '@/lib/content'
 
 export type Side = 'left' | 'right'
-export type Opener = { openImage: (src: string, caption: string) => void; openStudy: (id: string) => void }
+export type Opener = {
+  openImage: (src: string, caption: string) => void
+  openStudy: (id: string) => void
+  openVideo: (src: string, poster: string, caption: string) => void
+  goTo: (page: number) => void
+}
 
 /* ---------- shared pieces ---------- */
 
@@ -65,7 +71,7 @@ export function Cover() {
             <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" strokeWidth="3" />
             <circle cx="100" cy="100" r="84" fill="none" stroke="currentColor" strokeWidth="6" strokeDasharray="1.4 4.2" />
             <circle cx="100" cy="100" r="74" fill="none" stroke="currentColor" strokeWidth="1.4" />
-            <text x="100" y="124" textAnchor="middle" fontFamily="var(--pp-coin), sans-serif" fontWeight="700" fontSize="74" fill="currentColor" letterSpacing="2">RC</text>
+            <WordInSvg word="RC" cx={100} baseline={124} cap={58} />
             <text x="100" y="150" textAnchor="middle" fontFamily="var(--pp-mono), monospace" fontWeight="600" fontSize="10" fill="currentColor" letterSpacing="4">PORTFOLIO</text>
             <text x="100" y="62" textAnchor="middle" fontFamily="var(--pp-mono), monospace" fontWeight="600" fontSize="10" fill="currentColor" letterSpacing="4">· 2026 ·</text>
           </svg>
@@ -82,7 +88,7 @@ export function Cover() {
 export function Endpaper({ side }: { side: Side }) {
   return (
     <div className={`pp-endpaper pp-${side}`} aria-hidden="true">
-      <div className="pp-endpaper-mark">RC</div>
+      <div className="pp-endpaper-mark"><Word word="RC" height={52} /></div>
     </div>
   )
 }
@@ -115,6 +121,33 @@ export function IdentityPage({ side, folio }: { side: Side; folio: number }) {
       <div className="pp-ghost" aria-hidden="true">
         <Image src="/img/u26.png" alt="" fill sizes="60px" style={{ objectFit: 'cover', objectPosition: '50% 30%' }} />
       </div>
+    </Paper>
+  )
+}
+
+/* ---------- contents ---------- */
+
+export type ContentsEntry = { label: string; sub: string; page: number }
+
+export function ContentsPage({ side, folio, entries, goTo }: { side: Side; folio: number; entries: ContentsEntry[]; goTo: (page: number) => void }) {
+  return (
+    <Paper side={side} folio={folio} head={['Contents / Table', 'Visas & annexes']} className="pp-contents">
+      <div className="pp-annex-title">
+        <h3>Where I&rsquo;ve worked</h3>
+        <p>Every role is a visa, stamped with Petworking Stamp Studio. Tap an entry to turn to it.</p>
+      </div>
+      <ol className="pp-toc">
+        {entries.map((e) => (
+          <li key={e.label}>
+            <button onClick={() => goTo(e.page)}>
+              <span className="pp-toc-label">{e.label}</span>
+              <span className="pp-toc-sub">{e.sub}</span>
+              <span className="pp-toc-dots" aria-hidden="true" />
+              <span className="pp-toc-page">{String(e.page + 1).padStart(2, '0')}</span>
+            </button>
+          </li>
+        ))}
+      </ol>
     </Paper>
   )
 }
@@ -261,6 +294,87 @@ export function MotionPage({ side, folio }: { side: Side; folio: number }) {
           </li>
         ))}
       </ul>
+    </Paper>
+  )
+}
+
+/* ---------- Hostfully customer stories ---------- */
+
+export function StoriesPage({ side, folio, open }: { side: Side; folio: number; open: Opener }) {
+  return (
+    <Paper side={side} folio={folio} head={['Annex D · Customer stories', 'Hostfully']} className="pp-annex">
+      <div className="pp-annex-title">
+        <h3>Junction House Getaways</h3>
+        <p>{JUNCTION_HOUSE.people}, {JUNCTION_HOUSE.business}. A vertical interview series filmed and edited for Hostfully&rsquo;s social channels.</p>
+      </div>
+      <div className="pp-stories">
+        {JUNCTION_HOUSE.clips.map((c) => (
+          <button
+            key={c.slug}
+            className="pp-story"
+            onClick={() => open.openVideo(`/video/jh-${c.slug}.mp4`, `/video/jh-${c.slug}.jpg`, `Junction House Getaways · ${c.title}`)}
+            aria-label={`Play ${c.title}`}
+          >
+            <span className="pp-story-img">
+              <Image src={`/video/jh-${c.slug}.jpg`} alt="" fill sizes="(max-width: 760px) 30vw, 120px" style={{ objectFit: 'cover' }} />
+              <span className="pp-play" aria-hidden="true" />
+            </span>
+            <span className="pp-story-title">{c.title}</span>
+          </button>
+        ))}
+      </div>
+    </Paper>
+  )
+}
+
+/* ---------- independent work ---------- */
+
+export function HoardPage({ side, folio, open }: { side: Side; folio: number; open: Opener }) {
+  const w = WORKS.find((x) => x.id === 'hoard')!
+  return (
+    <Paper side={side} folio={folio} head={['Endorsement · Independent work', w.year]} className="pp-annex pp-project">
+      <div className="pp-annex-title">
+        <h3>{w.title}</h3>
+        <p>{w.role}</p>
+      </div>
+      <ul className="pp-remarks">{w.bullets.map((b) => <li key={b}>{b}</li>)}</ul>
+      <div className="pp-phones">
+        {(w.shots ?? []).map((s) => (
+          <button key={s.src} className="pp-phone" onClick={() => open.openImage(s.src, `The Hoard · ${s.caption}`)} aria-label={`View ${s.caption}`}>
+            <Image src={s.src} alt={s.caption} fill sizes="(max-width: 760px) 22vw, 90px" style={{ objectFit: 'cover', objectPosition: 'top' }} />
+          </button>
+        ))}
+      </div>
+      <div className="pp-chips">{w.specs.map((s) => <span key={s.k}><b>{s.k}</b> {s.v}</span>)}</div>
+    </Paper>
+  )
+}
+
+export function IndependentPage({ side, folio, open }: { side: Side; folio: number; open: Opener }) {
+  const ids = ['pretty', 'vineland', 'crane']
+  return (
+    <Paper side={side} folio={folio} head={['Endorsements · Independent work', '2021–22']} className="pp-annex pp-project">
+      {ids.map((id) => {
+        const w = WORKS.find((x) => x.id === id)!
+        return (
+          <section key={id} className="pp-proj">
+            <div className="pp-proj-head">
+              <h3>{w.title}</h3>
+              <span className="pp-label">{w.kind} · {w.year}</span>
+            </div>
+            <p className="pp-proj-lede">{w.bullets[0]}</p>
+            {w.shots && w.shots.length > 0 && (
+              <div className="pp-proj-shots">
+                {w.shots.slice(0, 4).map((s) => (
+                  <button key={s.src} className="pp-thumb" onClick={() => open.openImage(s.src, `${w.title} · ${s.caption}`)} aria-label={`View ${s.caption}`}>
+                    <Image src={s.src} alt={s.caption} fill sizes="(max-width: 760px) 20vw, 90px" style={{ objectFit: 'cover' }} />
+                  </button>
+                ))}
+              </div>
+            )}
+          </section>
+        )
+      })}
     </Paper>
   )
 }

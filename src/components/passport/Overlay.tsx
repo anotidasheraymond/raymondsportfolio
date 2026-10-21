@@ -7,6 +7,7 @@ import { STUDIES } from '@/lib/content'
 export type OverlayState =
   | { kind: 'image'; src: string; caption: string }
   | { kind: 'study'; id: string }
+  | { kind: 'video'; src: string; poster: string; caption: string }
   | null
 
 export default function Overlay({ state, onClose }: { state: OverlayState; onClose: () => void }) {
@@ -22,6 +23,18 @@ export default function Overlay({ state, onClose }: { state: OverlayState; onClo
   }, [state, onClose])
 
   if (!state) return null
+
+  if (state.kind === 'video') {
+    return (
+      <div className="pp-overlay" role="dialog" aria-modal="true" aria-label={state.caption} onClick={onClose}>
+        <figure className="pp-lightbox pp-videobox" onClick={(e) => e.stopPropagation()}>
+          <video src={state.src} poster={state.poster} controls autoPlay playsInline preload="metadata" />
+          <figcaption>{state.caption}</figcaption>
+        </figure>
+        <button ref={closeRef} className="pp-close" onClick={onClose} aria-label="Close">×</button>
+      </div>
+    )
+  }
 
   if (state.kind === 'image') {
     return (

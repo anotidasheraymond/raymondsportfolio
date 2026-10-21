@@ -3,10 +3,12 @@
 import Link from 'next/link'
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from 'react'
 import GlitchCoin from './GlitchCoin'
+import Word from './Lettering'
 import Overlay, { type OverlayState } from './Overlay'
 import {
   Cover, Endpaper, IdentityPage, VisaPage, HostfullyVisa, CampaignsPage, CaseFilesPage, MotionPage,
-  EarlierPage, SkillsPage, ContactPage, BeforeAfterPage, type Side, type Opener,
+  EarlierPage, SkillsPage, ContactPage, BeforeAfterPage, ContentsPage, StoriesPage, HoardPage, IndependentPage,
+  type Side, type Opener,
 } from './Pages'
 import { VISAS } from '@/lib/passport'
 import { CONTACT } from '@/lib/content'
@@ -15,21 +17,35 @@ import './passport.css'
 
 type Stage = 'coin' | 'charging' | 'burst' | 'cover'
 
-const PAGE_COUNT = 14
+const PAGE_COUNT = 18
 const LEAF_COUNT = PAGE_COUNT / 2 + 1
 const LAST_SPREAD_PAGE = PAGE_COUNT - 2
 const CHAPTERS = [
   { label: 'Identity', page: 0 },
-  { label: 'Durham FCC', page: 1 },
-  { label: 'Edsby', page: 3 },
-  { label: 'Hostfully', page: 4 },
-  { label: 'Case files', page: 6 },
-  { label: 'Hostaway', page: 8 },
-  { label: 'Shopify', page: 9 },
-  { label: 'Community 54', page: 10 },
-  { label: 'Earlier', page: 11 },
-  { label: 'Skills', page: 12 },
-  { label: 'Contact', page: 13 },
+  { label: 'Durham FCC', page: 2 },
+  { label: 'Edsby', page: 4 },
+  { label: 'Hostfully', page: 5 },
+  { label: 'Case files', page: 7 },
+  { label: 'Stories', page: 9 },
+  { label: 'Hostaway', page: 10 },
+  { label: 'Shopify', page: 11 },
+  { label: 'Community 54', page: 12 },
+  { label: 'Earlier', page: 13 },
+  { label: 'Projects', page: 14 },
+  { label: 'Skills', page: 16 },
+  { label: 'Contact', page: 17 },
+]
+const CONTENTS = [
+  { label: 'Durham FCC', sub: 'Senior Marketing Consultant · 2026', page: 2 },
+  { label: 'Edsby', sub: 'Social Media & Content Marketing Consultant · 2026', page: 4 },
+  { label: 'Hostfully', sub: 'Community & Integrated Marketing Manager · 2023–26', page: 5 },
+  { label: 'Hostfully annexes', sub: 'Campaigns, case files, motion, customer stories', page: 6 },
+  { label: 'Hostaway', sub: 'Senior Support Advisor & Technical Content Writer · 2022–23', page: 10 },
+  { label: 'Shopify', sub: 'Support Advisor & Internal Copywriter · 2021–22', page: 11 },
+  { label: 'Community 54', sub: 'Store Manager, Brand & Community Operations · 2017–19', page: 12 },
+  { label: 'Earlier entries', sub: 'Six stamps, 2012–2024', page: 13 },
+  { label: 'Independent work', sub: 'The Hoard, Pretty Apparel, Vineland, Crane', page: 14 },
+  { label: 'Skills & contact', sub: 'Endorsements, education, how to reach me', page: 16 },
 ]
 
 const visa = (id: string) => VISAS.find((v) => v.id === id)!
@@ -44,19 +60,23 @@ function renderPage(i: number, side: Side, active: boolean, open: Opener): React
   const folio = i + 1
   switch (i) {
     case 0: return <IdentityPage side={side} folio={folio} />
-    case 1: return <VisaPage visa={visa('dfcc')} side={side} folio={folio} active={active} />
-    case 2: return <BeforeAfterPage side={side} folio={folio} open={open} />
-    case 3: return <VisaPage visa={visa('edsby')} side={side} folio={folio} active={active} />
-    case 4: return <HostfullyVisa side={side} folio={folio} active={active} />
-    case 5: return <CampaignsPage side={side} folio={folio} open={open} />
-    case 6: return <CaseFilesPage side={side} folio={folio} open={open} />
-    case 7: return <MotionPage side={side} folio={folio} />
-    case 8: return <VisaPage visa={visa('hostaway')} side={side} folio={folio} active={active} />
-    case 9: return <VisaPage visa={visa('shopify')} side={side} folio={folio} active={active} />
-    case 10: return <VisaPage visa={visa('c54')} side={side} folio={folio} active={active} />
-    case 11: return <EarlierPage side={side} folio={folio} active={active} />
-    case 12: return <SkillsPage side={side} folio={folio} />
-    case 13: return <ContactPage side={side} folio={folio} />
+    case 1: return <ContentsPage side={side} folio={folio} entries={CONTENTS} goTo={open.goTo} />
+    case 2: return <VisaPage visa={visa('dfcc')} side={side} folio={folio} active={active} />
+    case 3: return <BeforeAfterPage side={side} folio={folio} open={open} />
+    case 4: return <VisaPage visa={visa('edsby')} side={side} folio={folio} active={active} />
+    case 5: return <HostfullyVisa side={side} folio={folio} active={active} />
+    case 6: return <CampaignsPage side={side} folio={folio} open={open} />
+    case 7: return <CaseFilesPage side={side} folio={folio} open={open} />
+    case 8: return <MotionPage side={side} folio={folio} />
+    case 9: return <StoriesPage side={side} folio={folio} open={open} />
+    case 10: return <VisaPage visa={visa('hostaway')} side={side} folio={folio} active={active} />
+    case 11: return <VisaPage visa={visa('shopify')} side={side} folio={folio} active={active} />
+    case 12: return <VisaPage visa={visa('c54')} side={side} folio={folio} active={active} />
+    case 13: return <EarlierPage side={side} folio={folio} active={active} />
+    case 14: return <HoardPage side={side} folio={folio} open={open} />
+    case 15: return <IndependentPage side={side} folio={folio} open={open} />
+    case 16: return <SkillsPage side={side} folio={folio} />
+    case 17: return <ContactPage side={side} folio={folio} />
     default: return null
   }
 }
@@ -161,8 +181,8 @@ function FlipBook({ opened, page, open, onCoverClick, onSwipe }: { opened: boole
         return (
           <div
             key={i}
-            className={`pp-leaf${turned ? ' is-turned' : ''}${i === 0 ? ' is-cover' : ''}`}
-            style={{ zIndex: z, transitionDelay: order !== undefined ? `${order * 90}ms` : '0ms' }}
+            className={`pp-leaf${turned ? ' is-turned' : ''}${i === 0 ? ' is-cover' : ''}${order !== undefined ? ' is-moving' : ''}`}
+            style={{ zIndex: z, transitionDelay: order !== undefined ? `${order * 90}ms` : '0ms', ['--delay' as string]: `${(order ?? 0) * 90}ms` }}
           >
             <div
               className="pp-face pp-front"
@@ -281,6 +301,8 @@ export default function PassportSite() {
   const opener = useMemo<Opener>(() => ({
     openImage: (src, caption) => setOverlay({ kind: 'image', src, caption }),
     openStudy: (id) => setOverlay({ kind: 'study', id }),
+    openVideo: (src, poster, caption) => setOverlay({ kind: 'video', src, poster, caption }),
+    goTo: (p) => setPage(p),
   }), [])
   const closeOverlay = useCallback(() => setOverlay(null), [])
 
@@ -324,7 +346,7 @@ export default function PassportSite() {
       {/* Act 2 — the passport */}
       <section className={`pp-stage${passportOn ? ' is-on' : ''}`} aria-label="Portfolio passport" inert={!passportOn}>
         <header className="pp-top">
-          <span className="pp-top-mark">RC</span>
+          <span className="pp-top-mark" aria-label="Raymond Chizanga"><Word word="RC" height={17} /></span>
           <nav className="pp-top-links">
             <a href={CONTACT.resume} download>Resume ↓</a>
             <Link href="/classic">Text version</Link>

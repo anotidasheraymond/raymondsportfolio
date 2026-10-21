@@ -184,6 +184,21 @@ export const DFCC_BEFORE_AFTER = [
   { src: '/img/passport/dfcc-events.jpg', caption: 'Events' },
 ]
 
+// Hostfully customer story series, filmed with Junction House Getaways (Toronto).
+export const JUNCTION_HOUSE = {
+  people: 'Brianne and Doug Hamilton',
+  business: 'Junction House Getaways · Toronto, Canada',
+  clips: [
+    { slug: 'why-hostfully', title: 'Why they chose Hostfully' },
+    { slug: 'why-hospitality', title: 'Why hospitality' },
+    { slug: 'past-work', title: 'Past work' },
+    { slug: 'favourite-part-job', title: 'Favourite part of the job' },
+    { slug: 'favourite-part-software', title: 'Favourite part of the software' },
+    { slug: 'future-plans', title: 'Future plans' },
+    { slug: 'fun-fact', title: 'Fun fact' },
+  ],
+}
+
 export const LINKEDIN = 'https://www.linkedin.com/in/raymond-chizanga-443175149/'
 
 /** Machine-readable zone line: uppercase, `<` filler, fixed 44 characters. */

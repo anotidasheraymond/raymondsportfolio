@@ -93,6 +93,9 @@
 .holoShimmer { animation: holoShimmer 9s linear infinite; }
 .holoScan { animation: holoScan .9s linear infinite; }
 .holoFlicker { animation: holoFlicker 5s steps(1) infinite; }
+/* Hidden at rest: the ghosts' keyframes start after a delay, and without this they sat over the
+   face at full strength for the first two seconds, washing it cyan. */
+.coinGlitchR, .coinGlitchC { opacity: 0; }
 .coinGlitchR { animation: coinGlitchR 6.5s steps(1) 2s infinite, coinGlitchSlice 6.5s steps(1) 2s infinite; }
 .coinGlitchC { animation: coinGlitchC 6.5s steps(1) 2.35s infinite, coinGlitchSlice 6.5s steps(1) 2.35s infinite; }
 /* While winding up, glitch hard and continuously. */
@@ -113,7 +116,7 @@
   font-family: var(--pp-mono), monospace; font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase;
   color: var(--ox);
 }
-.pp-top-mark { font-family: var(--pp-coin), sans-serif; font-weight: 700; font-size: 22px; letter-spacing: .04em; }
+.pp-top-mark { display: inline-flex; color: var(--ox); }
 .pp-top-links { display: flex; gap: clamp(14px, 2.4vw, 26px); }
 .pp-top-links a { border-bottom: 1px solid rgba(74, 29, 29, .25); padding-bottom: 2px; }
 .pp-top-links a:hover { border-color: var(--ox); }
@@ -221,7 +224,7 @@
   background-image: repeating-radial-gradient(circle at 50% 50%, rgba(214, 178, 122, .06) 0 .7px, transparent .7px 7px);
   display: flex; align-items: center; justify-content: center;
 }
-.pp-endpaper-mark { font-family: var(--pp-coin), sans-serif; font-weight: 700; font-size: 64px; color: rgba(214, 178, 122, .22); }
+.pp-endpaper-mark { color: rgba(214, 178, 122, .22); }
 
 /* ---------- paper pages ---------- */
 .pp-paper {
@@ -356,11 +359,53 @@
 .pp-ba-img { position: relative; display: block; aspect-ratio: 2.4 / 1; overflow: hidden; border: 1px solid var(--edge); border-radius: 3px; background: #111; transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s; }
 .pp-ba-item:hover .pp-ba-img { transform: scale(1.04) rotate(-.6deg); box-shadow: 0 10px 22px rgba(51, 37, 29, .22); }
 
+/* page turn: the lifting side darkens as it rises, the landing side lightens as it settles */
+.pp-face::after { content: ''; position: absolute; inset: 0; z-index: 6; pointer-events: none; opacity: 0; border-radius: inherit; }
+.pp-front::after { background: linear-gradient(to left, rgba(24, 16, 10, .06), rgba(24, 16, 10, .42)); }
+.pp-back::after { background: linear-gradient(to right, rgba(24, 16, 10, .06), rgba(24, 16, 10, .42)); }
+.pp-leaf.is-moving .pp-front::after { animation: ppShadeRise 1.05s var(--turn) var(--delay, 0ms) both; }
+.pp-leaf.is-moving .pp-back::after { animation: ppShadeLand 1.05s var(--turn) var(--delay, 0ms) both; }
+.pp-leaf.is-moving .pp-face { box-shadow: 0 0 36px rgba(24, 16, 10, .22); }
+@keyframes ppShadeRise { 0% { opacity: 0; } 50%, 100% { opacity: 1; } }
+@keyframes ppShadeLand { 0%, 50% { opacity: 1; } 100% { opacity: 0; } }
+
+/* customer stories */
+.pp-stories { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.4cqw 2cqw; }
+.pp-story { display: flex; flex-direction: column; gap: 1cqw; text-align: left; }
+.pp-story-img { position: relative; display: block; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 3px; background: #1b1712; border: 1px solid var(--edge); transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s; }
+.pp-story:hover .pp-story-img { transform: scale(1.05) rotate(-1deg); box-shadow: 0 10px 22px rgba(51, 37, 29, .25); }
+.pp-story-title { font-size: clamp(8.5px, 1.95cqw, 11px); line-height: 1.25; color: var(--ink-2); }
+.pp-videobox { width: min(92vw, 40vh); }
+.pp-videobox video { display: block; width: 100%; aspect-ratio: 9 / 16; background: #000; border-radius: 2px; }
+
+/* independent work */
+.pp-project .pp-remarks { margin-top: 0; }
+.pp-phones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2cqw 3cqw; margin-top: 3cqw; padding: 0 4cqw; }
+.pp-phone { position: relative; aspect-ratio: 1 / 2; overflow: hidden; border-radius: 4px; border: 1px solid var(--edge); background: #111; cursor: zoom-in; transition: transform .3s cubic-bezier(.34, 1.56, .64, 1); }
+.pp-phone:hover { transform: translateY(-4px) scale(1.06); z-index: 1; }
+.pp-chips { display: flex; flex-wrap: wrap; gap: 1.2cqw; margin-top: 3cqw; }
+.pp-chips span { font-size: clamp(8.5px, 1.9cqw, 11px); padding: .8cqw 1.8cqw; border: 1px solid var(--edge); border-radius: 999px; color: var(--ink-2); background: rgba(255, 255, 255, .35); }
+.pp-chips b { font-family: var(--pp-mono), monospace; font-weight: 500; font-size: .85em; letter-spacing: .1em; text-transform: uppercase; color: var(--label); margin-right: 3px; }
+.pp-proj + .pp-proj { margin-top: 3cqw; padding-top: 3cqw; border-top: 1px solid var(--rule); }
+.pp-proj-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.pp-proj-head h3 { font-size: clamp(14px, 3.8cqw, 20px); font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+.pp-proj-lede { font-size: clamp(10px, 2.3cqw, 12.5px); line-height: 1.45; color: #2b241c; margin: 1.2cqw 0 2cqw; text-wrap: pretty; }
+.pp-proj-shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.8cqw; }
+
+/* contents */
+.pp-toc { list-style: none; display: flex; flex-direction: column; padding: 0; margin: 0; }
+.pp-toc button { width: 100%; display: grid; grid-template-columns: auto 1fr auto; grid-template-rows: auto auto; column-gap: 2cqw; text-align: left; padding: 1.2cqw 0; border-bottom: 1px solid var(--rule); transition: padding .2s, color .2s; }
+.pp-toc button:hover { padding-left: 1.2cqw; color: var(--terra); }
+.pp-toc-label { grid-column: 1; grid-row: 1; font-size: clamp(11px, 2.8cqw, 15px); font-weight: 600; letter-spacing: -.01em; }
+.pp-toc-dots { grid-column: 2; grid-row: 1; align-self: end; margin-bottom: .45em; border-bottom: 1px dotted var(--edge); }
+.pp-toc-page { grid-column: 3; grid-row: 1; font-family: var(--pp-mono), monospace; font-size: clamp(9px, 2cqw, 11.5px); color: var(--label); }
+.pp-toc-sub { grid-column: 1 / -1; grid-row: 2; font-size: clamp(8.5px, 1.95cqw, 11px); color: var(--ink-2); margin-top: 1px; }
+
 /* earlier entries: the app's stamps page, stamps placed rather than gridded */
 .pp-placed { position: relative; flex: none; width: 86%; margin: 0 auto; aspect-ratio: 325 / 382; }
 .pp-placed-stamp { position: absolute; aspect-ratio: 1; }
 .pp-placed-stamp .pp-stamp { width: 100%; height: 100%; }
-.pp-legend { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2cqw 2.6cqw; margin-top: 1.4cqw; padding-top: 1.8cqw; border-top: 1px solid var(--rule); }
+.pp-legend { padding-left: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2cqw 2.6cqw; margin-top: 1.4cqw; padding-top: 1.8cqw; border-top: 1px solid var(--rule); }
 .pp-legend li { display: flex; flex-direction: column; gap: 1px; }
 .pp-legend b { font-size: clamp(9px, 2cqw, 11.5px); font-weight: 600; line-height: 1.2; }
 .pp-legend span { font-size: clamp(8.5px, 1.85cqw, 10.5px); line-height: 1.25; color: var(--ink-2); }

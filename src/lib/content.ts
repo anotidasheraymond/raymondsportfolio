@@ -215,27 +215,33 @@ export type Role = { dates: string; span: string; title: string; org: string; bu
 
 export const ROLES: Role[] = [
   {
-    dates: 'Jan 2025 — May 2026', span: '1 yr 5 mos',
-    title: 'Integrated Marketing Manager', org: 'Hostfully · Toronto, ON · Remote',
+    dates: 'Oct 2026 — Present', span: 'Current',
+    title: 'Senior Marketing Consultant', org: 'Durham Family & Cultural Centre · Ajax, ON · via DOGHAIR Technologies',
     bullets: [
-      'Managed Hostfully’s digital brand across social media platforms and email, increasing followers by 235% and impressions by 120%.',
-      'Managed Hostfully’s review platform, driving organic reviews and increasing industry reputation.',
-      'Increase review traffic of G2 and Trustpilot by 200%+.',
-      'Partner relationship management and marketing collaborations for various short-term rental and travel-focused companies.',
-      'Content production, including Graphic Design, Video production, Digital events, and Copywriting.',
-      'Event production in both Canada and the United States.',
+      'Engaged through DOGHAIR Technologies as Senior Marketing Consultant to Durham Family & Cultural Centre, a charity in Ajax serving Black and racialized families in Durham Region.',
+      'Wrote the website assessment: crawled every live page (32 pages, 198 sitemap URLs), checked all 384 links and 211 images, and read the analytics — 79% bounce, ~76% of visitors on phones, ~63% arriving from Instagram and Facebook.',
+      'Restructured the Squarespace site: unified the two event calendars, merged About Us, Board and Contact, and built All Services, Parents Hub, Sponsorships and Work With Us pages with URL redirects.',
+      'Set the redesign direction, replaced AI-generated imagery with real DFCC photography, and took all 16 linked pages through a WCAG contrast check on desktop and mobile.',
     ],
   },
   {
-    dates: 'Dec 2023 — Present', span: '2 yrs 9 mos',
-    title: 'Partner Marketing Specialist and Social Media + Community Marketing Manager', org: 'Hostfully · Toronto, ON · Remote',
+    dates: 'Sep 2026 — Present', span: 'Current',
+    title: 'Social Media & Content Marketing Consultant', org: 'Edsby · Hybrid',
     bullets: [
-      'Review generation via organic and paid campaigns via multiple platforms, including but not limited to G2, Trustpilot, and Capterra.',
-      'Social media content generation and community management via platforms like Facebook, LinkedIn, Instagram, and X (formerly Twitter).',
-      'Lead generation via customer communities and review platforms.',
-      'Liaison between different B2B Short Term Vacation Rental companies to increase marketing value for both parties.',
-      'Managing internal projects with varying team sizes ranging from review generation to content creation, internal event planning, and presentations.',
-      'Broker, produce, and maintain media projects between Hostfully business partners, clients, and industry influencers.',
+      'Lead social media, content marketing, SEO, AI-search optimization and digital growth for a K-12 education technology company serving districts, educators, students and families.',
+      'Own multi-channel social and editorial strategy across LinkedIn, Instagram, Facebook, X, Bluesky, YouTube, Reddit, Quora and Medium, producing and repurposing written, visual and video content.',
+      'Develop foundational SEO and answer-engine visibility through keyword and topic strategy, on-page and technical SEO, internal linking, content architecture, FAQs, schema and indexing.',
+      'Monitor social, content, website and search performance while researching customer pain points, competitor positioning, K-12 trends and emerging conversations.',
+    ],
+  },
+  {
+    dates: 'Dec 2023 — May 2026', span: '2 yrs 6 mos',
+    title: 'Community & Integrated Marketing Manager', org: 'Hostfully · Remote',
+    bullets: [
+      'Owned brand presence across LinkedIn, Meta, YouTube, X, Bluesky, TikTok and email, increasing followers 235% and impressions 120%.',
+      'Built email and lifecycle campaigns using audience segmentation, messaging and performance analysis on a Salesforce-based marketing stack.',
+      'Led review-platform strategy, increasing organic G2 and Trustpilot review traffic 200%, while managing partner marketing, customer stories, digital programming and events across Canada and the United States.',
+      'Produced end-to-end creative across copy, graphic design, video and event production, using analytics and A/B testing to improve performance.',
     ],
   },
   {
@@ -250,29 +256,29 @@ export const ROLES: Role[] = [
     ],
   },
   {
-    dates: 'Oct 2022 — Jan 2024', span: '1 yr 4 mos',
-    title: 'Technical Support Specialist', org: 'Hostaway · Toronto, ON',
+    dates: 'Jun 2022 — Dec 2023', span: '1 yr 7 mos',
+    title: 'Senior Support Advisor & Technical Content Writer', org: 'Hostaway · Toronto, ON',
     bullets: [
-      'Managed concurrent merchant support workloads while troubleshooting platform issues and feeding insights back into product and content teams.',
-      'Built internal initiatives to lift community engagement and reduce churn signals surfacing through the support layer.',
-      'Designed and implemented an internal client review production plan to capture more inbound social proof.',
+      'Managed concurrent merchant support workloads while troubleshooting platform issues and translating customer patterns into feedback for product, content and retention initiatives.',
+      'Led software onboarding and staff training while producing technical and marketing content for internal teams and prospective customers.',
     ],
   },
   {
     dates: 'Jun 2021 — Jun 2022', span: '1 yr 1 mo',
-    title: 'Support Advisor', org: 'Shopify · Toronto, ON',
+    title: 'Support Advisor & Internal Copywriter', org: 'Shopify',
     bullets: [
-      'Live channel support for incoming client requests.',
-      'Technical content writing on software and software partners.',
-      'Internal training for incoming staff.',
+      'Supported ecommerce brands ranging from sole proprietors to enterprise merchants across live service channels.',
+      'Wrote technical copy for internal software and app integrations, onboarding documentation, staff training and product-launch communications.',
     ],
   },
   {
     dates: 'Aug 2017 — Apr 2019', span: '1 yr 9 mos',
-    title: 'Storefront Manager and Social Media Manager', org: 'Community 54 · Toronto, ON',
+    title: 'Store Manager, Brand & Community Operations', org: 'Community 54 · Toronto, ON',
     bullets: [
-      'Spent two years helping build the brands of Community 54 along with multiple independent Toronto fashion, food, and alcohol brands for brand activations and line releases.',
-      'Gained skills in e-commerce and SEO development.',
+      'Progressed to independently managing the Toronto storefront, overseeing daily operations, sales, Shopify ecommerce, opening/closing, customer experience and visual merchandising.',
+      'Worked directly under co-founder Daymon Green, gaining hands-on experience in streetwear curation, brand development, retail buying, merchandising and community-led marketing.',
+      'Produced and operated Finale Fridays, Community 54’s recurring platform for emerging designers, coordinating promotion, in-store execution and brand/customer engagement.',
+      'Identified and onboarded new brands while managing stock ordering and vendor relationships across independent labels and major brands including Nike, adidas and Supreme.',
     ],
   },
 ]
@@ -285,7 +291,7 @@ export const EDUCATION = [
 ]
 
 export const ABOUT_PARAGRAPHS = [
-  'I’m a marketing specialist and creative director based out of Mississauga, Canada. For over 8 years, I have cultivated skills in customer communication, design, video, and studio production, as well as team and influencer management.',
+  'I’m a marketing specialist and creative director based out of Mississauga, Canada. For over 7 years, I have cultivated skills in customer communication, design, video, and studio production, as well as team and influencer management.',
   'These skills were developed through studying at Metalworks Institute as well as working with multiple creators, small businesses, and corporations, including Shopify, Universal Music Canada, Hostfully, Community 54, among others. From the travel industry to the music industry, storytelling that connects has always been and continues to be my passion.',
 ]
 
@@ -309,7 +315,7 @@ export const BEST_FIT = [
 ]
 
 export const HERO_LEDE =
-  'Marketing specialist and creative director. Eight years of customer communication, design, video and studio production — most recently running an entire marketing function solo at a short-term-rental SaaS.'
+  'Marketing specialist and creative director. Seven-plus years of customer communication, design, video and studio production — most recently running an entire marketing function solo at a short-term-rental SaaS.'
 
 export const CONTACT = {
   email: 'rc.chizanga@gmail.com',

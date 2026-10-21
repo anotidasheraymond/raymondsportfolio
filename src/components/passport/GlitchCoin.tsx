@@ -1,32 +1,33 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import Word from './Lettering'
 
 // The Hoard glitch coin (nie-kit CoinSpin), ported to this site. Pure CSS 3D:
 // two faces plus a milled rim of edge segments, with holo shimmer, scanlines
 // and red/cyan "ghost" faces that slice in for the chromatic glitch.
-// Palette is the founder "brass" coin.
+// Palette is the founder "brass" coin; its Kenyan Coffee words are baked outlines (coin-lettering.ts).
 
 const M = { n1: '#FFE7A6', n2: '#FF7AD9', n3: '#5BCBFF', glow: 'rgba(255,170,90,.5)' }
-const DISPLAY = "var(--pp-coin), 'Archivo Narrow', sans-serif"
 const MONO = "var(--pp-coin-mono), 'JetBrains Mono', monospace"
 
-type FaceProps = { size: number; lines: string[]; year: string; reverse?: boolean; ghost?: boolean; tint?: string }
+type FaceProps = { size: number; year: string; reverse?: boolean; ghost?: boolean; tint?: string }
 
-function CoinFace({ size: r, lines, year, reverse, ghost, tint }: FaceProps) {
+function CoinFace({ size: r, year, reverse, ghost, tint }: FaceProps) {
   const glowTxt = `0 0 ${r * 0.025}px ${M.n3}, 0 0 ${r * 0.06}px ${M.n2}`
   const scanPx = Math.max(3, Math.round(r * 0.013))
   const shadow = ghost ? 'none' : glowTxt
+  // Lettering is artwork, so it glows with a filter rather than a text-shadow.
+  const svgGlow = ghost ? undefined : `drop-shadow(0 0 ${r * 0.008}px ${M.n3}) drop-shadow(0 0 ${r * 0.028}px ${M.n2}aa)`
   const content = reverse ? (
     <>
-      <div style={{ fontFamily: DISPLAY, fontWeight: 700, fontSize: r * 0.34, color: ghost ? tint : '#F2FCFF', lineHeight: 0.82, textShadow: shadow, letterSpacing: '0.02em' }}>RC</div>
+      <Word word="RC" height={r * 0.28} color={ghost ? tint : '#F2FCFF'} style={{ filter: svgGlow }} />
       <div style={{ fontFamily: MONO, fontWeight: 700, fontSize: r * 0.055, letterSpacing: '.22em', color: ghost ? tint : '#CFEFFF', marginTop: r * 0.06, textShadow: shadow }}>PORTFOLIO</div>
     </>
   ) : (
     <>
-      {lines.map((l) => (
-        <div key={l} style={{ fontFamily: DISPLAY, fontWeight: 700, fontSize: r * 0.15, color: ghost ? tint : '#F2FCFF', lineHeight: 0.98, textAlign: 'center', textTransform: 'uppercase', letterSpacing: '0.02em', textShadow: shadow }}>{l}</div>
-      ))}
+      <Word word="RAYMOND" height={r * 0.125} color={ghost ? tint : '#F2FCFF'} style={{ filter: svgGlow }} />
+      <Word word="CHIZANGA" height={r * 0.125} color={ghost ? tint : '#F2FCFF'} style={{ filter: svgGlow, marginTop: r * 0.032 }} />
       <div style={{ fontFamily: MONO, fontWeight: 700, fontSize: r * 0.08, letterSpacing: '.18em', color: ghost ? tint : '#CFEFFF', marginTop: r * 0.06, textShadow: shadow }}>{year}</div>
     </>
   )
@@ -130,7 +131,6 @@ export default function GlitchCoin({ size, year, charging, onActivate }: { size:
     }
   }, [])
 
-  const lines = ['Raymond', 'Chizanga']
   const d = Math.max(5, size * 0.07), R = size / 2
   const N = Math.max(48, Math.min(96, Math.round(size / 3)))
   const segLen = (2 * Math.PI * R) / N + 1.5
@@ -152,11 +152,11 @@ export default function GlitchCoin({ size, year, charging, onActivate }: { size:
           <div className="pp-coin-halo" style={{ position: 'absolute', inset: '-16%', borderRadius: '50%', background: `radial-gradient(circle, ${M.glow}, transparent 70%)`, filter: 'blur(8px)', pointerEvents: 'none' }} />
           <div ref={spinRef} className="coin3d" style={{ position: 'absolute', inset: 0, transformStyle: 'preserve-3d' }}>
             <div style={{ position: 'absolute', inset: 0, transform: `translateZ(${d / 2}px)`, backfaceVisibility: 'hidden' }}>
-              <FaceStack size={size} lines={lines} year={year} />
+              <FaceStack size={size} year={year} />
             </div>
             {segs}
             <div style={{ position: 'absolute', inset: 0, transform: `rotateY(180deg) translateZ(${d / 2}px)`, backfaceVisibility: 'hidden' }}>
-              <FaceStack size={size} lines={lines} year={year} reverse />
+              <FaceStack size={size} year={year} reverse />
             </div>
           </div>
         </div>
