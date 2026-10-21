@@ -427,7 +427,7 @@ export function SkillsPage({ side, folio }: { side: Side; folio: number }) {
     <Paper side={side} folio={folio} head={['Endorsements / Mentions', 'Skills']} className="pp-skills">
       {SKILL_GROUPS.map((g) => <Field key={g.k} k={g.k} v={g.v} />)}
       <div className="pp-rule" />
-      <div className="pp-label">Education & credentials</div>
+      <div className="pp-label">Studies & credentials</div>
       <div className="pp-edu">
         <b>{EDUCATION_LINE.program}</b>
         <span>{EDUCATION_LINE.school} · {EDUCATION_LINE.year} · GPA {EDUCATION_LINE.gpa}</span>

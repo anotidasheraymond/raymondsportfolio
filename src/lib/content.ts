@@ -284,10 +284,10 @@ export const ROLES: Role[] = [
 ]
 
 export const EDUCATION = [
-  { k: 'Program', v: 'Music management and studio post-production' },
+  { k: 'Studied', v: 'Music management and studio post-production (coursework)' },
   { k: 'Institution', v: 'Metalworks Institute' },
   { k: 'Year', v: '2019' },
-  { k: 'GPA', v: '4.0' },
+  { k: 'Coursework GPA', v: '4.0' },
 ]
 
 export const ABOUT_PARAGRAPHS = [

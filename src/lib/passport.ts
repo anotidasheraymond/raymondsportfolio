@@ -52,8 +52,8 @@ export const IDENTITY = {
     { k: 'Base / Résidence', v: 'Mississauga, ON, Canada' },
     { k: 'Experience', v: '7+ years' },
     { k: 'Current post', v: 'Durham FCC · Oct 2026' },
-    { k: 'Training', v: 'Metalworks Institute · 2019' },
-    { k: 'GPA', v: '4.0' },
+    { k: 'Studied', v: 'Metalworks Institute · 2019' },
+    { k: 'Coursework GPA', v: '4.0' },
   ],
   words:
     'Integrated marketing, brand and community professional with 7+ years across SaaS, ecommerce and consumer-facing environments. Grew Hostfully’s owned social audience 235%, impressions 120% and organic review traffic 200%.',
@@ -101,6 +101,7 @@ export const VISAS: Visa[] = [
     title: 'Senior Support Advisor & Technical Content Writer',
     from: 'Oct 2022', until: 'Jan 2024', place: 'Toronto, ON', category: 'Work · Senior',
     remarks: [
+      'Joined as Technical Support (TS1) in October 2022 and grew into senior support and technical content writing.',
       'Managed concurrent merchant support workloads while troubleshooting platform issues and translating customer patterns into feedback for product, content and retention initiatives.',
       'Led software onboarding and staff training while producing technical and marketing content for internal teams and prospective customers.',
     ],
@@ -111,6 +112,7 @@ export const VISAS: Visa[] = [
     title: 'Support Advisor & Internal Copywriter',
     from: 'Oct 2021', until: 'Jul 2022', place: 'Remote', category: 'Work · Advisor',
     remarks: [
+      'Joined as a Junior Support Advisor in October 2021, then took on internal copywriting.',
       'Supported ecommerce brands ranging from sole proprietors to enterprise merchants across live service channels.',
       'Wrote technical copy for internal software and app integrations, onboarding documentation, staff training and product-launch communications.',
     ],
@@ -146,7 +148,7 @@ export const EARLIER: { id: string; org: string; role: string; date: string; sta
 ]
 
 export const EDUCATION_LINE = {
-  program: 'Music Management & Studio Post-Production',
+  program: 'Music Management & Studio Post-Production (coursework)',
   school: 'Metalworks Institute, Mississauga, ON',
   year: '2019',
   gpa: '4.0',
