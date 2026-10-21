@@ -3,12 +3,12 @@ import type { MetadataRoute } from 'next'
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://raymondsportfolio-two.vercel.app',
+      url: 'https://raymondchizanga.work',
       changeFrequency: 'monthly',
       priority: 1,
     },
     {
-      url: 'https://raymondsportfolio-two.vercel.app/classic',
+      url: 'https://raymondchizanga.work/classic',
       changeFrequency: 'monthly',
       priority: 0.8,
     },

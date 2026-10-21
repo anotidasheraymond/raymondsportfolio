@@ -10,7 +10,7 @@ const cond = Antonio({ subsets: ['latin'], weight: ['300', '400', '500', '600', 
 const body = Newsreader({ subsets: ['latin'], display: 'swap', variable: '--font-body' })
 const mono = JetBrains_Mono({ subsets: ['latin'], display: 'swap', variable: '--font-mono' })
 
-const siteUrl = 'https://raymondsportfolio-two.vercel.app'
+const siteUrl = 'https://raymondchizanga.work'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
