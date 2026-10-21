@@ -4,6 +4,8 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import GlitchCoin from './GlitchCoin'
+import PetworkingWordmark from './PetworkingWordmark'
+import Word from './Lettering'
 import { VisaPage, Paper, type Side, type Opener } from './Pages'
 import { VENTURES } from '@/lib/passport'
 import { WORKS } from '@/lib/content'
@@ -14,9 +16,6 @@ import { WORKS } from '@/lib/content'
 const DuckModel = dynamic(() => import('./DuckModel'), { ssr: false })
 
 const venture = (id: string) => VENTURES.find((v) => v.id === id)!
-
-/** Page numbers of the founder section, shared with PassportSite's chapters. */
-export const VENTURE_PAGES = { doghair: 2, petworking: 4, hoard: 6, duck: 8, dfcc: 10 } as const
 
 function Links({ links }: { links: { label: string; href: string }[] }) {
   if (!links.length) return null
@@ -40,13 +39,13 @@ export function VentureVisa({ id, side, folio, active }: { id: string; side: Sid
   )
 }
 
-export function DoghairAnnex({ side, folio, open }: { side: Side; folio: number; open: Opener }) {
+export function DoghairAnnex({ side, folio }: { side: Side; folio: number }) {
   const v = venture('doghair')
   const rows = [
-    { label: 'Petworking', sub: 'Founder & CEO · pet care network, in beta in five countries', page: VENTURE_PAGES.petworking },
-    { label: 'The Hoard', sub: 'Founder · fan network, live on web and the App Store', page: VENTURE_PAGES.hoard },
-    { label: 'D.U.C.K AI', sub: 'On-device language model · in development', page: VENTURE_PAGES.duck },
-    { label: 'Durham FCC', sub: 'Client · Senior Marketing Consultant engagement', page: VENTURE_PAGES.dfcc },
+    { label: 'Petworking', sub: 'Founder & CEO · pet care network, in beta in five countries' },
+    { label: 'The Hoard', sub: 'Founder · fan network, live on web and the App Store' },
+    { label: 'D.U.C.K AI', sub: 'On-device language model · in development' },
+    { label: 'Durham FCC', sub: 'Client · Senior Marketing Consultant engagement' },
   ]
   return (
     <Paper side={side} folio={folio} head={['Endorsement · Founder', 'DOGHAIR']} className="pp-annex pp-venture pp-venture-doghair">
@@ -57,47 +56,27 @@ export function DoghairAnnex({ side, folio, open }: { side: Side; folio: number;
         <h3>Makers of Petworking and The Hoard.</h3>
         <p>{v.chips[0].v}.</p>
       </div>
-      <div className="pp-label">The portfolio / Le portefeuille</div>
-      <ol className="pp-toc">
+      <div className="pp-label">The portfolio</div>
+      <ul className="pp-dh-list">
         {rows.map((r) => (
-          <li key={r.label}>
-            <button onClick={() => open.goTo(r.page)}>
-              <span className="pp-toc-label">{r.label}</span>
-              <span className="pp-toc-dots" />
-              <span className="pp-toc-page">p.{String(r.page + 1).padStart(2, '0')}</span>
-              <span className="pp-toc-sub">{r.sub}</span>
-            </button>
-          </li>
+          <li key={r.label}><b>{r.label}</b><span>{r.sub}</span></li>
         ))}
-      </ol>
+      </ul>
       <Chips chips={v.chips.slice(1)} />
     </Paper>
   )
 }
 
-const PW_SCREENS = [
-  { src: '/img/ventures/pw-today.webp', caption: 'Today' },
-  { src: '/img/ventures/pw-passport.webp', caption: 'Pet Passport' },
-  { src: '/img/ventures/pw-explore.webp', caption: 'Explore' },
-  { src: '/img/ventures/pw-you.webp', caption: 'You' },
-]
-
-export function PetworkingAnnex({ side, folio, open }: { side: Side; folio: number; open: Opener }) {
+export function PetworkingAnnex({ side, folio }: { side: Side; folio: number }) {
   const v = venture('petworking')
   return (
     <Paper side={side} folio={folio} head={['Endorsement · Founder', 'Petworking']} className="pp-annex pp-venture pp-venture-petworking">
-      <div className="pp-pw-mark">
-        <Image src="/img/ventures/petworking-wordmark.webp" alt="Petworking" width={900} height={150} />
-      </div>
+      <div className="pp-pw-mark"><PetworkingWordmark size={72} style={{ fontSize: 'min(72px, 13cqw)' }} /></div>
       <p className="pp-venture-lede">The Pet Passport this whole site is styled after, and the Stamp Studio that cut every stamp in it, are Petworking’s.</p>
-      <div className="pp-phones pp-phones-pw">
-        {PW_SCREENS.map((s) => (
-          <button key={s.src} className="pp-phone" onClick={() => open.openImage(s.src, `Petworking iPhone app · ${s.caption}`)} aria-label={`View ${s.caption} screen`}>
-            <Image src={s.src} alt={`Petworking app, ${s.caption} screen`} fill sizes="(max-width: 760px) 22vw, 110px" style={{ objectFit: 'cover', objectPosition: 'top' }} />
-          </button>
-        ))}
-      </div>
-      <Chips chips={v.chips} />
+      <div className="pp-rule" />
+      <div className="pp-label">Modules</div>
+      <ul className="pp-remarks">{v.chips[0].v.split(' · ').map((m) => <li key={m}>{m}</li>)}</ul>
+      <Chips chips={v.chips.slice(1)} />
     </Paper>
   )
 }
@@ -126,7 +105,7 @@ export function HoardAnnex({ side, folio, active, open }: { side: Side; folio: n
   return (
     <Paper side={side} folio={folio} head={['Endorsement · Founder', 'The Hoard']} className="pp-annex pp-venture pp-venture-hoard">
       <div className="pp-annex-title">
-        <h3>The founding coin.</h3>
+        <h3 aria-label="The founding coin"><Word word="THE FOUNDING COIN" height="0.74em" /></h3>
       </div>
       <div className="pp-hoard-hero">
         <HoardCoin active={active} />

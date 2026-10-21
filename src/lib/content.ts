@@ -291,7 +291,7 @@ export const EDUCATION = [
 ]
 
 export const ABOUT_PARAGRAPHS = [
-  'I’m a marketing specialist and creative director based out of Mississauga, Canada. For over 7 years, I have cultivated skills in customer communication, design, video, and studio production, as well as team and influencer management.',
+  'I’m a marketing specialist and creative director based out of Mississauga, Canada. For 10 years, I have cultivated skills in customer communication, design, video, and studio production, as well as team and influencer management.',
   'These skills were developed through studying at Metalworks Institute as well as working with multiple creators, small businesses, and corporations, including Shopify, Universal Music Canada, Hostfully, Community 54, among others. From the travel industry to the music industry, storytelling that connects has always been and continues to be my passion.',
 ]
 
@@ -315,7 +315,7 @@ export const BEST_FIT = [
 ]
 
 export const HERO_LEDE =
-  'Integrated marketing, brand and community professional with 7+ years across SaaS, ecommerce and consumer brands. Senior Marketing Consultant through DOGHAIR Technologies; grew Hostfully’s social audience 235%.'
+  'Integrated marketing, brand and community professional with 10 years across SaaS, ecommerce and consumer brands. Senior Marketing Consultant through DOGHAIR Technologies; grew Hostfully’s social audience 235%.'
 
 export const CONTACT = {
   email: 'rc.chizanga@gmail.com',

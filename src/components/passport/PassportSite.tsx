@@ -7,7 +7,7 @@ import Word from './Lettering'
 import Overlay, { type OverlayState } from './Overlay'
 import {
   Cover, Endpaper, IdentityPage, VisaPage, HostfullyVisa, CampaignsPage, CaseFilesPage, MotionPage,
-  EarlierPage, SkillsPage, ContactPage, BeforeAfterPage, ContentsPage, StoriesPage, IndependentPage, C54Visa,
+  EarlierPage, SkillsPage, ContactPage, BeforeAfterPage, StoriesPage, IndependentPage, C54Visa, BioPage,
   type Side, type Opener,
 } from './Pages'
 import { VentureVisa, DoghairAnnex, PetworkingAnnex, HoardAnnex, DuckAnnex } from './Ventures'
@@ -21,40 +21,6 @@ type Stage = 'coin' | 'charging' | 'burst' | 'cover'
 const PAGE_COUNT = 26
 const LEAF_COUNT = PAGE_COUNT / 2 + 1
 const LAST_SPREAD_PAGE = PAGE_COUNT - 2
-const CHAPTERS = [
-  { label: 'Identity', page: 0 },
-  { label: 'DOGHAIR', page: 2 },
-  { label: 'Petworking', page: 4 },
-  { label: 'The Hoard', page: 6 },
-  { label: 'D.U.C.K AI', page: 8 },
-  { label: 'Durham FCC', page: 10 },
-  { label: 'Edsby', page: 12 },
-  { label: 'Hostfully', page: 13 },
-  { label: 'Case files', page: 15 },
-  { label: 'Stories', page: 17 },
-  { label: 'Hostaway', page: 18 },
-  { label: 'Shopify', page: 19 },
-  { label: 'Community 54', page: 20 },
-  { label: 'Earlier', page: 21 },
-  { label: 'Projects', page: 22 },
-  { label: 'Skills', page: 24 },
-  { label: 'Contact', page: 25 },
-]
-const CONTENTS = [
-  { label: 'DOGHAIR Technologies', sub: 'Founder · CEO & Culture Architect · 2026', page: 2 },
-  { label: 'Petworking', sub: 'Founder & CEO · pet care network in beta · 2026', page: 4 },
-  { label: 'The Hoard', sub: 'Founder · fan network, web and App Store · 2026', page: 6 },
-  { label: 'D.U.C.K AI', sub: 'On-device language model · in development', page: 8 },
-  { label: 'Durham FCC', sub: 'Senior Marketing Consultant · 2026', page: 10 },
-  { label: 'Edsby', sub: 'Social Media & Content Marketing Consultant · Sep 2026', page: 12 },
-  { label: 'Hostfully', sub: 'Community & Integrated Marketing Manager · 2023–26, with annexes', page: 13 },
-  { label: 'Hostaway', sub: 'Senior Support Advisor & Technical Content Writer · 2022–24', page: 18 },
-  { label: 'Shopify', sub: 'Support Advisor & Internal Copywriter · 2021–22', page: 19 },
-  { label: 'Community 54', sub: 'Store Manager, Brand & Community Operations · 2017–19', page: 20 },
-  { label: 'Earlier entries', sub: 'Six stamps, 2012–2024', page: 21 },
-  { label: 'Independent work', sub: 'Pretty Apparel, Crane, Vineland Estates', page: 22 },
-  { label: 'Skills & contact', sub: 'Education, endorsements, how to reach me', page: 24 },
-]
 
 const visa = (id: string) => VISAS.find((v) => v.id === id)!
 
@@ -68,11 +34,11 @@ function renderPage(i: number, side: Side, active: boolean, open: Opener): React
   const folio = i + 1
   switch (i) {
     case 0: return <IdentityPage side={side} folio={folio} />
-    case 1: return <ContentsPage side={side} folio={folio} entries={CONTENTS} goTo={open.goTo} />
+    case 1: return <BioPage side={side} folio={folio} />
     case 2: return <VentureVisa id="doghair" side={side} folio={folio} active={active} />
-    case 3: return <DoghairAnnex side={side} folio={folio} open={open} />
+    case 3: return <DoghairAnnex side={side} folio={folio} />
     case 4: return <VentureVisa id="petworking" side={side} folio={folio} active={active} />
-    case 5: return <PetworkingAnnex side={side} folio={folio} open={open} />
+    case 5: return <PetworkingAnnex side={side} folio={folio} />
     case 6: return <VentureVisa id="hoard" side={side} folio={folio} active={active} />
     case 7: return <HoardAnnex side={side} folio={folio} active={active} open={open} />
     case 8: return <VentureVisa id="duck" side={side} folio={folio} active={active} />
@@ -130,7 +96,7 @@ const TILE_B = guillocheTile('rgba(18,50,49,0.14)', 1.7)
 const ROSETTE = rosettePath()
 
 function Backdrop({ stage, opened }: { stage: Stage; opened: boolean }) {
-  const coinish = stage === 'coin' || stage === 'charging'
+  const coinish = stage === 'coin' || stage === 'charging' || stage === 'burst'
   return (
     <div className="pp-bg" aria-hidden="true">
       <div className="pp-bg-dark" style={{ opacity: coinish ? 1 : 0 }} />
@@ -161,15 +127,15 @@ function FlipBook({ opened, page, open, onCoverClick, onSwipe }: { opened: boole
     const order = new Map<number, number>()
     for (let i = lo; i < hi; i++) order.set(i, to > from ? i - lo : hi - 1 - i)
     setMoving(order)
-    const t = window.setTimeout(() => setMoving(new Map()), 1000 + order.size * 90)
+    const t = window.setTimeout(() => setMoving(new Map()), 760 + order.size * 45)
     return () => window.clearTimeout(t)
   }, [flipped])
 
-  const leaves = Array.from({ length: LEAF_COUNT }, (_, i) => {
+  const leaves = useMemo(() => Array.from({ length: LEAF_COUNT }, (_, i) => {
     const front = i === 0 ? <Cover /> : renderPage(2 * i - 1, 'right', flipped === i, open)
     const back = i === LEAF_COUNT - 1 ? <Endpaper side="left" /> : renderPage(2 * i, 'left', flipped === i + 1, open)
     return { front, back }
-  })
+  }), [flipped, open])
 
   // Touch swipe for tablets in spread mode.
   const start = useRef<{ x: number; y: number } | null>(null)
@@ -198,7 +164,7 @@ function FlipBook({ opened, page, open, onCoverClick, onSwipe }: { opened: boole
           <div
             key={i}
             className={`pp-leaf${turned ? ' is-turned' : ''}${i === 0 ? ' is-cover' : ''}${order !== undefined ? ' is-moving' : ''}`}
-            style={{ zIndex: z, transitionDelay: order !== undefined ? `${order * 90}ms` : '0ms', ['--delay' as string]: `${(order ?? 0) * 90}ms` }}
+            style={{ zIndex: z, transitionDelay: order !== undefined ? `${order * 45}ms` : '0ms', ['--delay' as string]: `${(order ?? 0) * 45}ms` }}
           >
             <div
               className="pp-face pp-front"
@@ -221,35 +187,27 @@ function FlipBook({ opened, page, open, onCoverClick, onSwipe }: { opened: boole
 /* ---------- phone: one page at a time ---------- */
 
 function SingleBook({ opened, page, open, onCoverClick, onPage }: { opened: boolean; page: number; open: Opener; onCoverClick: () => void; onPage: (i: number) => void }) {
-  const track = useRef<HTMLDivElement>(null)
-  const fromScroll = useRef(false)
-
-  useEffect(() => {
-    const el = track.current
-    if (!el || !opened) return
-    if (fromScroll.current) { fromScroll.current = false; return }
-    el.scrollTo({ left: page * el.clientWidth, behavior: 'smooth' })
-  }, [page, opened])
-
-  useEffect(() => {
-    const el = track.current
-    if (!el) return
-    let t = 0
-    const onScroll = () => {
-      window.clearTimeout(t)
-      t = window.setTimeout(() => {
-        const i = Math.round(el.scrollLeft / el.clientWidth)
-        fromScroll.current = true
-        onPage(Math.max(0, Math.min(PAGE_COUNT - 1, i)))
-      }, 90)
-    }
-    el.addEventListener('scroll', onScroll, { passive: true })
-    return () => { el.removeEventListener('scroll', onScroll); window.clearTimeout(t) }
-  }, [onPage])
+  const swipeStart = useRef<{ x: number; y: number } | null>(null)
 
   return (
     <div className={`pp-single${opened ? ' is-open' : ''}`}>
-      <div className="pp-track" ref={track} inert={!opened} aria-hidden={!opened}>
+      <div
+        className="pp-track"
+        inert={!opened}
+        aria-hidden={!opened}
+        style={{ transform: `translate3d(${-page * 100}%, 0, 0)` }}
+        onPointerDown={(e) => { if (e.pointerType === 'touch') swipeStart.current = { x: e.clientX, y: e.clientY } }}
+        onPointerUp={(e) => {
+          const start = swipeStart.current
+          swipeStart.current = null
+          if (!start || !opened) return
+          const dx = e.clientX - start.x
+          const dy = e.clientY - start.y
+          if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) {
+            onPage(Math.max(0, Math.min(PAGE_COUNT - 1, page + (dx < 0 ? 1 : -1))))
+          }
+        }}
+      >
         {Array.from({ length: PAGE_COUNT }, (_, i) => (
           <div key={i} className="pp-slide" inert={opened && i !== page} aria-hidden={opened && i !== page}>
             <div className="pp-slide-page">{renderPage(i, 'right', opened && i === page, open)}</div>
@@ -281,8 +239,8 @@ export default function PassportSite() {
     if (stage !== 'coin') return
     if (reduce) { setStage('cover'); return }
     setStage('charging')
-    timers.current.push(window.setTimeout(() => setStage('burst'), 1150))
-    timers.current.push(window.setTimeout(() => setStage('cover'), 1900))
+    timers.current.push(window.setTimeout(() => setStage('burst'), 850))
+    timers.current.push(window.setTimeout(() => setStage('cover'), 1350))
   }, [stage, reduce])
 
   const openBook = useCallback(() => { setPage(0); setOpened(true) }, [])
@@ -323,20 +281,8 @@ export default function PassportSite() {
   const closeOverlay = useCallback(() => setOverlay(null), [])
 
   const spreadFirst = single ? page : Math.floor(page / 2) * 2
-  // Every chapter that starts on a visible page lights up; otherwise the one
-  // the visible pages belong to.
   const visible = single ? [page] : [spreadFirst, spreadFirst + 1]
-  const starting = CHAPTERS.filter((c) => visible.includes(c.page)).map((c) => c.label)
-  const activeChapters = starting.length ? starting : [[...CHAPTERS].reverse().find((c) => c.page <= visible[0])!.label]
-  // Keep the lit chapter visible in the dock's scroller.
-  const chaptersRef = useRef<HTMLDivElement>(null)
-  const activeKey = activeChapters.join('|')
-  useEffect(() => {
-    const box = chaptersRef.current
-    const btn = box?.querySelector<HTMLElement>('.is-active')
-    if (!box || !btn) return
-    box.scrollTo({ left: btn.offsetLeft - box.clientWidth / 2 + btn.offsetWidth / 2, behavior: 'smooth' })
-  }, [activeKey])
+  const pageLabel = visible.map((p) => String(p + 1).padStart(2, '0')).join('–')
 
   const atEnd = single ? page >= PAGE_COUNT - 1 : spreadFirst >= LAST_SPREAD_PAGE
   const passportOn = stage === 'burst' || stage === 'cover'
@@ -351,10 +297,8 @@ export default function PassportSite() {
           <div className="pp-coin-kicker">Portfolio · {year}</div>
           <GlitchCoin size={single ? 236 : 320} year={year} charging={stage !== 'coin'} onActivate={activateCoin} />
           <div className="pp-coin-hint">
-            <span>Tap the coin</span>
-            <span className="pp-dim">Drag to spin</span>
+            <span>Drag to spin</span>
           </div>
-          <Link className="pp-skip" href="/classic">Skip to text version</Link>
         </section>
       )}
       {stage === 'burst' && <div className="pp-burst" aria-hidden="true" />}
@@ -383,18 +327,7 @@ export default function PassportSite() {
 
         <nav className={`pp-dock${opened ? ' is-on' : ''}`} aria-label="Passport pages" inert={!opened}>
           <button className="pp-arrow" onClick={() => step(-1)} aria-label={!single && spreadFirst === 0 ? 'Close passport' : 'Previous page'}>←</button>
-          <div className="pp-chapters" ref={chaptersRef}>
-            {CHAPTERS.map((c) => (
-              <button
-                key={c.label}
-                className={activeChapters.includes(c.label) ? 'is-active' : ''}
-                aria-current={activeChapters.includes(c.label) ? 'page' : undefined}
-                onClick={() => setPage(single ? c.page : Math.min(LAST_SPREAD_PAGE, Math.floor(c.page / 2) * 2))}
-              >
-                {c.label}
-              </button>
-            ))}
-          </div>
+          <span className="pp-pageno" aria-live="polite">Page {pageLabel} <span className="pp-dim">/ {PAGE_COUNT}</span></span>
           <button className="pp-arrow" onClick={() => step(1)} disabled={atEnd} aria-label="Next page">→</button>
           <button className="pp-shut" onClick={closeBook}>Close</button>
         </nav>

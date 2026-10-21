@@ -38,9 +38,9 @@ export default function Overlay({ state, onClose }: { state: OverlayState; onClo
 
   if (state.kind === 'image') {
     return (
-      <div className="pp-overlay" role="dialog" aria-modal="true" aria-label={state.caption} onClick={onClose}>
+      <div className="pp-overlay is-image" role="dialog" aria-modal="true" aria-label={state.caption} onClick={onClose}>
         <figure className="pp-lightbox" onClick={(e) => e.stopPropagation()}>
-          <Image src={state.src} alt={state.caption} width={1080} height={1080} sizes="(max-width: 760px) 92vw, 70vh" style={{ width: '100%', height: 'auto' }} />
+          <Image src={state.src} alt={state.caption} width={1800} height={750} unoptimized priority style={{ width: 'auto', height: 'auto', maxWidth: 'calc(100vw - 52px)', maxHeight: 'calc(100dvh - 92px)', objectFit: 'contain' }} />
           <figcaption>{state.caption}</figcaption>
         </figure>
         <button ref={closeRef} className="pp-close" onClick={onClose} aria-label="Close">×</button>

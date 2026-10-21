@@ -69,11 +69,12 @@ function CoinFace({ size: r, year, face, reverse, ghost, tint }: FaceProps) {
 }
 
 function FaceStack(props: Omit<FaceProps, 'ghost' | 'tint'>) {
+  const mobile = props.size <= 260
   return (
     <>
       <CoinFace {...props} />
-      <div className="coinGlitchR" style={{ position: 'absolute', inset: 0 }}><CoinFace {...props} ghost tint="#ff2d55" /></div>
-      <div className="coinGlitchC" style={{ position: 'absolute', inset: 0 }}><CoinFace {...props} ghost tint="#26e0ff" /></div>
+      {!mobile && <div className="coinGlitchR" style={{ position: 'absolute', inset: 0 }}><CoinFace {...props} ghost tint="#ff2d55" /></div>}
+      {!mobile && <div className="coinGlitchC" style={{ position: 'absolute', inset: 0 }}><CoinFace {...props} ghost tint="#26e0ff" /></div>}
     </>
   )
 }
@@ -82,7 +83,7 @@ export default function GlitchCoin({ size, year, face = 'portfolio', charging = 
   const M = PALETTES[face]
   const stageRef = useRef<HTMLDivElement>(null)
   const spinRef = useRef<HTMLDivElement>(null)
-  const st = useRef({ ry: -20, rx: 9, vel: 0.25, drag: false, reduce: false, charging: false })
+  const st = useRef({ ry: -20, rx: 9, vel: 15, drag: false, reduce: false, charging: false })
   const activate = useRef(onActivate)
 
   useEffect(() => { activate.current = onActivate }, [onActivate])
@@ -96,19 +97,21 @@ export default function GlitchCoin({ size, year, face = 'portfolio', charging = 
     apply()
 
     let raf = 0
-    const idle = 0.25
+    let previous = performance.now()
+    const idle = 15
     const step = () => {
+      const now = performance.now()
+      const dt = Math.min(32, now - previous) / 1000
+      previous = now
       if (s.charging) {
-        // Wind up: accelerate hard and level out before the burst.
-        s.vel = Math.min(46, s.vel * 1.09 + 0.8)
-        s.ry += s.vel
-        s.rx += (0 - s.rx) * 0.12
+        s.vel = Math.min(2400, s.vel + 3600 * dt)
+        s.ry += s.vel * dt
+        s.rx += (0 - s.rx) * Math.min(1, 7 * dt)
         apply()
       } else if (!s.drag && !s.reduce) {
-        s.ry += s.vel
-        if (Math.abs(s.vel) > idle) s.vel *= 0.95
-        else s.vel = s.vel < 0 ? -idle : idle
-        s.rx += (9 - s.rx) * 0.04
+        s.ry += s.vel * dt
+        s.vel = Math.abs(s.vel) > idle ? s.vel * Math.exp(-4.5 * dt) : (s.vel < 0 ? -idle : idle)
+        s.rx += (9 - s.rx) * Math.min(1, 2.4 * dt)
         apply()
       }
       raf = requestAnimationFrame(step)
@@ -139,7 +142,10 @@ export default function GlitchCoin({ size, year, face = 'portfolio', charging = 
       s.drag = false
       node.classList.remove('dragging')
       if (travel < 6 && activate.current) { s.vel = 2; activate.current(); return }
-      s.vel = Math.max(-24, Math.min(24, lastDx * 0.6)) || idle
+      s.vel = Math.max(-1500, Math.min(1500, lastDx * 90)) || idle
+      // A finished drag is also an intentional reveal: keep the release velocity
+      // and let the charging/burst sequence grow naturally out of the spin.
+      if (activate.current) activate.current()
     }
     stage.addEventListener('pointerdown', down)
     window.addEventListener('pointermove', move)
@@ -153,8 +159,13 @@ export default function GlitchCoin({ size, year, face = 'portfolio', charging = 
   }, [])
 
   const d = Math.max(5, size * (face === 'hoard' ? 0.115 : 0.07)), R = size / 2
-  const N = Math.max(48, Math.min(96, Math.round(size / 3)))
-  const segLen = (2 * Math.PI * R) / N + 1.5
+  // The rim is the most expensive part of this DOM/CSS 3D coin. Keep it
+  // detailed on desktop, but cap mobile at a much smaller segment count so
+  // base-model phones do not rasterize hundreds of filtered layers per frame.
+  const mobile = size <= 260
+  // Cap rim segments to 36 on desktop and 16 on mobile for silky 60/120fps spinning.
+  const N = mobile ? 16 : Math.min(36, Math.max(24, Math.round(size / 8)))
+  const segLen = N ? (2 * Math.PI * R) / N + 1.5 : 0
   const segs = Array.from({ length: N }, (_, i) => (
     <div key={i} style={{ position: 'absolute', left: '50%', top: '50%', width: segLen, height: d, marginLeft: -segLen / 2, marginTop: -d / 2, transform: `rotateZ(${(360 / N) * i}deg) translateY(${-R}px) rotateX(90deg)`, backfaceVisibility: 'hidden', background: `repeating-linear-gradient(90deg, rgba(0,0,0,.45) 0 1.1px, ${M.n1} 1.1px 2.5px), linear-gradient(0deg, ${M.n3}, ${M.n2} 50%, ${M.n3})`, opacity: 0.92 }} />
   ))

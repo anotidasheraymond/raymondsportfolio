@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# scratch / debug
+debug.log
+*.log
+ed.html
+pg.html
+*-Cover-Letter.pdf

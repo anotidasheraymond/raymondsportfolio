@@ -80,8 +80,8 @@ ul { margin: 0; padding: 0; list-style: none; }
    The start state is gated on (scripting: enabled) so a no-JS or
    legacy client renders the content visible rather than blank. */
 @media (scripting: enabled) {
-  [data-reveal] { opacity: 0; }
-  [data-reveal="rail"] { opacity: 1; transform: scaleY(0); transform-origin: top; }
+  [data-reveal] { opacity: 0; will-change: transform, opacity; }
+  [data-reveal="rail"] { opacity: 1; transform: scaleY(0); transform-origin: top; will-change: transform; }
 }
 [data-reveal][data-visible="true"] { animation: riseIn .8s var(--spring) both; }
 [data-reveal="pop"][data-visible="true"] { animation: popIn .8s var(--spring) both; }

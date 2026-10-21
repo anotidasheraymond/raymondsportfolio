@@ -3,8 +3,10 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import Stamp from './Stamp'
 import Word, { WordInSvg } from './Lettering'
+import PetworkingWordmark from './PetworkingWordmark'
+import BeforeAfterCarousel from './BeforeAfterCarousel'
 import {
-  IDENTITY, VISAS, EARLIER, EDUCATION_LINE, PROJECT_LINE, SKILL_GROUPS, EXTRA_SHOTS, DFCC_BEFORE_AFTER, JUNCTION_HOUSE, LINKEDIN, mrz,
+  IDENTITY, VISAS, EARLIER, EDUCATION_LINE, PROJECT_LINE, SKILL_GROUPS, EXTRA_SHOTS, JUNCTION_HOUSE, LINKEDIN, mrz,
   type Visa,
 } from '@/lib/passport'
 import { WORKS, STATS, STUDIES, FILMS, REELS, CONTACT, BEST_FIT, SOCIAL } from '@/lib/content'
@@ -51,7 +53,7 @@ function Mrz({ lines }: { lines: string[] }) {
   return (
     <div className="pp-mrz" aria-hidden="true">
       <div className="pp-micro">{'RAYMOND·CHIZANGA·'.repeat(12)}</div>
-      {lines.map((l, i) => <div key={i}>{mrz(l)}</div>)}
+      {lines.map((l, i) => <span key={i} className="pp-mrz-line">{mrz(l)}</span>)}
     </div>
   )
 }
@@ -67,7 +69,7 @@ export function Cover() {
       <div className="pp-cover-inner">
         <div className="pp-cover-top">
           <div className="pp-cover-name">Raymond<br />Chizanga</div>
-          <div className="pp-cover-word">Passport<br />Passeport</div>
+          <div className="pp-cover-word">Renaissance Man</div>
         </div>
         <div className="pp-crest" aria-hidden="true">
           <svg viewBox="0 0 200 200">
@@ -98,12 +100,24 @@ export function Endpaper({ side }: { side: Side }) {
 
 /* ---------- 01 identity ---------- */
 
+/** Raymond's bio, verbatim, on the page facing his identity page. */
+export function BioPage({ side, folio }: { side: Side; folio: number }) {
+  return (
+    <Paper side={side} folio={folio} head={['Bio', 'Raymond Chizanga']} className="pp-bio">
+      <h2 className="pp-bio-title">Bio</h2>
+      <div className="pp-bio-text">
+        {IDENTITY.bio.slice(0, 3).map((t) => <p key={t.slice(0, 24)}>{noOrphan(t)}</p>)}
+      </div>
+    </Paper>
+  )
+}
+
 export function IdentityPage({ side, folio }: { side: Side; folio: number }) {
   return (
     <Paper side={side} folio={folio} head={['Portfolio passport', `Code ${IDENTITY.code}`]} className="pp-identity" mrzLines={['PF<RCPCHIZANGA<<RAYMOND', 'MKTG2026<<BRAND<COMMUNITY<<SAAS<ECOMMERCE', 'RCCHIZANGA<GMAIL<COM<<MISSISSAUGA<ON<<<<<7']}>
       <div className="pp-id-top">
         <div>
-          <div className="pp-label">Surname / Nom · Given names / Prénoms</div>
+          <div className="pp-label">Surname · Given names</div>
           <h1 className="pp-name">{IDENTITY.given} {IDENTITY.surname}</h1>
           <div className="pp-sub">{IDENTITY.line}</div>
         </div>
@@ -116,11 +130,6 @@ export function IdentityPage({ side, folio }: { side: Side; folio: number }) {
           {IDENTITY.fields.map((f) => <Field key={f.k} k={f.k} v={f.v} />)}
         </div>
       </div>
-      <div className="pp-rule" />
-      <div className="pp-words">
-        <div className="pp-label">In my words / Dans mes mots</div>
-        <p>{IDENTITY.words}</p>
-      </div>
       <div className="pp-ghost" aria-hidden="true">
         <Image src="/img/passport/raymond-jeep.webp" alt="" fill sizes="60px" style={{ objectFit: 'cover', objectPosition: '50% 38%' }} />
       </div>
@@ -130,42 +139,25 @@ export function IdentityPage({ side, folio }: { side: Side; folio: number }) {
 
 /* ---------- contents ---------- */
 
-export type ContentsEntry = { label: string; sub: string; page: number }
 
-export function ContentsPage({ side, folio, entries, goTo }: { side: Side; folio: number; entries: ContentsEntry[]; goTo: (page: number) => void }) {
-  return (
-    <Paper side={side} folio={folio} head={['Contents / Table', 'Visas & annexes']} className="pp-contents">
-      <div className="pp-annex-title">
-        <h3>What I&rsquo;ve built, where I&rsquo;ve worked</h3>
-        <p>Every venture and role is a visa, stamped with Petworking Stamp Studio. Tap an entry to turn to it.</p>
-      </div>
-      <ol className="pp-toc">
-        {entries.map((e) => (
-          <li key={e.label}>
-            <button onClick={() => goTo(e.page)}>
-              <span className="pp-toc-label">{e.label}</span>
-              <span className="pp-toc-sub">{e.sub}</span>
-              <span className="pp-toc-dots" aria-hidden="true" />
-              <span className="pp-toc-page">{String(e.page + 1).padStart(2, '0')}</span>
-            </button>
-          </li>
-        ))}
-      </ol>
-    </Paper>
-  )
-}
 
 /* ---------- visas ---------- */
 
 export function VisaPage({ visa, side, folio, active, children }: { visa: Visa; side: Side; folio: number; active: boolean; children?: ReactNode }) {
   return (
-    <Paper side={side} folio={folio} head={['Visa / Visa', `No. ${visa.no}`]} className={`pp-visa pp-visa-${visa.id}`} mrzLines={[`V<RC${visa.org.replace(/\s/g, '')}<<${visa.title.split(/[ ,&]+/).slice(0, 3).join('<')}`, `${visa.from.replace(' ', '')}<${visa.until.replace(' ', '')}<<${visa.place}`]}>
+    <Paper side={side} folio={folio} head={['Visa', `No. ${visa.no}`]} className={`pp-visa pp-visa-${visa.id}`} mrzLines={[`V<${visa.stamp.country === 'US' ? 'USA' : 'CAN'}${visa.org.replace(/\s/g, '')}<<${visa.title.split(/[ ,&]+/).slice(0, 3).join('<')}`, `${visa.from.replace(' ', '')}<${visa.until.replace(' ', '')}<<${visa.place}`]}>
       <div className="pp-visa-stamp">
         <Stamp id={visa.id} spec={visa.stamp} active={active} />
       </div>
       <div className="pp-visa-top">
-        <div className="pp-label">Issued by / Délivré par</div>
-        <h2 className={`pp-org${visa.org.length > 14 ? ' is-long' : ''}`}>{visa.org}</h2>
+        <div className="pp-label">Issued by</div>
+        {visa.id === 'hoard' ? (
+          <h2 className="pp-org pp-org-mark" aria-label={visa.org}><Word word="THE HOARD" height="0.74em" /></h2>
+        ) : visa.id === 'petworking' ? (
+          <h2 className="pp-org pp-org-mark"><PetworkingWordmark size={40} style={{ fontSize: 'inherit' }} /></h2>
+        ) : (
+          <h2 className={`pp-org${visa.org.length > 14 ? ' is-long' : ''}`}>{visa.org}</h2>
+        )}
         <div className="pp-sub">{visa.orgLine}</div>
       </div>
       <div className="pp-visa-title">{visa.title}</div>
@@ -176,9 +168,9 @@ export function VisaPage({ visa, side, folio, active, children }: { visa: Visa; 
         <Field k="Category" v={visa.category} />
       </div>
       <div className="pp-rule" />
-      <div className="pp-label">Remarks / Observations</div>
+      <div className="pp-label">Remarks</div>
       <ul className="pp-remarks">
-        {visa.remarks.map((r) => <li key={r}>{noOrphan(r)}</li>)}
+        {visa.remarks.slice(0, 3).map((r) => <li key={r}>{noOrphan(r)}</li>)}
       </ul>
       {children}
     </Paper>
@@ -208,18 +200,9 @@ export function BeforeAfterPage({ side, folio, open }: { side: Side; folio: numb
     <Paper side={side} folio={folio} head={['Annex · Before / After', 'Durham FCC']} className="pp-annex">
       <div className="pp-annex-title">
         <h3>Website refresh</h3>
-        <p>durhamfcc.org, before and after. Tap a page to view it full size.</p>
+        <p>durhamfcc.org, every page before and after. Tap a slide to see it full screen.</p>
       </div>
-      <div className="pp-ba">
-        {DFCC_BEFORE_AFTER.map((s) => (
-          <button key={s.src} className="pp-ba-item" onClick={() => open.openImage(s.src, `Durham FCC · ${s.caption} · before / after`)} aria-label={`View ${s.caption} before and after`}>
-            <span className="pp-ba-img">
-              <Image src={s.src} alt={`${s.caption}, before and after`} fill sizes="(max-width: 760px) 44vw, 220px" style={{ objectFit: 'cover', objectPosition: '50% 40%' }} />
-            </span>
-            <span className="pp-label">{s.caption}</span>
-          </button>
-        ))}
-      </div>
+      <BeforeAfterCarousel onOpen={open.openImage} />
     </Paper>
   )
 }
@@ -396,7 +379,7 @@ const PLACES: Array<{ top: number; left?: number; right?: number; size: number }
 
 export function EarlierPage({ side, folio, active }: { side: Side; folio: number; active: boolean }) {
   return (
-    <Paper side={side} folio={folio} head={['Stamps / Timbres', 'Earlier entries']} className="pp-earlier">
+    <Paper side={side} folio={folio} head={['Stamps', 'Earlier entries']} className="pp-earlier">
       <div className="pp-placed">
         {EARLIER.map((e, i) => {
           const p = PLACES[i % PLACES.length]
@@ -424,7 +407,7 @@ export function EarlierPage({ side, folio, active }: { side: Side; folio: number
 
 export function SkillsPage({ side, folio }: { side: Side; folio: number }) {
   return (
-    <Paper side={side} folio={folio} head={['Endorsements / Mentions', 'Skills']} className="pp-skills">
+    <Paper side={side} folio={folio} head={['Endorsements', 'Skills']} className="pp-skills">
       {SKILL_GROUPS.map((g) => <Field key={g.k} k={g.k} v={g.v} />)}
       <div className="pp-rule" />
       <div className="pp-label">Studies & credentials</div>
@@ -444,7 +427,7 @@ export function SkillsPage({ side, folio }: { side: Side; folio: number }) {
 
 export function ContactPage({ side, folio }: { side: Side; folio: number }) {
   return (
-    <Paper side={side} folio={folio} head={['Observations / Contact', 'Bearer']} className="pp-contact">
+    <Paper side={side} folio={folio} head={['Contact', 'Bearer']} className="pp-contact">
       <h3 className="pp-contact-big">Let’s work together.</h3>
       <p className="pp-contact-note">Fastest route is email.</p>
       <div className="pp-contact-links">
@@ -464,7 +447,7 @@ export function ContactPage({ side, folio }: { side: Side; folio: number }) {
       </ul>
       <div className="pp-sign">
         <span className="pp-sign-name">Raymond Chizanga</span>
-        <span className="pp-label">Signature of bearer / Signature du titulaire</span>
+        <span className="pp-label">Signature of bearer</span>
       </div>
       <Link className="pp-classic" href="/classic">Text-only version of this portfolio</Link>
     </Paper>

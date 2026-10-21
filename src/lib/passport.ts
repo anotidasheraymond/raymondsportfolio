@@ -48,15 +48,21 @@ export const IDENTITY = {
   line: 'Integrated Marketing · Mississauga ON',
   code: 'RC · 2026',
   fields: [
-    { k: 'Profession / Profession', v: 'Integrated Marketing, Brand & Community' },
-    { k: 'Base / Résidence', v: 'Mississauga, ON, Canada' },
-    { k: 'Experience', v: '7+ years' },
+    { k: 'Profession', v: 'Integrated Marketing, Brand & Community' },
+    { k: 'Base', v: 'Mississauga, ON, Canada' },
+    { k: 'Experience', v: '10 years' },
     { k: 'Current post', v: 'Durham FCC · Oct 2026' },
     { k: 'Studied', v: 'Metalworks Institute · 2019' },
     { k: 'Coursework GPA', v: '4.0' },
   ],
-  words:
-    'Integrated marketing, brand and community professional with 7+ years across SaaS, ecommerce and consumer-facing environments. Grew Hostfully’s owned social audience 235%, impressions 120% and organic review traffic 200%.',
+  // Raymond's bio, verbatim as he gave it (2026-10-21).
+  bio: [
+    'I’m a multidisciplinary marketer, product builder, and entrepreneur with experience spanning technology, SaaS, media, partnerships, community, and product development.',
+    'My career has taken me from building my own media business to roles with Shopify, Hostaway, Hostfully, and Edsby, where I’ve worked across social media, content, partnerships, community marketing, SEO, AIO, customer marketing, events, and digital growth. I’ve developed campaigns and experiences for audiences ranging from emerging businesses and creators to global technology companies and their customers.',
+    'Alongside my marketing career, I’ve brought two technology products to market. I founded The Hoard, a social and collection-management platform for collectors, and Petworking, a pet technology platform connecting pet parents, professionals, businesses, and rescues through shared animal records, business software, services, and commerce.',
+    'Building these products has expanded my work beyond marketing into product strategy, software development, UX, go-to-market strategy, pricing, partnerships, customer acquisition, and business development. I’m especially interested in the point where product, technology, community, and marketing intersect.',
+    'My background also includes Audio Engineering and Business Management studies at Metalworks Institute, alongside earlier experience as an independent artist and entrepreneur. That combination of creative, commercial, and technical experience continues to shape how I approach building products, brands, communities, and growth strategies.',
+  ],
 }
 
 export const VISAS: Visa[] = [
@@ -270,13 +276,39 @@ export const EXTRA_SHOTS = [
 ]
 
 // Durham FCC website refresh, before and after (from the DOGHAIR before/after board).
+// Every page of durhamfcc.org, before and after, from the client's Before-After Portfolio (side by side, desktop).
 export const DFCC_BEFORE_AFTER = [
-  { src: '/img/passport/dfcc-home.jpg', caption: 'Home' },
-  { src: '/img/passport/dfcc-about.jpg', caption: 'About Us' },
-  { src: '/img/passport/dfcc-pamoja.jpg', caption: 'Pamoja Family Outreach' },
-  { src: '/img/passport/dfcc-sponsorships.jpg', caption: 'Sponsorships' },
-  { src: '/img/passport/dfcc-work-with-us.jpg', caption: 'Work With Us' },
-  { src: '/img/passport/dfcc-events.jpg', caption: 'Events' },
+  { src: '/img/dfcc/01-home.webp', thumb: '/img/dfcc/01-home-thumb.webp', caption: 'Home' },
+  { src: '/img/dfcc/02-about-us.webp', thumb: '/img/dfcc/02-about-us-thumb.webp', caption: 'About Us' },
+  { src: '/img/dfcc/03-meet-our-board.webp', thumb: '/img/dfcc/03-meet-our-board-thumb.webp', caption: 'Meet Our Board' },
+  { src: '/img/dfcc/04-contact.webp', thumb: '/img/dfcc/04-contact-thumb.webp', caption: 'Contact' },
+  { src: '/img/dfcc/05-together-we-are.webp', thumb: '/img/dfcc/05-together-we-are-thumb.webp', caption: 'Together We Are' },
+  { src: '/img/dfcc/06-student-and-family-advocate.webp', thumb: '/img/dfcc/06-student-and-family-advocate-thumb.webp', caption: 'Student and Family Advocate' },
+  { src: '/img/dfcc/07-pamoja-family-outreach.webp', thumb: '/img/dfcc/07-pamoja-family-outreach-thumb.webp', caption: 'Pamoja Family Outreach' },
+  { src: '/img/dfcc/08-cultural-care-legal-clinic.webp', thumb: '/img/dfcc/08-cultural-care-legal-clinic-thumb.webp', caption: 'Cultural Care Legal Clinic' },
+  { src: '/img/dfcc/09-youth-hub.webp', thumb: '/img/dfcc/09-youth-hub-thumb.webp', caption: 'Youth Hub' },
+  { src: '/img/dfcc/10-sponsorships.webp', thumb: '/img/dfcc/10-sponsorships-thumb.webp', caption: 'Sponsorships' },
+  { src: '/img/dfcc/11-work-with-us.webp', thumb: '/img/dfcc/11-work-with-us-thumb.webp', caption: 'Work With Us' },
+  { src: '/img/dfcc/12-donate.webp', thumb: '/img/dfcc/12-donate-thumb.webp', caption: 'Donate' },
+  { src: '/img/dfcc/13-volunteer.webp', thumb: '/img/dfcc/13-volunteer-thumb.webp', caption: 'Volunteer' },
+  { src: '/img/dfcc/14-events.webp', thumb: '/img/dfcc/14-events-thumb.webp', caption: 'Events' },
+  { src: '/img/dfcc/15-events-calendar.webp', thumb: '/img/dfcc/15-events-calendar-thumb.webp', caption: 'Events Calendar' },
+  { src: '/img/dfcc/16-videos-and-media.webp', thumb: '/img/dfcc/16-videos-and-media-thumb.webp', caption: 'Videos and Media' },
+  { src: '/img/dfcc/17-media.webp', thumb: '/img/dfcc/17-media-thumb.webp', caption: 'Media' },
+  { src: '/img/dfcc/18-afro-caribbean-food-baskets.webp', thumb: '/img/dfcc/18-afro-caribbean-food-baskets-thumb.webp', caption: 'Afro Caribbean Food Baskets' },
+  { src: '/img/dfcc/19-afro-caribbean-food-baskets-2025.webp', thumb: '/img/dfcc/19-afro-caribbean-food-baskets-2025-thumb.webp', caption: 'Afro Caribbean Food Baskets 2025' },
+  { src: '/img/dfcc/20-black-joy-holiday-market-2025.webp', thumb: '/img/dfcc/20-black-joy-holiday-market-2025-thumb.webp', caption: 'Black Joy Holiday Market 2025' },
+  { src: '/img/dfcc/21-take-action.webp', thumb: '/img/dfcc/21-take-action-thumb.webp', caption: 'Take Action' },
+  { src: '/img/dfcc/22-surveys.webp', thumb: '/img/dfcc/22-surveys-thumb.webp', caption: 'Surveys' },
+  { src: '/img/dfcc/23-resources.webp', thumb: '/img/dfcc/23-resources-thumb.webp', caption: 'Resources' },
+  { src: '/img/dfcc/24-auditions.webp', thumb: '/img/dfcc/24-auditions-thumb.webp', caption: 'Auditions' },
+  { src: '/img/dfcc/25-youth-services.webp', thumb: '/img/dfcc/25-youth-services-thumb.webp', caption: 'Youth Services' },
+  { src: '/img/dfcc/26-vendor-application.webp', thumb: '/img/dfcc/26-vendor-application-thumb.webp', caption: 'Vendor Application' },
+  { src: '/img/dfcc/27-become-a-member.webp', thumb: '/img/dfcc/27-become-a-member-thumb.webp', caption: 'Become a Member' },
+  { src: '/img/dfcc/28-sponsorship-decks.webp', thumb: '/img/dfcc/28-sponsorship-decks-thumb.webp', caption: 'Sponsorship Decks' },
+  { src: '/img/dfcc/29-sponsorship-deck-acfb.webp', thumb: '/img/dfcc/29-sponsorship-deck-acfb-thumb.webp', caption: 'Sponsorship Deck - ACFB' },
+  { src: '/img/dfcc/30-sponsorship-deck-bjhm.webp', thumb: '/img/dfcc/30-sponsorship-deck-bjhm-thumb.webp', caption: 'Sponsorship Deck - BJHM' },
+  { src: '/img/dfcc/31-sponsorship-deck-mini-moguls.webp', thumb: '/img/dfcc/31-sponsorship-deck-mini-moguls-thumb.webp', caption: 'Sponsorship Deck - Mini Moguls' },
 ]
 
 // Hostfully customer story series, filmed with Junction House Getaways (Toronto).

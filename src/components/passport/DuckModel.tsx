@@ -68,10 +68,13 @@ export default function DuckModel({ label }: { label: string }) {
     } catch {
       return
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
+    // Keep the mascot inexpensive on phones; the passport layout is already
+    // dense and a high-DPI canvas can dominate the frame budget.
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth <= 760 ? 1 : 1.5))
     const scene = new THREE.Scene()
     const cam = new THREE.PerspectiveCamera(35, 1, 0.01, 1000)
-    const dist = 3.6
+    // Leave generous breathing room for the wings and tail while the idle turn rotates.
+    const dist = 4.35
     cam.position.set(0.5 * dist, 0.4 * dist, dist)
     cam.lookAt(0, 0, 0)
     // The design was lit in three r128 (legacy light units); ×π gives the same exposure in r184.
@@ -100,7 +103,7 @@ export default function DuckModel({ label }: { label: string }) {
 
     new GLTFLoader().load('/models/duck.glb', (gltf) => {
       const m = gltf.scene
-      fit(m, 2.2)
+      fit(m, 1.82)
       paint(m)
       root.add(m)
       if (gltf.animations.length) {
