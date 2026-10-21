@@ -19,7 +19,10 @@ export type Opener = {
 
 /* ---------- shared pieces ---------- */
 
-function Paper({ side, head, folio, children, className = '', mrzLines }: { side: Side; head: [string, string]; folio: number; children: ReactNode; className?: string; mrzLines?: string[] }) {
+/** Binds a sentence's last two words so a line never ends the paragraph on one word. */
+export const noOrphan = (t: string) => t.replace(/\s+(\S+)$/, ' $1')
+
+export function Paper({ side, head, folio, children, className = '', mrzLines }: { side: Side; head: [string, string]; folio: number; children: ReactNode; className?: string; mrzLines?: string[] }) {
   return (
     <div className={`pp-paper pp-${side} ${className}`}>
       <div className="pp-guilloche" aria-hidden="true" />
@@ -35,11 +38,11 @@ function Paper({ side, head, folio, children, className = '', mrzLines }: { side
   )
 }
 
-function Field({ k, v, mono }: { k: string; v: ReactNode; mono?: boolean }) {
+export function Field({ k, v, mono }: { k: string; v: ReactNode; mono?: boolean }) {
   return (
     <div className="pp-field">
       <div className="pp-label">{k}</div>
-      <div className={`pp-value${mono ? ' is-mono' : ''}`}>{v}</div>
+      <div className={`pp-value${mono ? ' is-mono' : ''}`}>{typeof v === 'string' ? noOrphan(v) : v}</div>
     </div>
   )
 }
@@ -133,8 +136,8 @@ export function ContentsPage({ side, folio, entries, goTo }: { side: Side; folio
   return (
     <Paper side={side} folio={folio} head={['Contents / Table', 'Visas & annexes']} className="pp-contents">
       <div className="pp-annex-title">
-        <h3>Where I&rsquo;ve worked</h3>
-        <p>Every role is a visa, stamped with Petworking Stamp Studio. Tap an entry to turn to it.</p>
+        <h3>What I&rsquo;ve built, where I&rsquo;ve worked</h3>
+        <p>Every venture and role is a visa, stamped with Petworking Stamp Studio. Tap an entry to turn to it.</p>
       </div>
       <ol className="pp-toc">
         {entries.map((e) => (
@@ -162,7 +165,7 @@ export function VisaPage({ visa, side, folio, active, children }: { visa: Visa; 
       </div>
       <div className="pp-visa-top">
         <div className="pp-label">Issued by / Délivré par</div>
-        <h2 className="pp-org">{visa.org}</h2>
+        <h2 className={`pp-org${visa.org.length > 14 ? ' is-long' : ''}`}>{visa.org}</h2>
         <div className="pp-sub">{visa.orgLine}</div>
       </div>
       <div className="pp-visa-title">{visa.title}</div>
@@ -175,7 +178,7 @@ export function VisaPage({ visa, side, folio, active, children }: { visa: Visa; 
       <div className="pp-rule" />
       <div className="pp-label">Remarks / Observations</div>
       <ul className="pp-remarks">
-        {visa.remarks.map((r) => <li key={r}>{r}</li>)}
+        {visa.remarks.map((r) => <li key={r}>{noOrphan(r)}</li>)}
       </ul>
       {children}
     </Paper>
@@ -347,43 +350,22 @@ export function StoriesPage({ side, folio, open }: { side: Side; folio: number; 
 
 /* ---------- independent work ---------- */
 
-export function HoardPage({ side, folio, open }: { side: Side; folio: number; open: Opener }) {
-  const w = WORKS.find((x) => x.id === 'hoard')!
+export function IndependentPage({ ids, head, side, folio, open }: { ids: string[]; head: string; side: Side; folio: number; open: Opener }) {
+  const solo = ids.length === 1
   return (
-    <Paper side={side} folio={folio} head={['Endorsement · Independent work', w.year]} className="pp-annex pp-project">
-      <div className="pp-annex-title">
-        <h3>{w.title}</h3>
-        <p>{w.role}</p>
-      </div>
-      <ul className="pp-remarks">{w.bullets.map((b) => <li key={b}>{b}</li>)}</ul>
-      <div className="pp-phones">
-        {(w.shots ?? []).map((s) => (
-          <button key={s.src} className="pp-phone" onClick={() => open.openImage(s.src, `The Hoard · ${s.caption}`)} aria-label={`View ${s.caption}`}>
-            <Image src={s.src} alt={s.caption} fill sizes="(max-width: 760px) 22vw, 90px" style={{ objectFit: 'cover', objectPosition: 'top' }} />
-          </button>
-        ))}
-      </div>
-      <div className="pp-chips">{w.specs.map((s) => <span key={s.k}><b>{s.k}</b> {s.v}</span>)}</div>
-    </Paper>
-  )
-}
-
-export function IndependentPage({ side, folio, open }: { side: Side; folio: number; open: Opener }) {
-  const ids = ['pretty', 'vineland', 'crane']
-  return (
-    <Paper side={side} folio={folio} head={['Endorsements · Independent work', '2021–22']} className="pp-annex pp-project">
+    <Paper side={side} folio={folio} head={['Endorsements · Independent work', head]} className={`pp-annex pp-project${solo ? ' is-solo' : ''}`}>
       {ids.map((id) => {
         const w = WORKS.find((x) => x.id === id)!
         return (
           <section key={id} className="pp-proj">
             <div className="pp-proj-head">
               <h3>{w.title}</h3>
-              <span className="pp-label">{w.kind} · {w.year}</span>
+              <span className="pp-label">{w.kind}{' · '}{w.year}</span>
             </div>
-            <p className="pp-proj-lede">{w.bullets[0]}</p>
+            {(solo ? w.bullets : w.bullets.slice(0, 2)).map((b) => <p key={b} className="pp-proj-lede">{b}</p>)}
             {w.shots && w.shots.length > 0 && (
               <div className="pp-proj-shots">
-                {w.shots.slice(0, 4).map((s) => (
+                {w.shots.slice(0, solo ? 8 : 4).map((s) => (
                   <button key={s.src} className="pp-thumb" onClick={() => open.openImage(s.src, `${w.title} · ${s.caption}`)} aria-label={`View ${s.caption}`}>
                     <Image src={s.src} alt={s.caption} fill sizes="(max-width: 760px) 20vw, 90px" style={{ objectFit: 'cover' }} />
                   </button>
@@ -463,7 +445,7 @@ export function SkillsPage({ side, folio }: { side: Side; folio: number }) {
 export function ContactPage({ side, folio }: { side: Side; folio: number }) {
   return (
     <Paper side={side} folio={folio} head={['Observations / Contact', 'Bearer']} className="pp-contact">
-      <h3 className="pp-contact-big">Let’s work<br />together.</h3>
+      <h3 className="pp-contact-big">Let’s work together.</h3>
       <p className="pp-contact-note">Fastest route is email.</p>
       <div className="pp-contact-links">
         {CONTACT.emails.map((e) => <a key={e} href={CONTACT.mailto}>{e}</a>)}

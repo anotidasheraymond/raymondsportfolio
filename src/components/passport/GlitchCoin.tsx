@@ -6,20 +6,40 @@ import Word from './Lettering'
 // The Hoard glitch coin (nie-kit CoinSpin), ported to this site. Pure CSS 3D:
 // two faces plus a milled rim of edge segments, with holo shimmer, scanlines
 // and red/cyan "ghost" faces that slice in for the chromatic glitch.
-// Palette is the founder "brass" coin; its Kenyan Coffee words are baked outlines (coin-lettering.ts).
+// Two faces: the site intro's founder "brass" coin with Raymond's name, and The Hoard's own
+// founding coin exactly as thehoard.social shows it (onyx palette, FOUNDING / year, H / ON FILE,
+// nie Coin.tsx proportions). Kenyan Coffee words are baked outlines (coin-lettering.ts).
 
-const M = { n1: '#FFE7A6', n2: '#FF7AD9', n3: '#5BCBFF', glow: 'rgba(255,170,90,.5)' }
+type Palette = { n1: string; n2: string; n3: string; glow: string }
+const PALETTES: Record<'portfolio' | 'hoard', Palette> = {
+  portfolio: { n1: '#FFE7A6', n2: '#FF7AD9', n3: '#5BCBFF', glow: 'rgba(255,170,90,.5)' },
+  hoard: { n1: '#F8FBFF', n2: '#8E7CFF', n3: '#2DE7FF', glow: 'rgba(45,231,255,.5)' },
+}
+export type CoinFaceKind = keyof typeof PALETTES
 const MONO = "var(--pp-coin-mono), 'JetBrains Mono', monospace"
 
-type FaceProps = { size: number; year: string; reverse?: boolean; ghost?: boolean; tint?: string }
+type FaceProps = { size: number; year: string; face: CoinFaceKind; reverse?: boolean; ghost?: boolean; tint?: string }
 
-function CoinFace({ size: r, year, reverse, ghost, tint }: FaceProps) {
+function CoinFace({ size: r, year, face, reverse, ghost, tint }: FaceProps) {
+  const M = PALETTES[face]
   const glowTxt = `0 0 ${r * 0.025}px ${M.n3}, 0 0 ${r * 0.06}px ${M.n2}`
   const scanPx = Math.max(3, Math.round(r * 0.013))
   const shadow = ghost ? 'none' : glowTxt
   // Lettering is artwork, so it glows with a filter rather than a text-shadow.
   const svgGlow = ghost ? undefined : `drop-shadow(0 0 ${r * 0.008}px ${M.n3}) drop-shadow(0 0 ${r * 0.028}px ${M.n2}aa)`
-  const content = reverse ? (
+  const ink = ghost ? tint : '#F2FCFF'
+  const sub = ghost ? tint : '#CFEFFF'
+  const content = face === 'hoard' ? (reverse ? (
+    <>
+      <Word word="H" height={r * 0.316} color={ink} style={{ filter: svgGlow }} />
+      <div style={{ fontFamily: MONO, fontWeight: 700, fontSize: r * 0.06, letterSpacing: '.22em', color: sub, marginTop: r * 0.05, textShadow: shadow }}>ON FILE</div>
+    </>
+  ) : (
+    <>
+      <Word word="FOUNDING" height={r * 0.144} color={ink} style={{ filter: svgGlow }} />
+      <div style={{ fontFamily: MONO, fontWeight: 700, fontSize: r * 0.085, letterSpacing: '.18em', color: sub, marginTop: r * 0.05, textShadow: shadow }}>{year}</div>
+    </>
+  )) : reverse ? (
     <>
       <Word word="RC" height={r * 0.28} color={ghost ? tint : '#F2FCFF'} style={{ filter: svgGlow }} />
       <div style={{ fontFamily: MONO, fontWeight: 700, fontSize: r * 0.055, letterSpacing: '.22em', color: ghost ? tint : '#CFEFFF', marginTop: r * 0.06, textShadow: shadow }}>PORTFOLIO</div>
@@ -58,7 +78,8 @@ function FaceStack(props: Omit<FaceProps, 'ghost' | 'tint'>) {
   )
 }
 
-export default function GlitchCoin({ size, year, charging, onActivate }: { size: number; year: string; charging: boolean; onActivate: () => void }) {
+export default function GlitchCoin({ size, year, face = 'portfolio', charging = false, onActivate }: { size: number; year: string; face?: CoinFaceKind; charging?: boolean; onActivate?: () => void }) {
+  const M = PALETTES[face]
   const stageRef = useRef<HTMLDivElement>(null)
   const spinRef = useRef<HTMLDivElement>(null)
   const st = useRef({ ry: -20, rx: 9, vel: 0.25, drag: false, reduce: false, charging: false })
@@ -117,7 +138,7 @@ export default function GlitchCoin({ size, year, charging, onActivate }: { size:
       if (!s.drag) return
       s.drag = false
       node.classList.remove('dragging')
-      if (travel < 6) { s.vel = 2; activate.current(); return }
+      if (travel < 6 && activate.current) { s.vel = 2; activate.current(); return }
       s.vel = Math.max(-24, Math.min(24, lastDx * 0.6)) || idle
     }
     stage.addEventListener('pointerdown', down)
@@ -131,7 +152,7 @@ export default function GlitchCoin({ size, year, charging, onActivate }: { size:
     }
   }, [])
 
-  const d = Math.max(5, size * 0.07), R = size / 2
+  const d = Math.max(5, size * (face === 'hoard' ? 0.115 : 0.07)), R = size / 2
   const N = Math.max(48, Math.min(96, Math.round(size / 3)))
   const segLen = (2 * Math.PI * R) / N + 1.5
   const segs = Array.from({ length: N }, (_, i) => (
@@ -140,11 +161,13 @@ export default function GlitchCoin({ size, year, charging, onActivate }: { size:
 
   return (
     <div
-      className={`coinPop pp-coin${charging ? ' is-charging' : ''}`}
-      role="button"
-      tabIndex={0}
-      aria-label={`Raymond Chizanga ${year} coin. Open the portfolio passport.`}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onActivate() } }}
+      className={`coinPop pp-coin${charging ? ' is-charging' : ''}${face === 'hoard' ? ' is-hoard' : ''}`}
+      {...(onActivate ? {
+        role: 'button',
+        tabIndex: 0,
+        'aria-label': `Raymond Chizanga ${year} coin. Open the portfolio passport.`,
+        onKeyDown: (e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onActivate() } },
+      } : { role: 'img', 'aria-label': `The Hoard founding coin, ${year}. Drag to spin.` })}
       style={{ width: size, height: size, position: 'relative', filter: `drop-shadow(0 ${size * 0.07}px ${size * 0.11}px rgba(0,0,0,.45)) drop-shadow(0 0 ${size * 0.11}px ${M.glow})` }}
     >
       <div className="coinFloat holoFlicker" style={{ position: 'absolute', inset: 0 }}>
@@ -152,11 +175,11 @@ export default function GlitchCoin({ size, year, charging, onActivate }: { size:
           <div className="pp-coin-halo" style={{ position: 'absolute', inset: '-16%', borderRadius: '50%', background: `radial-gradient(circle, ${M.glow}, transparent 70%)`, filter: 'blur(8px)', pointerEvents: 'none' }} />
           <div ref={spinRef} className="coin3d" style={{ position: 'absolute', inset: 0, transformStyle: 'preserve-3d' }}>
             <div style={{ position: 'absolute', inset: 0, transform: `translateZ(${d / 2}px)`, backfaceVisibility: 'hidden' }}>
-              <FaceStack size={size} year={year} />
+              <FaceStack size={size} year={year} face={face} />
             </div>
             {segs}
             <div style={{ position: 'absolute', inset: 0, transform: `rotateY(180deg) translateZ(${d / 2}px)`, backfaceVisibility: 'hidden' }}>
-              <FaceStack size={size} year={year} reverse />
+              <FaceStack size={size} year={year} face={face} reverse />
             </div>
           </div>
         </div>

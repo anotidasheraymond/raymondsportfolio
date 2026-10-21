@@ -604,3 +604,35 @@
   .pp-stamp { opacity: 1; transform: rotate(var(--rot)); }
   .pp-leaf, .pp-book, .pp-single-cover { transition-duration: .01ms !important; }
 }
+
+/* ---------- founder visas & annexes ---------- */
+.pp-vlinks { display: flex; flex-wrap: wrap; gap: 1.2cqw 2.4cqw; margin-top: 2.6cqw; padding-top: 2cqw; border-top: 1px solid var(--rule); }
+.pp-vlinks a { font-family: var(--pp-mono), monospace; font-size: clamp(8.5px, 1.95cqw, 11px); letter-spacing: .04em; color: var(--ink); border-bottom: 1px solid var(--edge); transition: color .2s, border-color .2s; }
+.pp-vlinks a:hover { color: var(--terra); border-color: var(--terra); }
+.pp-venture .pp-annex-title p { margin-bottom: 2.4cqw; }
+.pp-dh-mark { width: 26cqw; margin: 1cqw 0 3cqw; filter: drop-shadow(0 6px 10px rgba(51, 37, 29, .18)); }
+.pp-dh-mark img { width: 100%; height: auto; display: block; }
+.pp-venture-doghair .pp-toc { margin-top: 1cqw; }
+.pp-pw-mark { width: 62%; margin: 1.5cqw 0 2.4cqw; }
+.pp-pw-mark img { width: 100%; height: auto; display: block; }
+.pp-venture-lede { font-size: clamp(10.5px, 2.5cqw, 13.5px); line-height: 1.45; color: var(--ink-2); max-width: 92%; text-wrap: pretty; }
+.pp-phones-pw { padding: 0 2cqw; gap: 2.2cqw 2.6cqw; }
+.pp-phones-pw .pp-phone { aspect-ratio: 520 / 1129; background: #f4efe6; }
+.pp-hoard-hero { display: grid; grid-template-columns: 40cqw 1fr; gap: 3cqw; align-items: center; }
+.pp-hoard-hero .pp-annex-title p { margin-bottom: 0; }
+.pp-model { position: relative; aspect-ratio: 1; }
+.pp-model-duck { width: 62cqw; margin: -1cqw auto 0; }
+.pp-duck-canvas { width: 100%; height: 100%; display: block; }
+.pp-credit { margin-top: auto; padding-top: 2cqw; font-family: var(--pp-mono), monospace; font-size: clamp(7.5px, 1.6cqw, 9.5px); color: var(--label); }
+.pp-project.is-solo .pp-proj-shots { grid-template-columns: repeat(4, 1fr); }
+.pp-contents .pp-annex-title h3 { font-size: clamp(16px, 4.6cqw, 26px); }
+.pp-contents .pp-annex-title p { margin: 1cqw 0 2cqw; }
+.pp-contents .pp-toc button { padding: .62cqw 0; }
+.pp-contents .pp-toc-sub { margin-top: 0; }
+/* 3D assets sit straight on the paper: no panel, frame or border behind them. */
+.pp-model-coin { display: grid; place-items: center; }
+
+/* No orphans: headings balance their lines, running text never leaves one word alone. */
+.pp-root h1, .pp-root h2, .pp-root h3, .pp-org, .pp-visa-title, .pp-toc-label { text-wrap: balance; }
+.pp-root p, .pp-root li, .pp-root .pp-sub, .pp-root .pp-toc-sub, .pp-root .pp-value, .pp-root .pp-chips span, .pp-root figcaption { text-wrap: pretty; }
+.pp-org.is-long { font-size: clamp(17px, 4.9cqw, 27px); white-space: nowrap; }

@@ -1,4 +1,4 @@
-import { VISAS, EARLIER, SKILL_GROUPS, PROJECT_LINE } from '@/lib/passport'
+import { VISAS, VENTURES, EARLIER, SKILL_GROUPS, PROJECT_LINE } from '@/lib/passport'
 import { CONTACT, HERO_LEDE, STATS, STUDIES, WORKS, SOCIAL } from '@/lib/content'
 
 // A plain-text profile for answer engines (llmstxt.org), built from the same data the site
@@ -25,6 +25,8 @@ export function GET() {
     `- Petworking on Instagram: ${SOCIAL.petworkingInstagram}`,
     `- Petworking: ${SOCIAL.petworking}`,
     '',
+    '## Ventures founded',
+    ...VENTURES.flatMap((v) => [`### ${v.org} — ${v.title} (${v.from} to ${v.until})`, `${v.orgLine}.`, ...v.remarks.map((r) => `- ${r}`), ...v.links.map((l) => `- ${l.label}: ${l.href}`), '']),
     '## Results',
     ...STATS.map((s) => `- ${s.final}: ${s.label} (Hostfully)`),
     '',
@@ -38,7 +40,7 @@ export function GET() {
     ...STUDIES.map((s) => `- ${s.title}: ${s.sub}`),
     '',
     '## Independent work',
-    ...WORKS.filter((w) => w.id !== 'hostfully').map((w) => `- ${w.title} (${w.kind}, ${w.year}): ${w.bullets[0]}`),
+    ...WORKS.filter((w) => w.id !== 'hostfully' && w.id !== 'hoard').map((w) => `- ${w.title} (${w.kind}, ${w.year}): ${w.bullets[0]}`),
     `- ${PROJECT_LINE.name} (${PROJECT_LINE.kind}): ${PROJECT_LINE.text}`,
     '',
     '## Skills',

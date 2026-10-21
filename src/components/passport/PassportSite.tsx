@@ -7,9 +7,10 @@ import Word from './Lettering'
 import Overlay, { type OverlayState } from './Overlay'
 import {
   Cover, Endpaper, IdentityPage, VisaPage, HostfullyVisa, CampaignsPage, CaseFilesPage, MotionPage,
-  EarlierPage, SkillsPage, ContactPage, BeforeAfterPage, ContentsPage, StoriesPage, HoardPage, IndependentPage, C54Visa,
+  EarlierPage, SkillsPage, ContactPage, BeforeAfterPage, ContentsPage, StoriesPage, IndependentPage, C54Visa,
   type Side, type Opener,
 } from './Pages'
+import { VentureVisa, DoghairAnnex, PetworkingAnnex, HoardAnnex, DuckAnnex } from './Ventures'
 import { VISAS } from '@/lib/passport'
 import { CONTACT } from '@/lib/content'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
@@ -17,35 +18,42 @@ import './passport.css'
 
 type Stage = 'coin' | 'charging' | 'burst' | 'cover'
 
-const PAGE_COUNT = 18
+const PAGE_COUNT = 26
 const LEAF_COUNT = PAGE_COUNT / 2 + 1
 const LAST_SPREAD_PAGE = PAGE_COUNT - 2
 const CHAPTERS = [
   { label: 'Identity', page: 0 },
-  { label: 'Durham FCC', page: 2 },
-  { label: 'Edsby', page: 4 },
-  { label: 'Hostfully', page: 5 },
-  { label: 'Case files', page: 7 },
-  { label: 'Stories', page: 9 },
-  { label: 'Hostaway', page: 10 },
-  { label: 'Shopify', page: 11 },
-  { label: 'Community 54', page: 12 },
-  { label: 'Earlier', page: 13 },
-  { label: 'Projects', page: 14 },
-  { label: 'Skills', page: 16 },
-  { label: 'Contact', page: 17 },
+  { label: 'DOGHAIR', page: 2 },
+  { label: 'Petworking', page: 4 },
+  { label: 'The Hoard', page: 6 },
+  { label: 'D.U.C.K AI', page: 8 },
+  { label: 'Durham FCC', page: 10 },
+  { label: 'Edsby', page: 12 },
+  { label: 'Hostfully', page: 13 },
+  { label: 'Case files', page: 15 },
+  { label: 'Stories', page: 17 },
+  { label: 'Hostaway', page: 18 },
+  { label: 'Shopify', page: 19 },
+  { label: 'Community 54', page: 20 },
+  { label: 'Earlier', page: 21 },
+  { label: 'Projects', page: 22 },
+  { label: 'Skills', page: 24 },
+  { label: 'Contact', page: 25 },
 ]
 const CONTENTS = [
-  { label: 'Durham FCC', sub: 'Senior Marketing Consultant · 2026', page: 2 },
-  { label: 'Edsby', sub: 'Social Media & Content Marketing Consultant · Sep 2026', page: 4 },
-  { label: 'Hostfully', sub: 'Community & Integrated Marketing Manager · 2023–26', page: 5 },
-  { label: 'Hostfully annexes', sub: 'Campaigns, case files, motion, customer stories', page: 6 },
-  { label: 'Hostaway', sub: 'Senior Support Advisor & Technical Content Writer · 2022–24', page: 10 },
-  { label: 'Shopify', sub: 'Support Advisor & Internal Copywriter · 2021–22', page: 11 },
-  { label: 'Community 54', sub: 'Store Manager, Brand & Community Operations · 2017–19', page: 12 },
-  { label: 'Earlier entries', sub: 'Six stamps, 2012–2024', page: 13 },
-  { label: 'Independent work', sub: 'The Hoard, Pretty Apparel, Vineland, Crane', page: 14 },
-  { label: 'Skills & contact', sub: 'Endorsements, education, how to reach me', page: 16 },
+  { label: 'DOGHAIR Technologies', sub: 'Co-founder · CEO & Culture Architect · 2026', page: 2 },
+  { label: 'Petworking', sub: 'Founder & CEO · pet care network in beta · 2026', page: 4 },
+  { label: 'The Hoard', sub: 'Founder · fan network, web and App Store · 2026', page: 6 },
+  { label: 'D.U.C.K AI', sub: 'On-device language model · in development', page: 8 },
+  { label: 'Durham FCC', sub: 'Senior Marketing Consultant · 2026', page: 10 },
+  { label: 'Edsby', sub: 'Social Media & Content Marketing Consultant · Sep 2026', page: 12 },
+  { label: 'Hostfully', sub: 'Community & Integrated Marketing Manager · 2023–26, with annexes', page: 13 },
+  { label: 'Hostaway', sub: 'Senior Support Advisor & Technical Content Writer · 2022–24', page: 18 },
+  { label: 'Shopify', sub: 'Support Advisor & Internal Copywriter · 2021–22', page: 19 },
+  { label: 'Community 54', sub: 'Store Manager, Brand & Community Operations · 2017–19', page: 20 },
+  { label: 'Earlier entries', sub: 'Six stamps, 2012–2024', page: 21 },
+  { label: 'Independent work', sub: 'Pretty Apparel, Crane, Vineland Estates', page: 22 },
+  { label: 'Skills & contact', sub: 'Education, endorsements, how to reach me', page: 24 },
 ]
 
 const visa = (id: string) => VISAS.find((v) => v.id === id)!
@@ -61,22 +69,30 @@ function renderPage(i: number, side: Side, active: boolean, open: Opener): React
   switch (i) {
     case 0: return <IdentityPage side={side} folio={folio} />
     case 1: return <ContentsPage side={side} folio={folio} entries={CONTENTS} goTo={open.goTo} />
-    case 2: return <VisaPage visa={visa('dfcc')} side={side} folio={folio} active={active} />
-    case 3: return <BeforeAfterPage side={side} folio={folio} open={open} />
-    case 4: return <VisaPage visa={visa('edsby')} side={side} folio={folio} active={active} />
-    case 5: return <HostfullyVisa side={side} folio={folio} active={active} />
-    case 6: return <CampaignsPage side={side} folio={folio} open={open} />
-    case 7: return <CaseFilesPage side={side} folio={folio} open={open} />
-    case 8: return <MotionPage side={side} folio={folio} />
-    case 9: return <StoriesPage side={side} folio={folio} open={open} />
-    case 10: return <VisaPage visa={visa('hostaway')} side={side} folio={folio} active={active} />
-    case 11: return <VisaPage visa={visa('shopify')} side={side} folio={folio} active={active} />
-    case 12: return <C54Visa side={side} folio={folio} active={active} open={open} />
-    case 13: return <EarlierPage side={side} folio={folio} active={active} />
-    case 14: return <HoardPage side={side} folio={folio} open={open} />
-    case 15: return <IndependentPage side={side} folio={folio} open={open} />
-    case 16: return <SkillsPage side={side} folio={folio} />
-    case 17: return <ContactPage side={side} folio={folio} />
+    case 2: return <VentureVisa id="doghair" side={side} folio={folio} active={active} />
+    case 3: return <DoghairAnnex side={side} folio={folio} open={open} />
+    case 4: return <VentureVisa id="petworking" side={side} folio={folio} active={active} />
+    case 5: return <PetworkingAnnex side={side} folio={folio} open={open} />
+    case 6: return <VentureVisa id="hoard" side={side} folio={folio} active={active} />
+    case 7: return <HoardAnnex side={side} folio={folio} active={active} open={open} />
+    case 8: return <VentureVisa id="duck" side={side} folio={folio} active={active} />
+    case 9: return <DuckAnnex side={side} folio={folio} active={active} />
+    case 10: return <VisaPage visa={visa('dfcc')} side={side} folio={folio} active={active} />
+    case 11: return <BeforeAfterPage side={side} folio={folio} open={open} />
+    case 12: return <VisaPage visa={visa('edsby')} side={side} folio={folio} active={active} />
+    case 13: return <HostfullyVisa side={side} folio={folio} active={active} />
+    case 14: return <CampaignsPage side={side} folio={folio} open={open} />
+    case 15: return <CaseFilesPage side={side} folio={folio} open={open} />
+    case 16: return <MotionPage side={side} folio={folio} />
+    case 17: return <StoriesPage side={side} folio={folio} open={open} />
+    case 18: return <VisaPage visa={visa('hostaway')} side={side} folio={folio} active={active} />
+    case 19: return <VisaPage visa={visa('shopify')} side={side} folio={folio} active={active} />
+    case 20: return <C54Visa side={side} folio={folio} active={active} open={open} />
+    case 21: return <EarlierPage side={side} folio={folio} active={active} />
+    case 22: return <IndependentPage ids={['pretty', 'crane']} head="Video & campaigns" side={side} folio={folio} open={open} />
+    case 23: return <IndependentPage ids={['vineland']} head="Photography" side={side} folio={folio} open={open} />
+    case 24: return <SkillsPage side={side} folio={folio} />
+    case 25: return <ContactPage side={side} folio={folio} />
     default: return null
   }
 }

@@ -63,7 +63,7 @@ export const VISAS: Visa[] = [
   {
     id: 'dfcc', no: '01', org: 'Durham FCC', orgLine: 'Durham Family & Cultural Centre · charity',
     title: 'Senior Marketing Consultant',
-    from: 'Oct 2026', until: 'Present', place: 'Ajax, ON', category: 'Contract · DOGHAIR Technologies',
+    from: 'Oct 2026', until: 'Present', place: 'Ajax, ON', category: 'Contract · DOGHAIR Technologies',
     remarks: [
       'Engaged through DOGHAIR Technologies as Senior Marketing Consultant to Durham Family & Cultural Centre, a charity in Ajax serving Black and racialized families in Durham Region.',
       'Wrote the website assessment: crawled every live page (32 pages, 198 sitemap URLs), checked all 384 links and 211 images, and read the analytics — 79% bounce, ~76% of visitors on phones, ~63% arriving from Instagram and Facebook.',
@@ -129,6 +129,100 @@ export const VISAS: Visa[] = [
       'Identified and onboarded new brands while managing stock ordering and vendor relationships across independent labels and major brands including Nike, adidas and Supreme.',
     ],
     stamp: { die: 'shield', country: 'US', ink: INK.oxblood, business: 'Community 54', claim: 'Manager', location: 'Parkdale, Toronto', year: '2017', rot: 2 },
+  },
+]
+
+/**
+ * Ventures Raymond founded. Every line is from the ventures' own repos and sites on his machine
+ * (DOGHAIR Technologies site, PETWORKING, HOARD, CHICKEN/duck): commit history, app.json, READMEs,
+ * the canonical platform copy and the launch audit. Nothing here is rounded up.
+ */
+export type Venture = Visa & {
+  links: { label: string; href: string }[]
+  chips: { k: string; v: string }[]
+}
+
+export const VENTURES: Venture[] = [
+  {
+    id: 'doghair', no: 'F1', org: 'DOGHAIR Technologies', orgLine: 'Design, technology & research company',
+    title: 'Co-founder · CEO & Culture Architect',
+    from: '2026', until: 'Present', place: 'Mississauga, ON', category: 'Founder · DOGHAIR Technologies Inc.',
+    remarks: [
+      'Co-founded DOGHAIR Technologies Inc., “the world’s first triple-tiered boutique design, technology, and research” company, and lead it as CEO and Culture Architect.',
+      'The umbrella company that owns the portfolio: makers of Petworking and The Hoard, with D.U.C.K AI, a first-party on-device language model, in development.',
+      'Runs client work through the studio, including the Senior Marketing Consultant engagement with Durham Family & Cultural Centre.',
+      'Shipped the company site at doghairtechnologies.com on Next.js and Vercel, with structured data naming both products.',
+    ],
+    links: [
+      { label: 'doghairtechnologies.com', href: 'https://doghairtechnologies.com' },
+      { label: '@doghairtechnologies', href: 'https://www.instagram.com/doghairtechnologies/' },
+    ],
+    chips: [
+      { k: 'Slogan', v: 'Pushing the limits of magic and science' },
+      { k: 'Founders', v: 'Raymond Chizanga · Yuriy Leheta' },
+      { k: 'Products', v: 'Petworking · The Hoard · D.U.C.K AI' },
+    ],
+    stamp: { die: 'ticket', country: 'CA', ink: INK.bark, business: 'DOGHAIR Technologies', claim: 'Co-founder', location: 'Mississauga', year: '2026', rot: -4 },
+  },
+  {
+    id: 'petworking', no: 'F2', org: 'Petworking', orgLine: 'All-in-one pet care network',
+    title: 'Founder & CEO',
+    from: 'Aug 2026', until: 'Present · beta', place: 'Canada', category: 'Founder · DOGHAIR Technologies',
+    remarks: [
+      'Founded Petworking, an all-in-one pet care network for pet parents, pet professionals, businesses and animal rescues, built around a portable digital Pet Passport.',
+      'Pet records, bookings, marketplace discovery, business software, payments and professional networking: one Expo codebase for iPhone, iPad, Apple Watch and Android, plus a Next.js web platform on Supabase with Stripe.',
+      'In beta in Canada, the United States, the United Kingdom, Australia and Japan through TestFlight and Google Play testing; listed on Capterra and GetApp, with the G2 profile claimed.',
+      'Scale of the build: 1,310 commits since August 27, 2026, 533 database migrations, 169 web routes and 17 server functions covering checkout, payouts, subscriptions, refunds and shipping.',
+    ],
+    links: [
+      { label: 'petworking.pet', href: 'https://petworking.pet' },
+      { label: 'iPhone beta', href: 'https://testflight.apple.com/join/HeupXQMT' },
+      { label: '@thepetworkingapp', href: 'https://www.instagram.com/thepetworkingapp/' },
+    ],
+    chips: [
+      { k: 'Modules', v: 'Pet Passport · Pet Parent OS · Animal World OS · Rescue OS · Research OS · The Petwork · Marketplace' },
+      { k: 'Plans', v: 'Free · Independent $29 · Growth $69 · Multi-site $229 /mo' },
+      { k: 'Stack', v: 'Expo · React Native · Next.js · Supabase · Stripe' },
+    ],
+    stamp: { die: 'oval', country: 'CA', ink: INK.terracotta, business: 'Petworking', claim: 'Founder', location: 'Ontario', year: '2026', rot: 6 },
+  },
+  {
+    id: 'hoard', no: 'F3', org: 'The Hoard', orgLine: 'Fan network for collectors',
+    title: 'Founder · design & build',
+    from: 'May 2026', until: 'Present', place: 'Mississauga, ON', category: 'Founder · DOGHAIR Technologies',
+    remarks: [
+      '“The world’s first and only all-encompassing fan network.” Built as a collector, solo, from concept and architecture through UX/UI, the marketplace and a hand-built pricing tool.',
+      'Live on the web at thehoard.social and on the App Store, with Android in Play testing: iPhone, iPad and Android apps from one Expo codebase, web on Next.js with Stripe and Sentry.',
+      'Proprietary systems Nyami Nyami Market Guard, Gideon (a self-hosted visual identification service) and Linda; Collector, Manager and Commissioner Pro subscriptions.',
+      'Launch audit: zero critical or high findings, row-level security on 100% of tables, Sign in with Apple and in-app account deletion. 824 migrations, 26 server functions, 252 web routes.',
+    ],
+    links: [
+      { label: 'thehoard.social', href: 'https://thehoard.social' },
+      { label: 'App Store', href: 'https://apps.apple.com/us/app/the-hoard/id6771879680' },
+    ],
+    chips: [
+      { k: 'Surfaces', v: 'Web · iPhone · iPad · Android' },
+      { k: 'Stack', v: 'Next.js · Expo · Supabase · Stripe · Python inference' },
+    ],
+    stamp: { die: 'octagon', country: 'CA', ink: INK.oxblood, business: 'The Hoard', claim: 'Founder', date: '2026-05-16', year: '2026', rot: -5 },
+  },
+  {
+    id: 'duck', no: 'F4', org: 'D.U.C.K AI', orgLine: 'Deterministic Uptake Computation Kicker · on-device LLM',
+    title: 'Founder & engine developer',
+    from: 'Jul 2026', until: 'In development', place: 'Mississauga, ON', category: 'In development · DOGHAIR Technologies',
+    remarks: [
+      'DOGHAIR’s first-party, on-device large language model, written from scratch: no BLAS, no ML framework, no external math.',
+      'Engine in C++ with hand-written PTX GPU kernels and no CUDA toolkit; the target GPU benchmarked at 17.04 TFLOPS sustained FP32 and 226 GB/s memory bandwidth over a ten-minute soak.',
+      'DH-M1 architecture frozen at ~308M parameters: 22 layers, grouped-query attention (16 query heads over 4 KV heads), RoPE and a block-sparse FFN, sized for a ~7B-token public-domain corpus.',
+      'Built and tested: int8 KV cache, a rights admission gate with a hash-chained data manifest, deduplication, an RLVR harness and an Electron desktop app, with a mobile client in Expo.',
+    ],
+    links: [],
+    chips: [
+      { k: 'Engine', v: 'C++ · PTX kernels' },
+      { k: 'Model', v: 'DH-M1 · ~308M params · 22 layers' },
+      { k: 'Clients', v: 'Electron desktop · Expo mobile' },
+    ],
+    stamp: { die: 'circle', country: 'CA', ink: INK.moss, business: 'D.U.C.K AI', claim: 'In development', location: 'Mississauga', year: '2026', rot: 4 },
   },
 ]
 
@@ -212,5 +306,6 @@ export function mrz(s: string, len = 44) {
 /** Every stamp the site presses, by the id its SVG is served at (/stamps/<id>). */
 export const STAMPS: Record<string, StampSpec> = Object.fromEntries([
   ...VISAS.map((v) => [v.id, v.stamp] as const),
+  ...VENTURES.map((v) => [v.id, v.stamp] as const),
   ...EARLIER.map((e) => [e.id, e.stamp] as const),
 ])

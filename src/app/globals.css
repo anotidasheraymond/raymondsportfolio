@@ -50,6 +50,8 @@ a { color: var(--acc-b); text-decoration: none; }
 a:hover { color: var(--tx); }
 button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 h1, h2, h3, p, figure { margin: 0; }
+h1, h2, h3, h4 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
 ul { margin: 0; padding: 0; list-style: none; }
 
 /* ============================================================

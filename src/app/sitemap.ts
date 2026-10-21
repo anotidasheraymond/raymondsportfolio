@@ -15,6 +15,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...WORKS.filter((w) => w.id !== 'hostfully').flatMap((w) => (w.shots ?? []).map((s) => s.src)),
     ...STUDIES.flatMap((s) => s.images.map((i) => i.src)),
     '/img/passport/c54-finale-friday.jpg',
+    '/img/ventures/doghair-diamond.webp',
+    '/img/ventures/petworking-wordmark.webp',
+    '/img/ventures/pw-today.webp',
+    '/img/ventures/pw-passport.webp',
+    '/img/ventures/pw-explore.webp',
+    '/img/ventures/pw-you.webp',
   ]
   const videos = JUNCTION_HOUSE.clips.map((c) => ({
     title: `Junction House Getaways · ${c.title}`,
