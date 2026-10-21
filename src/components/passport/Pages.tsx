@@ -5,8 +5,9 @@ import Stamp from './Stamp'
 import Word, { WordInSvg } from './Lettering'
 import PetworkingWordmark from './PetworkingWordmark'
 import BeforeAfterCarousel from './BeforeAfterCarousel'
+import OledDisplay from './OledDisplay'
 import {
-  IDENTITY, VISAS, EARLIER, EDUCATION_LINE, PROJECT_LINE, SKILL_GROUPS, EXTRA_SHOTS, JUNCTION_HOUSE, LINKEDIN, mrz,
+  IDENTITY, VISAS, EARLIER, EDUCATION_LINE, PROJECT_LINE, HARDWARE_PROJECT, SKILL_GROUPS, EXTRA_SHOTS, JUNCTION_HOUSE, LINKEDIN, mrz,
   type Visa,
 } from '@/lib/passport'
 import { WORKS, STATS, STUDIES, FILMS, REELS, CONTACT, BEST_FIT, SOCIAL } from '@/lib/content'
@@ -409,6 +410,24 @@ export function SkillsPage({ side, folio }: { side: Side; folio: number }) {
   return (
     <Paper side={side} folio={folio} head={['Endorsements', 'Skills']} className="pp-skills">
       {SKILL_GROUPS.map((g) => <Field key={g.k} k={g.k} v={g.v} />)}
+
+      <div className="pp-rule" />
+      <div className="pp-label">Physical computing & hardware prototyping</div>
+      <div className="pp-hardware-card">
+        <OledDisplay />
+        <div className="pp-edu" style={{ marginTop: 6 }}>
+          <b>{HARDWARE_PROJECT.name} — {HARDWARE_PROJECT.kind}</b>
+          <span>{HARDWARE_PROJECT.text}</span>
+        </div>
+        <div className="pp-hardware-specs">
+          {HARDWARE_PROJECT.specs.map((s) => (
+            <span key={s.label} className="pp-hw-chip">
+              <em>{s.label}</em> {s.val}
+            </span>
+          ))}
+        </div>
+      </div>
+
       <div className="pp-rule" />
       <div className="pp-label">Studies & credentials</div>
       <div className="pp-edu">
@@ -416,7 +435,8 @@ export function SkillsPage({ side, folio }: { side: Side; folio: number }) {
         <span>{EDUCATION_LINE.school} · {EDUCATION_LINE.year} · GPA {EDUCATION_LINE.gpa}</span>
         <span>{EDUCATION_LINE.credentials}</span>
       </div>
-      <div className="pp-label" style={{ marginTop: 10 }}>Selected project</div>
+
+      <div className="pp-label" style={{ marginTop: 10 }}>Media & brand project</div>
       <div className="pp-edu">
         <b>{PROJECT_LINE.name} — {PROJECT_LINE.kind}</b>
         <span>{PROJECT_LINE.text}</span>

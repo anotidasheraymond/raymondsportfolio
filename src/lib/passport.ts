@@ -254,6 +254,18 @@ export const EDUCATION_LINE = {
   credentials: 'Performance accreditations: Canadian Music Week, Toronto (2017) · E.L.E Festival, Ottawa (2017)',
 }
 
+export const HARDWARE_PROJECT = {
+  name: 'ESP32 Electronics & Firmware Prototyping',
+  kind: 'Physical computing & embedded systems',
+  text: 'Built and debugged ESP32-based electronics prototypes, including programmable servo control and a custom animated SSD1306 OLED display. Applied breadboard circuit assembly, Arduino-framework firmware integration, I²C communication and serial diagnostics.',
+  specs: [
+    { label: 'MCU', val: 'ESP32-WROOM-32' },
+    { label: 'Bus', val: 'I²C @ 400kHz (0x3C)' },
+    { label: 'Display', val: 'SSD1306 128×64 OLED' },
+    { label: 'Actuation', val: 'PWM Servo Control' },
+  ],
+}
+
 export const PROJECT_LINE = {
   name: 'Highly Animated',
   kind: 'Boutique media & brand management',
@@ -263,6 +275,7 @@ export const PROJECT_LINE = {
 export const SKILL_GROUPS = [
   { k: 'Marketing & Community', v: 'Content strategy, copywriting, editorial calendars, email and lifecycle marketing, organic social, community engagement, partner marketing, events, review and reputation management.' },
   { k: 'SEO, Research & Analytics', v: 'SEO, AIO/AI-search optimization, keyword and topic strategy, on-page and technical SEO, A/B testing, campaign analytics, sensory evaluation, consumer research and competitive research.' },
+  { k: 'Hardware & Embedded Systems', v: 'ESP32 firmware, Arduino framework, breadboard circuit assembly, programmable servo control, SSD1306 OLED displays, I²C communication, serial diagnostics and hardware debugging.' },
   { k: 'Operations & CX', v: 'Ecommerce, merchant support, retail buying, inventory, stock ordering, vendor relationships, visual merchandising, staff supervision, training, event operations and hospitality.' },
   { k: 'Platforms & Creative', v: 'Salesforce, Zoho, HubSpot, Shopify, Adobe Creative Cloud, Figma, Canva, Premiere Pro, Final Cut Pro, DaVinci Resolve, Pro Tools, HTML/CSS familiarity, ChatGPT, Gemini, Perplexity and Claude.' },
 ]

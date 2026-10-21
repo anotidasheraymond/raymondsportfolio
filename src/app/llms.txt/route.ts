@@ -1,4 +1,4 @@
-import { VISAS, VENTURES, EARLIER, SKILL_GROUPS, PROJECT_LINE } from '@/lib/passport'
+import { VISAS, VENTURES, EARLIER, SKILL_GROUPS, PROJECT_LINE, HARDWARE_PROJECT } from '@/lib/passport'
 import { CONTACT, HERO_LEDE, STATS, STUDIES, WORKS, SOCIAL } from '@/lib/content'
 
 // A plain-text profile for answer engines (llmstxt.org), built from the same data the site
@@ -41,6 +41,7 @@ export function GET() {
     '',
     '## Independent work',
     ...WORKS.filter((w) => w.id !== 'hostfully' && w.id !== 'hoard').map((w) => `- ${w.title} (${w.kind}, ${w.year}): ${w.bullets[0]}`),
+    `- ${HARDWARE_PROJECT.name} (${HARDWARE_PROJECT.kind}): ${HARDWARE_PROJECT.text}`,
     `- ${PROJECT_LINE.name} (${PROJECT_LINE.kind}): ${PROJECT_LINE.text}`,
     '',
     '## Skills',
