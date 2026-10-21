@@ -225,13 +225,13 @@ export const ROLES: Role[] = [
     ],
   },
   {
-    dates: 'Sep 2026 — Present', span: 'Current',
+    dates: 'Sep 8 — Sep 15, 2026', span: 'Contract',
     title: 'Social Media & Content Marketing Consultant', org: 'Edsby · Hybrid',
     bullets: [
-      'Lead social media, content marketing, SEO, AI-search optimization and digital growth for a K-12 education technology company serving districts, educators, students and families.',
-      'Own multi-channel social and editorial strategy across LinkedIn, Instagram, Facebook, X, Bluesky, YouTube, Reddit, Quora and Medium, producing and repurposing written, visual and video content.',
-      'Develop foundational SEO and answer-engine visibility through keyword and topic strategy, on-page and technical SEO, internal linking, content architecture, FAQs, schema and indexing.',
-      'Monitor social, content, website and search performance while researching customer pain points, competitor positioning, K-12 trends and emerging conversations.',
+      'Led social media, content marketing, SEO, AI-search optimization and digital growth for a K-12 education technology company serving districts, educators, students and families.',
+      'Owned multi-channel social and editorial strategy across LinkedIn, Instagram, Facebook, X, Bluesky, YouTube, Reddit, Quora and Medium, producing and repurposing written, visual and video content.',
+      'Developed foundational SEO and answer-engine visibility through keyword and topic strategy, on-page and technical SEO, internal linking, content architecture, FAQs, schema and indexing.',
+      'Monitored social, content, website and search performance while researching customer pain points, competitor positioning, K-12 trends and emerging conversations.',
     ],
   },
   {
@@ -256,7 +256,7 @@ export const ROLES: Role[] = [
     ],
   },
   {
-    dates: 'Jun 2022 — Dec 2023', span: '1 yr 7 mos',
+    dates: 'Oct 2022 — Jan 2024', span: '1 yr 4 mos',
     title: 'Senior Support Advisor & Technical Content Writer', org: 'Hostaway · Toronto, ON',
     bullets: [
       'Managed concurrent merchant support workloads while troubleshooting platform issues and translating customer patterns into feedback for product, content and retention initiatives.',
@@ -264,7 +264,7 @@ export const ROLES: Role[] = [
     ],
   },
   {
-    dates: 'Jun 2021 — Jun 2022', span: '1 yr 1 mo',
+    dates: 'Oct 2021 — Jul 2022', span: '9 mos',
     title: 'Support Advisor & Internal Copywriter', org: 'Shopify',
     bullets: [
       'Supported ecommerce brands ranging from sole proprietors to enterprise merchants across live service channels.',

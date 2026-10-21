@@ -37,10 +37,10 @@ const CHAPTERS = [
 ]
 const CONTENTS = [
   { label: 'Durham FCC', sub: 'Senior Marketing Consultant · 2026', page: 2 },
-  { label: 'Edsby', sub: 'Social Media & Content Marketing Consultant · 2026', page: 4 },
+  { label: 'Edsby', sub: 'Social Media & Content Marketing Consultant · Sep 2026', page: 4 },
   { label: 'Hostfully', sub: 'Community & Integrated Marketing Manager · 2023–26', page: 5 },
   { label: 'Hostfully annexes', sub: 'Campaigns, case files, motion, customer stories', page: 6 },
-  { label: 'Hostaway', sub: 'Senior Support Advisor & Technical Content Writer · 2022–23', page: 10 },
+  { label: 'Hostaway', sub: 'Senior Support Advisor & Technical Content Writer · 2022–24', page: 10 },
   { label: 'Shopify', sub: 'Support Advisor & Internal Copywriter · 2021–22', page: 11 },
   { label: 'Community 54', sub: 'Store Manager, Brand & Community Operations · 2017–19', page: 12 },
   { label: 'Earlier entries', sub: 'Six stamps, 2012–2024', page: 13 },

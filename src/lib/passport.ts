@@ -51,7 +51,7 @@ export const IDENTITY = {
     { k: 'Profession / Profession', v: 'Integrated Marketing, Brand & Community' },
     { k: 'Base / Résidence', v: 'Mississauga, ON, Canada' },
     { k: 'Experience', v: '7+ years' },
-    { k: 'Current posts', v: 'Durham FCC · Edsby' },
+    { k: 'Current post', v: 'Durham FCC · Oct 2026' },
     { k: 'Training', v: 'Metalworks Institute · 2019' },
     { k: 'GPA', v: '4.0' },
   ],
@@ -75,12 +75,12 @@ export const VISAS: Visa[] = [
   {
     id: 'edsby', no: '02', org: 'Edsby', orgLine: 'K-12 education technology',
     title: 'Social Media & Content Marketing Consultant',
-    from: 'Sep 2026', until: 'Present', place: 'Hybrid', category: 'Work · Consultant',
+    from: 'Sep 8, 2026', until: 'Sep 15, 2026', place: 'Hybrid', category: 'Contract · Consultant',
     remarks: [
-      'Lead social media, content marketing, SEO, AI-search optimization and digital growth for a K-12 education technology company serving districts, educators, students and families.',
-      'Own multi-channel social and editorial strategy across LinkedIn, Instagram, Facebook, X, Bluesky, YouTube, Reddit, Quora and Medium, producing and repurposing written, visual and video content.',
-      'Develop foundational SEO and answer-engine visibility through keyword and topic strategy, on-page and technical SEO, internal linking, content architecture, FAQs, schema and indexing.',
-      'Monitor social, content, website and search performance while researching customer pain points, competitor positioning, K-12 trends and emerging conversations.',
+      'Led social media, content marketing, SEO, AI-search optimization and digital growth for a K-12 education technology company serving districts, educators, students and families.',
+      'Owned multi-channel social and editorial strategy across LinkedIn, Instagram, Facebook, X, Bluesky, YouTube, Reddit, Quora and Medium, producing and repurposing written, visual and video content.',
+      'Developed foundational SEO and answer-engine visibility through keyword and topic strategy, on-page and technical SEO, internal linking, content architecture, FAQs, schema and indexing.',
+      'Monitored social, content, website and search performance while researching customer pain points, competitor positioning, K-12 trends and emerging conversations.',
     ],
     stamp: { die: 'circle', country: 'CA', ink: INK.navy, business: 'Edsby', claim: 'Content', location: 'Mississauga', year: '2026', rot: 5 },
   },
@@ -99,7 +99,7 @@ export const VISAS: Visa[] = [
   {
     id: 'hostaway', no: '04', org: 'Hostaway', orgLine: 'Vacation-rental software',
     title: 'Senior Support Advisor & Technical Content Writer',
-    from: 'Jun 2022', until: 'Dec 2023', place: 'Toronto, ON', category: 'Work · Senior',
+    from: 'Oct 2022', until: 'Jan 2024', place: 'Toronto, ON', category: 'Work · Senior',
     remarks: [
       'Managed concurrent merchant support workloads while troubleshooting platform issues and translating customer patterns into feedback for product, content and retention initiatives.',
       'Led software onboarding and staff training while producing technical and marketing content for internal teams and prospective customers.',
@@ -109,7 +109,7 @@ export const VISAS: Visa[] = [
   {
     id: 'shopify', no: '05', org: 'Shopify', orgLine: 'Commerce platform',
     title: 'Support Advisor & Internal Copywriter',
-    from: 'Jun 2021', until: 'Jun 2022', place: 'Remote', category: 'Work · Advisor',
+    from: 'Oct 2021', until: 'Jul 2022', place: 'Remote', category: 'Work · Advisor',
     remarks: [
       'Supported ecommerce brands ranging from sole proprietors to enterprise merchants across live service channels.',
       'Wrote technical copy for internal software and app integrations, onboarding documentation, staff training and product-launch communications.',
