@@ -85,7 +85,7 @@ const jsonLd = {
         'Answer engine optimization', 'Email and lifecycle marketing', 'Partner marketing', 'Review and reputation management',
         'Customer advocacy', 'Video production', 'Event production', 'Salesforce', 'HubSpot', 'Shopify', 'Figma',
       ],
-      sameAs: [SOCIAL.linkedin],
+      sameAs: [SOCIAL.linkedin, SOCIAL.instagram],
     },
     {
       '@type': 'Organization',
@@ -93,6 +93,7 @@ const jsonLd = {
       name: 'DOGHAIR Technologies',
       description: 'Boutique design, technology and research studio, Mississauga, Ontario.',
       email: 'mailto:raymond@doghairtechnologies.com',
+      sameAs: [SOCIAL.doghairInstagram],
       founder: { '@id': `${siteUrl}/#person` },
     },
     {
@@ -100,7 +101,7 @@ const jsonLd = {
       '@id': `${siteUrl}/#petworking`,
       name: 'Petworking',
       url: SOCIAL.petworking,
-      sameAs: [SOCIAL.instagram],
+      sameAs: [SOCIAL.petworkingInstagram],
       founder: { '@id': `${siteUrl}/#person` },
       parentOrganization: { '@id': `${siteUrl}/#doghair` },
     },

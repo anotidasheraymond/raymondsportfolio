@@ -469,7 +469,11 @@ export function ContactPage({ side, folio }: { side: Side; folio: number }) {
         {CONTACT.emails.map((e) => <a key={e} href={CONTACT.mailto}>{e}</a>)}
         <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
         <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-        <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">Instagram · @thepetworkingapp ↗</a>
+        <span className="pp-socials">Instagram{' '}
+          <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">{SOCIAL.instagramHandle}</a>{' · '}
+          <a href={SOCIAL.doghairInstagram} target="_blank" rel="noopener noreferrer">{SOCIAL.doghairHandle}</a>{' · '}
+          <a href={SOCIAL.petworkingInstagram} target="_blank" rel="noopener noreferrer">{SOCIAL.petworkingHandle}</a>
+        </span>
         <a href={CONTACT.resume} download>Download resume ↓</a>
       </div>
       <div className="pp-label" style={{ marginTop: 14 }}>Best fit</div>

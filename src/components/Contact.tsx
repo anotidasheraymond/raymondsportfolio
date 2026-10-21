@@ -48,7 +48,11 @@ export default function Contact() {
             {CONTACT.emails.map((e) => <a key={e} href={CONTACT.mailto}>{e}</a>)}
             <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
             <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-            <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">Instagram · @thepetworkingapp ↗</a>
+            <span className="pp-socials">Instagram{' '}
+              <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">{SOCIAL.instagramHandle}</a>{' · '}
+              <a href={SOCIAL.doghairInstagram} target="_blank" rel="noopener noreferrer">{SOCIAL.doghairHandle}</a>{' · '}
+              <a href={SOCIAL.petworkingInstagram} target="_blank" rel="noopener noreferrer">{SOCIAL.petworkingHandle}</a>
+            </span>
             <span style={{ color: 'var(--tx-3)' }}>{CONTACT.location}</span>
           </div>
         </div>
