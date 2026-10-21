@@ -107,7 +107,7 @@ export function IdentityPage({ side, folio }: { side: Side; folio: number }) {
       </div>
       <div className="pp-id-grid">
         <div className="pp-photo">
-          <Image src="/img/u26.png" alt="Portrait of Raymond Chizanga" fill sizes="(max-width: 760px) 40vw, 180px" style={{ objectFit: 'cover', objectPosition: '50% 30%' }} priority />
+          <Image src="/img/passport/raymond-jeep.webp" alt="Raymond Chizanga standing in a white Jeep in the hills" fill sizes="(max-width: 760px) 40vw, 180px" style={{ objectFit: 'cover', objectPosition: '50% 38%' }} priority />
         </div>
         <div className="pp-id-fields">
           {IDENTITY.fields.map((f) => <Field key={f.k} k={f.k} v={f.v} />)}
@@ -119,7 +119,7 @@ export function IdentityPage({ side, folio }: { side: Side; folio: number }) {
         <p>{IDENTITY.words}</p>
       </div>
       <div className="pp-ghost" aria-hidden="true">
-        <Image src="/img/u26.png" alt="" fill sizes="60px" style={{ objectFit: 'cover', objectPosition: '50% 30%' }} />
+        <Image src="/img/passport/raymond-jeep.webp" alt="" fill sizes="60px" style={{ objectFit: 'cover', objectPosition: '50% 38%' }} />
       </div>
     </Paper>
   )
