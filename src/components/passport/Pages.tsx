@@ -406,7 +406,7 @@ export function EarlierPage({ side, folio, active }: { side: Side; folio: number
   )
 }
 
-export function SkillsPage({ side, folio }: { side: Side; folio: number }) {
+export function SkillsPage({ side, folio, active }: { side: Side; folio: number; active?: boolean }) {
   return (
     <Paper side={side} folio={folio} head={['Endorsements', 'Skills']} className="pp-skills">
       {SKILL_GROUPS.map((g) => <Field key={g.k} k={g.k} v={g.v} />)}
@@ -414,7 +414,7 @@ export function SkillsPage({ side, folio }: { side: Side; folio: number }) {
       <div className="pp-rule" />
       <div className="pp-label">Physical computing & hardware prototyping</div>
       <div className="pp-hardware-card">
-        <OledDisplay />
+        <OledDisplay active={active} />
         <div className="pp-edu" style={{ marginTop: 6 }}>
           <b>{HARDWARE_PROJECT.name} — {HARDWARE_PROJECT.kind}</b>
           <span>{HARDWARE_PROJECT.text}</span>

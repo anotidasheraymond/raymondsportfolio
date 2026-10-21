@@ -136,6 +136,7 @@
   /* A spread must fit inside the actual viewport, including browser chrome
      and the book's shadow. The previous 44vw rule could still crop the right
      leaf on narrower desktop/tablet windows. */
+  --ph: min(calc(100vh - 176px), 780px, calc((100vw - 64px) / 1.408));
   --ph: min(calc(100dvh - 176px), 780px, calc((100vw - 64px) / 1.408));
   --pw: calc(var(--ph) * .704);
   perspective: 2800px;
@@ -198,7 +199,7 @@
 .pp-book:not(.is-open) .pp-leaf.is-cover { cursor: pointer; }
 .pp-book:not(.is-open) .pp-leaf.is-cover:hover { transform: rotateY(-9deg); }
 .pp-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.pp-face[aria-hidden="true"] { content-visibility: hidden; contain: strict; }
+.pp-face[aria-hidden="true"] { pointer-events: none; }
 .pp-back { transform: rotateY(180deg); }
 
 /* ---------- cover ---------- */
@@ -566,17 +567,16 @@
   gap: 4px;
   font-size: 8px;
 }
+@keyframes oledPulse {
+  0%, 49% { background: #ffe642; box-shadow: 0 0 4px #ffe642; }
+  50%, 100% { background: #555; box-shadow: none; }
+}
 .pp-oled-dot {
   display: inline-block;
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #555;
-  transition: background .1s;
-}
-.pp-oled-dot.is-on {
-  background: #ffe642;
-  box-shadow: 0 0 4px #ffe642;
+  animation: oledPulse 1s steps(1) infinite;
 }
 .pp-oled-cyan-body {
   flex: 1;
@@ -811,7 +811,7 @@
   .pp-track::-webkit-scrollbar { display: none; }
   .pp-single.is-open .pp-track { opacity: 1; }
   .pp-slide { position: relative; flex: 0 0 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; }
-  .pp-slide[aria-hidden="true"] .pp-slide-page { visibility: hidden; }
+  .pp-slide[aria-hidden="true"] { pointer-events: none; }
   .pp-slide-page { position: absolute; inset: 0; }
   .pp-single-cover {
     position: absolute; inset: 0; z-index: 2; cursor: pointer;

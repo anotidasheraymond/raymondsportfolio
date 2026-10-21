@@ -4,23 +4,24 @@ import { useEffect, useState, useRef } from 'react'
 
 type Mode = 'servo' | 'telemetry' | 'diag'
 
-export default function OledDisplay() {
+export default function OledDisplay({ active = true }: { active?: boolean }) {
   const [mode, setMode] = useState<Mode>('servo')
   const [angle, setAngle] = useState(45)
-  const [frame, setFrame] = useState(0)
   const animRef = useRef<number>(0)
-  const startRef = useRef<number>(0)
 
   useEffect(() => {
+    if (!active) return
+
     let forward = true
     let currentAngle = 45
+    let lastReportedAngle = 45
     let lastTime = performance.now()
 
     const loop = (now: number) => {
-      const dt = (now - lastTime) / 1000
+      const dt = Math.min(0.1, (now - lastTime) / 1000)
       lastTime = now
 
-      // Smooth servo sweep: 15° to 165° at ~45 deg/sec
+      // Smooth servo sweep: 15° to 165° at ~48 deg/sec
       if (forward) {
         currentAngle += 48 * dt
         if (currentAngle >= 165) {
@@ -35,14 +36,17 @@ export default function OledDisplay() {
         }
       }
 
-      setAngle(Math.round(currentAngle))
-      setFrame((f) => f + 1)
+      const rounded = Math.round(currentAngle)
+      if (rounded !== lastReportedAngle) {
+        lastReportedAngle = rounded
+        setAngle(rounded)
+      }
       animRef.current = requestAnimationFrame(loop)
     }
 
     animRef.current = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(animRef.current)
-  }, [])
+  }, [active])
 
   const toggleMode = () => {
     setMode((m) => (m === 'servo' ? 'telemetry' : m === 'telemetry' ? 'diag' : 'servo'))
@@ -89,7 +93,7 @@ export default function OledDisplay() {
           <div className="pp-oled-yellow-bar">
             <span className="pp-oled-title">ESP32 · {mode.toUpperCase()}</span>
             <span className="pp-oled-heartbeat">
-              <span className={`pp-oled-dot${frame % 30 < 15 ? ' is-on' : ''}`} />
+              <span className="pp-oled-dot" />
               {mode === 'servo' ? `${angle}°` : mode === 'telemetry' ? '3.3V' : '115200'}
             </span>
           </div>

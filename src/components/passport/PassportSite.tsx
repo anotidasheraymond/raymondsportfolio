@@ -57,7 +57,7 @@ function renderPage(i: number, side: Side, active: boolean, open: Opener): React
     case 21: return <EarlierPage side={side} folio={folio} active={active} />
     case 22: return <IndependentPage ids={['pretty', 'crane']} head="Video & campaigns" side={side} folio={folio} open={open} />
     case 23: return <IndependentPage ids={['vineland']} head="Photography" side={side} folio={folio} open={open} />
-    case 24: return <SkillsPage side={side} folio={folio} />
+    case 24: return <SkillsPage side={side} folio={folio} active={active} />
     case 25: return <ContactPage side={side} folio={folio} />
     default: return null
   }
@@ -132,10 +132,15 @@ function FlipBook({ opened, page, open, onCoverClick, onSwipe }: { opened: boole
   }, [flipped])
 
   const leaves = useMemo(() => Array.from({ length: LEAF_COUNT }, (_, i) => {
-    const front = i === 0 ? <Cover /> : renderPage(2 * i - 1, 'right', flipped === i, open)
-    const back = i === LEAF_COUNT - 1 ? <Endpaper side="left" /> : renderPage(2 * i, 'left', flipped === i + 1, open)
+    const isNearby = Math.abs(i - flipped) <= 2 || moving.has(i) || (i === 0 && !opened)
+    const front = isNearby
+      ? (i === 0 ? <Cover /> : renderPage(2 * i - 1, 'right', flipped === i, open))
+      : <div className="pp-paper pp-right" />
+    const back = isNearby
+      ? (i === LEAF_COUNT - 1 ? <Endpaper side="left" /> : renderPage(2 * i, 'left', flipped === i + 1, open))
+      : <div className="pp-paper pp-left" />
     return { front, back }
-  }), [flipped, open])
+  }), [flipped, open, opened, moving])
 
   // Touch swipe for tablets in spread mode.
   const start = useRef<{ x: number; y: number } | null>(null)
@@ -271,11 +276,16 @@ function SingleBook({
         aria-hidden={!opened}
         style={{ transform: `translate3d(${-page * 100}%, 0, 0)` }}
       >
-        {Array.from({ length: PAGE_COUNT }, (_, i) => (
-          <div key={i} className="pp-slide" inert={opened && i !== page} aria-hidden={opened && i !== page}>
-            <div className="pp-slide-page">{renderPage(i, 'right', opened && i === page, open)}</div>
-          </div>
-        ))}
+        {Array.from({ length: PAGE_COUNT }, (_, i) => {
+          const isNearby = Math.abs(i - page) <= 2
+          return (
+            <div key={i} className="pp-slide" inert={opened && i !== page} aria-hidden={opened && i !== page}>
+              <div className="pp-slide-page">
+                {isNearby ? renderPage(i, 'right', opened && i === page, open) : <div className="pp-paper pp-right" />}
+              </div>
+            </div>
+          )
+        })}
       </div>
       <div
         className="pp-single-cover"
