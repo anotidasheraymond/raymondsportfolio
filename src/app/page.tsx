@@ -1,4 +1,5 @@
 import { Space_Grotesk, IBM_Plex_Mono } from 'next/font/google'
+import type { Metadata } from 'next'
 import PassportSite from '@/components/passport/PassportSite'
 
 // Passport faces: Space Grotesk + IBM Plex Mono are the Petworking passport
@@ -8,6 +9,8 @@ const sans = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '
 const mono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400', '500', '600'], display: 'swap', variable: '--pp-mono' })
 
 export const dynamic = 'force-static'
+
+export const metadata: Metadata = { alternates: { canonical: '/' } }
 
 export default function Page() {
   return (

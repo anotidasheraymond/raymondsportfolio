@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import IntroCurtain from '@/components/IntroCurtain'
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
@@ -13,6 +14,12 @@ import Contact from '@/components/Contact'
 import { OPTIONS } from '@/lib/content'
 
 export const dynamic = 'force-static'
+
+export const metadata: Metadata = {
+  title: 'Portfolio, text version',
+  description: 'The full text of Raymond Chizanga’s portfolio: selected work, case studies, video, experience and contact, without the interactive passport.',
+  alternates: { canonical: '/classic' },
+}
 
 export default function Page() {
   return (

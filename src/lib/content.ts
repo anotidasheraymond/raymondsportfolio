@@ -315,10 +315,13 @@ export const BEST_FIT = [
 ]
 
 export const HERO_LEDE =
-  'Marketing specialist and creative director. Seven-plus years of customer communication, design, video and studio production — most recently running an entire marketing function solo at a short-term-rental SaaS.'
+  'Integrated marketing, brand and community professional with 7+ years across SaaS, ecommerce and consumer brands. Senior Marketing Consultant through DOGHAIR Technologies; grew Hostfully’s social audience 235%.'
 
 export const CONTACT = {
   email: 'rc.chizanga@gmail.com',
+  // Every contact link writes to both inboxes: personal and DOGHAIR Technologies.
+  emails: ['rc.chizanga@gmail.com', 'raymond@doghairtechnologies.com'],
+  mailto: 'mailto:rc.chizanga@gmail.com,raymond@doghairtechnologies.com',
   phone: '(437) 441-9955',
   phoneHref: 'tel:+14374419955',
   location: 'Mississauga, ON · Canada',

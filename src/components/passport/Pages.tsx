@@ -466,7 +466,7 @@ export function ContactPage({ side, folio }: { side: Side; folio: number }) {
       <h3 className="pp-contact-big">Let’s work<br />together.</h3>
       <p className="pp-contact-note">Fastest route is email.</p>
       <div className="pp-contact-links">
-        <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+        {CONTACT.emails.map((e) => <a key={e} href={CONTACT.mailto}>{e}</a>)}
         <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
         <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
         <a href={CONTACT.resume} download>Download resume ↓</a>

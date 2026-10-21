@@ -45,7 +45,7 @@ export default function Contact() {
           </div>
 
           <div className="contact-lines">
-            <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+            {CONTACT.emails.map((e) => <a key={e} href={CONTACT.mailto}>{e}</a>)}
             <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
             <span style={{ color: 'var(--tx-3)' }}>{CONTACT.location}</span>
           </div>
