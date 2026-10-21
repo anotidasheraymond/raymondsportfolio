@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Bebas_Neue, Antonio, Newsreader, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { HERO_LEDE, CONTACT } from '@/lib/content'
+import { HERO_LEDE, CONTACT, SOCIAL } from '@/lib/content'
 import './globals.css'
 
 const display = Bebas_Neue({ subsets: ['latin'], weight: '400', display: 'swap', variable: '--font-display' })
@@ -72,7 +72,8 @@ const jsonLd = {
       email: CONTACT.emails.map((e) => `mailto:${e}`),
       telephone: '+1-437-441-9955',
       address: { '@type': 'PostalAddress', addressLocality: 'Mississauga', addressRegion: 'ON', addressCountry: 'CA' },
-      worksFor: { '@type': 'Organization', name: 'DOGHAIR Technologies', email: 'mailto:raymond@doghairtechnologies.com' },
+      worksFor: { '@id': `${siteUrl}/#doghair` },
+      founder: [{ '@id': `${siteUrl}/#doghair` }, { '@id': `${siteUrl}/#petworking` }],
       hasOccupation: {
         '@type': 'Occupation',
         name: 'Integrated Marketing, Brand & Community',
@@ -84,7 +85,24 @@ const jsonLd = {
         'Answer engine optimization', 'Email and lifecycle marketing', 'Partner marketing', 'Review and reputation management',
         'Customer advocacy', 'Video production', 'Event production', 'Salesforce', 'HubSpot', 'Shopify', 'Figma',
       ],
-      sameAs: ['https://www.linkedin.com/in/raymond-chizanga-443175149/'],
+      sameAs: [SOCIAL.linkedin],
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#doghair`,
+      name: 'DOGHAIR Technologies',
+      description: 'Boutique design, technology and research studio, Mississauga, Ontario.',
+      email: 'mailto:raymond@doghairtechnologies.com',
+      founder: { '@id': `${siteUrl}/#person` },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#petworking`,
+      name: 'Petworking',
+      url: SOCIAL.petworking,
+      sameAs: [SOCIAL.instagram],
+      founder: { '@id': `${siteUrl}/#person` },
+      parentOrganization: { '@id': `${siteUrl}/#doghair` },
     },
   ],
 }

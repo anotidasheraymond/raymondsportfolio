@@ -430,7 +430,7 @@
 .pp-contact-big { font-size: clamp(28px, 10.4cqw, 56px); font-weight: 700; letter-spacing: -.04em; line-height: .94; color: var(--ox); margin-top: 1cqw; }
 .pp-contact-note { font-size: clamp(11px, 2.7cqw, 15px); color: var(--ink-2); margin: 2.6cqw 0 3cqw; }
 .pp-contact-links { display: flex; flex-direction: column; }
-.pp-contact-links a { font-family: var(--pp-mono), monospace; font-size: clamp(10.5px, 2.65cqw, 14.5px); padding: 1.9cqw 0; border-bottom: 1px solid var(--rule); transition: color .2s, padding .2s; }
+.pp-contact-links a { font-family: var(--pp-mono), monospace; font-size: clamp(10.5px, 2.65cqw, 14.5px); padding: 1.5cqw 0; border-bottom: 1px solid var(--rule); transition: color .2s, padding .2s; }
 .pp-contact-links a:hover { color: var(--terra); padding-left: 1.2cqw; }
 .pp-sign { margin-top: auto; padding-top: 5cqw; display: flex; flex-direction: column; gap: 4px; }
 .pp-sign-name {

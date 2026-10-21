@@ -328,6 +328,13 @@ export const CONTACT = {
   resume: '/Raymond-Chizanga-Resume-2026.pdf',
 }
 
+// Verified accounts only: LinkedIn from Raymond's resume, Instagram from his Meta Accounts Center.
+export const SOCIAL = {
+  linkedin: 'https://www.linkedin.com/in/raymond-chizanga-443175149/',
+  instagram: 'https://www.instagram.com/thepetworkingapp/', // Petworking's account
+  petworking: 'https://petworking.pet',
+}
+
 export type Panel = {
   label: string
   lede: string

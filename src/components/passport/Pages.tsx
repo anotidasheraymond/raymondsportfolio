@@ -7,7 +7,7 @@ import {
   IDENTITY, VISAS, EARLIER, EDUCATION_LINE, PROJECT_LINE, SKILL_GROUPS, EXTRA_SHOTS, DFCC_BEFORE_AFTER, JUNCTION_HOUSE, LINKEDIN, mrz,
   type Visa,
 } from '@/lib/passport'
-import { WORKS, STATS, STUDIES, FILMS, REELS, CONTACT, BEST_FIT } from '@/lib/content'
+import { WORKS, STATS, STUDIES, FILMS, REELS, CONTACT, BEST_FIT, SOCIAL } from '@/lib/content'
 
 export type Side = 'left' | 'right'
 export type Opener = {
@@ -469,6 +469,7 @@ export function ContactPage({ side, folio }: { side: Side; folio: number }) {
         {CONTACT.emails.map((e) => <a key={e} href={CONTACT.mailto}>{e}</a>)}
         <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
         <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">Instagram · @thepetworkingapp ↗</a>
         <a href={CONTACT.resume} download>Download resume ↓</a>
       </div>
       <div className="pp-label" style={{ marginTop: 14 }}>Best fit</div>

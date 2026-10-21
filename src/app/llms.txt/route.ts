@@ -1,5 +1,5 @@
 import { VISAS, EARLIER, SKILL_GROUPS, PROJECT_LINE } from '@/lib/passport'
-import { CONTACT, HERO_LEDE, STATS, STUDIES, WORKS } from '@/lib/content'
+import { CONTACT, HERO_LEDE, STATS, STUDIES, WORKS, SOCIAL } from '@/lib/content'
 
 // A plain-text profile for answer engines (llmstxt.org), built from the same data the site
 // renders, so it can never say more than the pages do.
@@ -19,7 +19,9 @@ export function GET() {
     `- Email: ${CONTACT.emails.join(' and ')}`,
     `- Phone: ${CONTACT.phone}`,
     `- Resume: ${site}${CONTACT.resume}`,
-    '- LinkedIn: https://www.linkedin.com/in/raymond-chizanga-443175149/',
+    `- LinkedIn: ${SOCIAL.linkedin}`,
+    `- Instagram (Petworking): ${SOCIAL.instagram}`,
+    `- Petworking: ${SOCIAL.petworking}`,
     '',
     '## Results',
     ...STATS.map((s) => `- ${s.final}: ${s.label} (Hostfully)`),

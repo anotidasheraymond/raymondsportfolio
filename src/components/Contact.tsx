@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { CONTACT, BEST_FIT, AVAILABILITY_NOTE } from '@/lib/content'
+import { CONTACT, BEST_FIT, AVAILABILITY_NOTE, SOCIAL } from '@/lib/content'
 
 export default function Contact() {
   const [copied, setCopied] = useState(false)
@@ -47,6 +47,8 @@ export default function Contact() {
           <div className="contact-lines">
             {CONTACT.emails.map((e) => <a key={e} href={CONTACT.mailto}>{e}</a>)}
             <a href={CONTACT.phoneHref}>{CONTACT.phone}</a>
+            <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">Instagram · @thepetworkingapp ↗</a>
             <span style={{ color: 'var(--tx-3)' }}>{CONTACT.location}</span>
           </div>
         </div>
