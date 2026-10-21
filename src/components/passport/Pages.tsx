@@ -221,6 +221,24 @@ export function BeforeAfterPage({ side, folio, open }: { side: Side; folio: numb
   )
 }
 
+export function C54Visa({ side, folio, active, open }: { side: Side; folio: number; active: boolean; open: Opener }) {
+  const visa = VISAS.find((v) => v.id === 'c54')!
+  const caption = 'Community 54 event flyer · Finale Friday, Nov 24, 2017 · Highly Animated on the lineup'
+  return (
+    <VisaPage visa={visa} side={side} folio={folio} active={active}>
+      <button className="pp-attached" onClick={() => open.openImage('/img/passport/c54-finale-friday.jpg', caption)} aria-label="View the Finale Friday flyer">
+        <span className="pp-attached-img">
+          <Image src="/img/passport/c54-finale-friday.jpg" alt="Community 54 Finale Friday flyer, November 24, 2017" fill sizes="90px" style={{ objectFit: 'cover' }} />
+        </span>
+        <span className="pp-attached-text">
+          <span className="pp-label">Attached</span>
+          <span>Finale Friday flyer · Nov 24, 2017 · Highly Animated on the lineup</span>
+        </span>
+      </button>
+    </VisaPage>
+  )
+}
+
 /* ---------- Hostfully annexes ---------- */
 
 export function CampaignsPage({ side, folio, open }: { side: Side; folio: number; open: Opener }) {

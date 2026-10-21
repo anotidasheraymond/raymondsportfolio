@@ -7,7 +7,7 @@ import Word from './Lettering'
 import Overlay, { type OverlayState } from './Overlay'
 import {
   Cover, Endpaper, IdentityPage, VisaPage, HostfullyVisa, CampaignsPage, CaseFilesPage, MotionPage,
-  EarlierPage, SkillsPage, ContactPage, BeforeAfterPage, ContentsPage, StoriesPage, HoardPage, IndependentPage,
+  EarlierPage, SkillsPage, ContactPage, BeforeAfterPage, ContentsPage, StoriesPage, HoardPage, IndependentPage, C54Visa,
   type Side, type Opener,
 } from './Pages'
 import { VISAS } from '@/lib/passport'
@@ -71,7 +71,7 @@ function renderPage(i: number, side: Side, active: boolean, open: Opener): React
     case 9: return <StoriesPage side={side} folio={folio} open={open} />
     case 10: return <VisaPage visa={visa('hostaway')} side={side} folio={folio} active={active} />
     case 11: return <VisaPage visa={visa('shopify')} side={side} folio={folio} active={active} />
-    case 12: return <VisaPage visa={visa('c54')} side={side} folio={folio} active={active} />
+    case 12: return <C54Visa side={side} folio={folio} active={active} open={open} />
     case 13: return <EarlierPage side={side} folio={folio} active={active} />
     case 14: return <HoardPage side={side} folio={folio} open={open} />
     case 15: return <IndependentPage side={side} folio={folio} open={open} />

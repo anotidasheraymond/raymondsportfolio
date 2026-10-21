@@ -401,6 +401,13 @@
 .pp-toc-page { grid-column: 3; grid-row: 1; font-family: var(--pp-mono), monospace; font-size: clamp(9px, 2cqw, 11.5px); color: var(--label); }
 .pp-toc-sub { grid-column: 1 / -1; grid-row: 2; font-size: clamp(8.5px, 1.95cqw, 11px); color: var(--ink-2); margin-top: 1px; }
 
+/* an attached document on a visa */
+.pp-attached { display: flex; align-items: center; gap: 2.4cqw; margin-top: .8cqw; padding: 0; text-align: left; transition: transform .3s cubic-bezier(.34, 1.56, .64, 1); }
+.pp-attached:hover { transform: translateX(3px); }
+.pp-attached:hover .pp-attached-text span:last-child { color: var(--terra); }
+.pp-attached-img { position: relative; flex: none; width: 8cqw; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 2px; box-shadow: 0 3px 8px rgba(51, 37, 29, .25); transform: rotate(-4deg); }
+.pp-attached-text { display: flex; flex-direction: column; gap: 1px; font-size: clamp(9px, 2.05cqw, 11.5px); line-height: 1.35; color: var(--ink-2); }
+
 /* earlier entries: the app's stamps page, stamps placed rather than gridded */
 .pp-placed { position: relative; flex: none; width: 86%; margin: 0 auto; aspect-ratio: 325 / 382; }
 .pp-placed-stamp { position: absolute; aspect-ratio: 1; }
