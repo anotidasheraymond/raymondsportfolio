@@ -145,10 +145,10 @@ export type Venture = Visa & {
 export const VENTURES: Venture[] = [
   {
     id: 'doghair', no: 'F1', org: 'DOGHAIR Technologies', orgLine: 'Design, technology & research company',
-    title: 'Co-founder · CEO & Culture Architect',
+    title: 'Founder · CEO & Culture Architect',
     from: '2026', until: 'Present', place: 'Mississauga, ON', category: 'Founder · DOGHAIR Technologies Inc.',
     remarks: [
-      'Co-founded DOGHAIR Technologies Inc., “the world’s first triple-tiered boutique design, technology, and research” company, and lead it as CEO and Culture Architect.',
+      'Founded DOGHAIR Technologies Inc., “the world’s first triple-tiered boutique design, technology, and research” company, and lead it as CEO and Culture Architect.',
       'The umbrella company that owns the portfolio: makers of Petworking and The Hoard, with D.U.C.K AI, a first-party on-device language model, in development.',
       'Runs client work through the studio, including the Senior Marketing Consultant engagement with Durham Family & Cultural Centre.',
       'Shipped the company site at doghairtechnologies.com on Next.js and Vercel, with structured data naming both products.',
@@ -159,10 +159,9 @@ export const VENTURES: Venture[] = [
     ],
     chips: [
       { k: 'Slogan', v: 'Pushing the limits of magic and science' },
-      { k: 'Founders', v: 'Raymond Chizanga · Yuriy Leheta' },
       { k: 'Products', v: 'Petworking · The Hoard · D.U.C.K AI' },
     ],
-    stamp: { die: 'ticket', country: 'CA', ink: INK.bark, business: 'DOGHAIR Technologies', claim: 'Co-founder', location: 'Mississauga', year: '2026', rot: -4 },
+    stamp: { die: 'ticket', country: 'CA', ink: INK.bark, business: 'DOGHAIR Technologies', claim: 'Founder', location: 'Mississauga', year: '2026', rot: -4 },
   },
   {
     id: 'petworking', no: 'F2', org: 'Petworking', orgLine: 'All-in-one pet care network',

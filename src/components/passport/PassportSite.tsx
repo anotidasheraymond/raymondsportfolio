@@ -41,7 +41,7 @@ const CHAPTERS = [
   { label: 'Contact', page: 25 },
 ]
 const CONTENTS = [
-  { label: 'DOGHAIR Technologies', sub: 'Co-founder · CEO & Culture Architect · 2026', page: 2 },
+  { label: 'DOGHAIR Technologies', sub: 'Founder · CEO & Culture Architect · 2026', page: 2 },
   { label: 'Petworking', sub: 'Founder & CEO · pet care network in beta · 2026', page: 4 },
   { label: 'The Hoard', sub: 'Founder · fan network, web and App Store · 2026', page: 6 },
   { label: 'D.U.C.K AI', sub: 'On-device language model · in development', page: 8 },
