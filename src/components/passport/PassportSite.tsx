@@ -186,27 +186,90 @@ function FlipBook({ opened, page, open, onCoverClick, onSwipe }: { opened: boole
 
 /* ---------- phone: one page at a time ---------- */
 
-function SingleBook({ opened, page, open, onCoverClick, onPage }: { opened: boolean; page: number; open: Opener; onCoverClick: () => void; onPage: (i: number) => void }) {
-  const swipeStart = useRef<{ x: number; y: number } | null>(null)
+function SingleBook({
+  opened,
+  page,
+  open,
+  onCoverClick,
+  onPage,
+  onClose,
+}: {
+  opened: boolean
+  page: number
+  open: Opener
+  onCoverClick: () => void
+  onPage: (i: number) => void
+  onClose: () => void
+}) {
+  const touchStart = useRef<{ x: number; y: number; time: number } | null>(null)
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!opened || e.touches.length !== 1) return
+    const t = e.touches[0]
+    touchStart.current = { x: t.clientX, y: t.clientY, time: Date.now() }
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const start = touchStart.current
+    touchStart.current = null
+    if (!start || !opened || e.changedTouches.length === 0) return
+    const t = e.changedTouches[0]
+    const dx = t.clientX - start.x
+    const dy = t.clientY - start.y
+    const dt = Date.now() - start.time
+
+    // Reliable mobile swipe: quick flick (dt < 350ms, |dx| > 30px) or drag (> 45px)
+    // with horizontal motion clearly dominating vertical (|dx| > |dy| * 1.25)
+    const isFlick = dt < 350 && Math.abs(dx) > 30
+    const isDrag = Math.abs(dx) > 45
+    if ((isFlick || isDrag) && Math.abs(dx) > Math.abs(dy) * 1.25) {
+      if (dx < 0) {
+        // Swiping left -> next page
+        if (page < PAGE_COUNT - 1) onPage(page + 1)
+      } else {
+        // Swiping right -> previous page, or close on page 0
+        if (page === 0) onClose()
+        else onPage(page - 1)
+      }
+    }
+  }
+
+  // Pointer event fallback for mouse/desktop responsive emulator testing
+  const mouseStart = useRef<{ x: number; y: number } | null>(null)
+  const handlePointerDown = (e: React.PointerEvent) => {
+    if (e.pointerType === 'mouse' && opened) {
+      mouseStart.current = { x: e.clientX, y: e.clientY }
+    }
+  }
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (e.pointerType === 'mouse' && mouseStart.current && opened) {
+      const dx = e.clientX - mouseStart.current.x
+      const dy = e.clientY - mouseStart.current.y
+      mouseStart.current = null
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+        if (dx < 0) {
+          if (page < PAGE_COUNT - 1) onPage(page + 1)
+        } else {
+          if (page === 0) onClose()
+          else onPage(page - 1)
+        }
+      }
+    }
+  }
 
   return (
-    <div className={`pp-single${opened ? ' is-open' : ''}`}>
+    <div
+      className={`pp-single${opened ? ' is-open' : ''}`}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+    >
       <div
         className="pp-track"
         inert={!opened}
         aria-hidden={!opened}
         style={{ transform: `translate3d(${-page * 100}%, 0, 0)` }}
-        onPointerDown={(e) => { if (e.pointerType === 'touch') swipeStart.current = { x: e.clientX, y: e.clientY } }}
-        onPointerUp={(e) => {
-          const start = swipeStart.current
-          swipeStart.current = null
-          if (!start || !opened) return
-          const dx = e.clientX - start.x
-          const dy = e.clientY - start.y
-          if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) {
-            onPage(Math.max(0, Math.min(PAGE_COUNT - 1, page + (dx < 0 ? 1 : -1))))
-          }
-        }}
       >
         {Array.from({ length: PAGE_COUNT }, (_, i) => (
           <div key={i} className="pp-slide" inert={opened && i !== page} aria-hidden={opened && i !== page}>
@@ -214,7 +277,16 @@ function SingleBook({ opened, page, open, onCoverClick, onPage }: { opened: bool
           </div>
         ))}
       </div>
-      <div className="pp-single-cover" onClick={opened ? undefined : onCoverClick} inert={opened} aria-hidden={opened}>
+      <div
+        className="pp-single-cover"
+        onClick={opened ? undefined : onCoverClick}
+        role="button"
+        tabIndex={opened ? -1 : 0}
+        aria-label="Open passport"
+        onKeyDown={(e) => { if (!opened && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onCoverClick() } }}
+        inert={opened}
+        aria-hidden={opened}
+      >
         <Cover />
       </div>
     </div>
@@ -248,6 +320,10 @@ export default function PassportSite() {
 
   const step = useCallback((dir: 1 | -1) => {
     if (single) {
+      if (dir === -1 && page === 0) {
+        closeBook()
+        return
+      }
       setPage(Math.max(0, Math.min(PAGE_COUNT - 1, page + dir)))
       return
     }
@@ -296,8 +372,8 @@ export default function PassportSite() {
         <section className="pp-coin-stage" aria-label="Intro">
           <div className="pp-coin-kicker">Portfolio · {year}</div>
           <GlitchCoin size={single ? 236 : 320} year={year} charging={stage !== 'coin'} onActivate={activateCoin} />
-          <div className="pp-coin-hint">
-            <span>Drag to spin</span>
+          <div className="pp-coin-hint" onClick={activateCoin} style={{ cursor: 'pointer' }}>
+            <span>{single ? 'Tap or drag to open' : 'Drag to spin · Tap to open'}</span>
           </div>
         </section>
       )}
@@ -315,7 +391,7 @@ export default function PassportSite() {
 
         <div className="pp-book-wrap">
           {single ? (
-            <SingleBook opened={opened} page={page} open={opener} onCoverClick={openBook} onPage={setPage} />
+            <SingleBook opened={opened} page={page} open={opener} onCoverClick={openBook} onPage={setPage} onClose={closeBook} />
           ) : (
             <FlipBook opened={opened} page={page} open={opener} onCoverClick={openBook} onSwipe={step} />
           )}
@@ -326,7 +402,7 @@ export default function PassportSite() {
         )}
 
         <nav className={`pp-dock${opened ? ' is-on' : ''}`} aria-label="Passport pages" inert={!opened}>
-          <button className="pp-arrow" onClick={() => step(-1)} aria-label={!single && spreadFirst === 0 ? 'Close passport' : 'Previous page'}>←</button>
+          <button className="pp-arrow" onClick={() => step(-1)} aria-label={(single ? page === 0 : spreadFirst === 0) ? 'Close passport' : 'Previous page'}>←</button>
           <span className="pp-pageno" aria-live="polite">Page {pageLabel} <span className="pp-dim">/ {PAGE_COUNT}</span></span>
           <button className="pp-arrow" onClick={() => step(1)} disabled={atEnd} aria-label="Next page">→</button>
           <button className="pp-shut" onClick={closeBook}>Close</button>

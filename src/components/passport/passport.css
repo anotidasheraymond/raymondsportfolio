@@ -577,16 +577,21 @@
   .pp-single-cover { transition-duration: .55s; }
   .pp-coin-stage .holoScan { animation-duration: 1.8s; opacity: .2; }
   .pp-coin-stage .coinGlitchR, .pp-coin-stage .coinGlitchC { display: none; }
-  .pp-coin-stage .pp-coin { filter: drop-shadow(0 8px 18px rgba(0,0,0,.32)) !important; }
+  .pp-coin-stage .pp-coin { filter: drop-shadow(0 8px 18px rgba(0,0,0,.32)); }
+
+  /* Safe areas & view sizing */
+  .pp-top {
+    padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 12px;
+  }
+  .pp-top-links { gap: 14px; }
+
   /* Phones trade the exact ID-3 proportion for reading height. */
   .pp-book-wrap {
     --pw: min(92vw, 440px);
-    --ph: min(calc(100dvh - 148px), calc(var(--pw) * 1.8));
+    --ph: min(calc(100dvh - 136px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)), calc(var(--pw) * 1.76));
     perspective: 2000px;
-    margin-top: 8px;
+    margin-top: 4px;
   }
-  .pp-top { padding: 12px 16px; }
-  .pp-top-links { gap: 14px; }
   .pp-single { position: relative; width: var(--pw); height: var(--ph); }
   .pp-track {
     position: absolute; inset: 0;
@@ -595,23 +600,99 @@
     border-radius: 0 6px 6px 0;
     box-shadow: 0 24px 50px rgba(51, 37, 29, .22);
     opacity: 0; transition: opacity .45s ease .35s, transform .48s var(--turn);
+    touch-action: pan-y;
   }
   .pp-track::-webkit-scrollbar { display: none; }
   .pp-single.is-open .pp-track { opacity: 1; }
-  .pp-slide { position: relative; flex: 0 0 100%; scroll-snap-align: start; scroll-snap-stop: always; }
+  .pp-slide { position: relative; flex: 0 0 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; }
   .pp-slide[aria-hidden="true"] .pp-slide-page { visibility: hidden; }
   .pp-slide-page { position: absolute; inset: 0; }
   .pp-single-cover {
     position: absolute; inset: 0; z-index: 2; cursor: pointer;
     transform-origin: left center;
     transition: transform .95s var(--turn), opacity .35s ease .55s;
+    touch-action: manipulation;
   }
   .pp-single.is-open .pp-single-cover { transform: rotateY(-118deg); opacity: 0; pointer-events: none; }
   .pp-stamp.is-in { animation-delay: .3s; }
-  .pp-dock { gap: 2px; padding: 4px; }
-  .pp-arrow { width: 34px; height: 34px; }
-  .pp-shut { display: none; }
+
+  /* Body vertical scrolling on mobile so all rich content is readable */
+  .pp-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
+    padding: 3.5cqw 6cqw calc(6cqw + 24px) !important;
+  }
+  .pp-body.has-mrz {
+    padding-bottom: 3.5cqw !important;
+  }
+  .pp-body::-webkit-scrollbar {
+    width: 3px;
+  }
+  .pp-body::-webkit-scrollbar-thumb {
+    background: rgba(92, 74, 61, 0.22);
+    border-radius: 3px;
+  }
+
+  /* Identity page layout tuning for phone screens */
+  .pp-id-grid {
+    grid-template-columns: 38% 1fr;
+    gap: 4cqw;
+    margin-top: 3.5cqw;
+  }
+  .pp-name {
+    font-size: clamp(22px, 7.2cqw, 32px);
+  }
+
+  /* Stats grid on Hostfully page: 2x2 for comfortable reading */
+  .pp-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    margin-top: 2cqw;
+  }
+  .pp-stats div {
+    padding: 2.2cqw 2cqw;
+  }
+
+  /* Open CTA & Dock safe-area positioning */
+  .pp-open-cta {
+    background: rgba(253, 250, 241, .88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    bottom: calc(clamp(16px, 3.5vh, 28px) + env(safe-area-inset-bottom, 0px));
+  }
+  .pp-dock {
+    gap: 4px;
+    padding: 5px 8px;
+    bottom: calc(clamp(10px, 2.2vh, 20px) + env(safe-area-inset-bottom, 0px));
+  }
+  .pp-arrow { width: 36px; height: 36px; font-size: 15px; }
+  .pp-shut {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ox);
+    border-left: 1px solid var(--rule);
+    margin-left: 2px;
+  }
   .pp-dossier-imgs { grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  /* Overlays on mobile */
+  .pp-close {
+    top: calc(12px + env(safe-area-inset-top, 0px));
+    right: calc(14px + env(safe-area-inset-right, 0px));
+  }
+  .pp-overlay {
+    padding: calc(5vh + env(safe-area-inset-top, 0px)) 12px calc(5vh + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 /* ---------- keyframes ---------- */

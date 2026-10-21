@@ -18,11 +18,8 @@ export default function BeforeAfterCarousel({ onOpen }: { onOpen: (src: string, 
     if (el && box) box.scrollTo({ left: el.offsetLeft - box.clientWidth / 2 + el.clientWidth / 2, behavior: 'smooth' })
   }, [i])
 
-  // Swipes here move the carousel, not the passport.
-  const stop = (e: React.PointerEvent) => e.stopPropagation()
-
   return (
-    <div className="pp-bac" onPointerDown={stop} onPointerUp={stop}>
+    <div className="pp-bac">
       <div className="pp-bac-stage">
         <button className="pp-bac-slide" onClick={() => onOpen(s.src, `Durham FCC · ${s.caption} · before / after`)} aria-label={`View ${s.caption} before and after, full screen`}>
           <Image key={s.src} src={s.src} alt={`${s.caption}: durhamfcc.org before and after`} fill unoptimized priority style={{ objectFit: 'contain' }} />

@@ -1,9 +1,15 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Bebas_Neue, Antonio, Newsreader, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { HERO_LEDE, CONTACT, SOCIAL } from '@/lib/content'
 import './globals.css'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+}
 
 const display = Bebas_Neue({ subsets: ['latin'], weight: '400', display: 'swap', variable: '--font-display' })
 const cond = Antonio({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], display: 'swap', variable: '--font-cond' })

@@ -118,7 +118,7 @@ export default function GlitchCoin({ size, year, face = 'portfolio', charging = 
     }
     raf = requestAnimationFrame(step)
 
-    // Drag spins the coin; a tap (barely any travel) opens the portfolio.
+    // Drag spins the coin; a tap opens the portfolio.
     let px = 0, py = 0, lastDx = 0, travel = 0
     const down = (e: PointerEvent) => {
       if (s.charging) return
@@ -137,11 +137,14 @@ export default function GlitchCoin({ size, year, face = 'portfolio', charging = 
       lastDx = dx
       apply()
     }
-    const up = () => {
+    const up = (e?: PointerEvent) => {
       if (!s.drag) return
       s.drag = false
       node.classList.remove('dragging')
-      if (travel < 6 && activate.current) { s.vel = 2; activate.current(); return }
+      if (e && e.pointerId !== undefined) {
+        try { stage.releasePointerCapture(e.pointerId) } catch { /* noop */ }
+      }
+      if (travel < 16 && activate.current) { s.vel = 2; activate.current(); return }
       s.vel = Math.max(-1500, Math.min(1500, lastDx * 90)) || idle
       // A finished drag is also an intentional reveal: keep the release velocity
       // and let the charging/burst sequence grow naturally out of the spin.
@@ -150,11 +153,13 @@ export default function GlitchCoin({ size, year, face = 'portfolio', charging = 
     stage.addEventListener('pointerdown', down)
     window.addEventListener('pointermove', move)
     window.addEventListener('pointerup', up)
+    window.addEventListener('pointercancel', up)
     return () => {
       cancelAnimationFrame(raf)
       stage.removeEventListener('pointerdown', down)
       window.removeEventListener('pointermove', move)
       window.removeEventListener('pointerup', up)
+      window.removeEventListener('pointercancel', up)
     }
   }, [])
 
@@ -173,18 +178,23 @@ export default function GlitchCoin({ size, year, face = 'portfolio', charging = 
   return (
     <div
       className={`coinPop pp-coin${charging ? ' is-charging' : ''}${face === 'hoard' ? ' is-hoard' : ''}`}
+      onClick={() => {
+        if (!st.current.charging && activate.current) {
+          activate.current()
+        }
+      }}
       {...(onActivate ? {
         role: 'button',
         tabIndex: 0,
         'aria-label': `Raymond Chizanga ${year} coin. Open the portfolio passport.`,
         onKeyDown: (e: React.KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onActivate() } },
       } : { role: 'img', 'aria-label': `The Hoard founding coin, ${year}. Drag to spin.` })}
-      style={{ width: size, height: size, position: 'relative', filter: `drop-shadow(0 ${size * 0.07}px ${size * 0.11}px rgba(0,0,0,.45)) drop-shadow(0 0 ${size * 0.11}px ${M.glow})` }}
+      style={{ width: size, height: size, position: 'relative', touchAction: 'none', filter: `drop-shadow(0 ${size * 0.07}px ${size * 0.11}px rgba(0,0,0,.45)) drop-shadow(0 0 ${size * 0.11}px ${M.glow})` }}
     >
       <div className="coinFloat holoFlicker" style={{ position: 'absolute', inset: 0 }}>
-        <div ref={stageRef} style={{ position: 'absolute', inset: 0, perspective: `${size * 4}px` }}>
+        <div ref={stageRef} style={{ position: 'absolute', inset: 0, perspective: `${size * 4}px`, touchAction: 'none' }}>
           <div className="pp-coin-halo" style={{ position: 'absolute', inset: '-16%', borderRadius: '50%', background: `radial-gradient(circle, ${M.glow}, transparent 70%)`, filter: 'blur(8px)', pointerEvents: 'none' }} />
-          <div ref={spinRef} className="coin3d" style={{ position: 'absolute', inset: 0, transformStyle: 'preserve-3d' }}>
+          <div ref={spinRef} className="coin3d" style={{ position: 'absolute', inset: 0, transformStyle: 'preserve-3d', touchAction: 'none' }}>
             <div style={{ position: 'absolute', inset: 0, transform: `translateZ(${d / 2}px)`, backfaceVisibility: 'hidden' }}>
               <FaceStack size={size} year={year} face={face} />
             </div>
