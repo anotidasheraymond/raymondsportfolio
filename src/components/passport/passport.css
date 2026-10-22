@@ -968,7 +968,7 @@
 .pp-model-duck { width: 100%; height: 42cqw; flex: none; margin: -1cqw 0 0; background: transparent; border: 0; box-shadow: none; overflow: visible; }
 .pp-duck-canvas { width: 100%; height: 100%; display: block; overflow: visible; }
 .pp-credit { margin-top: auto; padding-top: 2cqw; font-family: var(--pp-mono), monospace; font-size: clamp(7.5px, 1.6cqw, 9.5px); color: var(--label); }
-.pp-project.is-solo .pp-proj-shots { grid-template-columns: repeat(4, 1fr); }
+.pp-project.is-solo .pp-proj-shots { grid-template-columns: repeat(3, 1fr); gap: 2cqw; }
 .pp-contents .pp-annex-title h3 { font-size: clamp(16px, 4.6cqw, 26px); }
 .pp-contents .pp-annex-title p { margin: 1cqw 0 2cqw; }
 .pp-contents .pp-toc button { padding: .5cqw 0; }

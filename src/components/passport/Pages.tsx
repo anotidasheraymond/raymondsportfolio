@@ -432,16 +432,10 @@ export function HardwarePage({ side, folio, active }: { side: Side; folio: numbe
 
       <div className="pp-rule" style={{ margin: '2.4cqw 0 1.8cqw' }} />
       <div className="pp-label">Studies & credentials</div>
-      <div className="pp-edu">
+      <div className="pp-edu" style={{ marginTop: 4 }}>
         <b>{EDUCATION_LINE.program}</b>
         <span>{EDUCATION_LINE.school} · {EDUCATION_LINE.year} · GPA {EDUCATION_LINE.gpa}</span>
         <span>{EDUCATION_LINE.credentials}</span>
-      </div>
-
-      <div className="pp-label" style={{ marginTop: '2cqw' }}>Media & brand project</div>
-      <div className="pp-edu">
-        <b>{PROJECT_LINE.name} — {PROJECT_LINE.kind}</b>
-        <span>{PROJECT_LINE.text}</span>
       </div>
     </Paper>
   )
