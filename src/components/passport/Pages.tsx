@@ -229,7 +229,7 @@ export function C54Visa({ side, folio, active, open }: { side: Side; folio: numb
 /* ---------- Hostfully annexes ---------- */
 
 export function CampaignsPage({ side, folio, open }: { side: Side; folio: number; open: Opener }) {
-  const shots = [...(WORKS[0].shots ?? []), ...EXTRA_SHOTS]
+  const shots = [...(WORKS[0].shots ?? []), ...EXTRA_SHOTS].slice(0, 9)
   return (
     <Paper side={side} folio={folio} head={['Annex A · Campaigns', 'Hostfully']} className="pp-annex">
       <div className="pp-annex-title">
@@ -239,7 +239,7 @@ export function CampaignsPage({ side, folio, open }: { side: Side; folio: number
       <div className="pp-thumbs">
         {shots.map((s) => (
           <button key={s.src} className="pp-thumb" onClick={() => open.openImage(s.src, s.caption)} aria-label={`View ${s.caption}`}>
-            <Image src={s.src} alt={s.caption} fill sizes="(max-width: 760px) 30vw, 140px" style={{ objectFit: 'cover' }} />
+            <Image src={s.src} alt={s.caption} fill unoptimized style={{ objectFit: 'cover' }} />
           </button>
         ))}
       </div>
@@ -351,7 +351,7 @@ export function IndependentPage({ ids, head, side, folio, open }: { ids: string[
               <div className="pp-proj-shots">
                 {w.shots.slice(0, solo ? 8 : 4).map((s) => (
                   <button key={s.src} className="pp-thumb" onClick={() => open.openImage(s.src, `${w.title} · ${s.caption}`)} aria-label={`View ${s.caption}`}>
-                    <Image src={s.src} alt={s.caption} fill sizes="(max-width: 760px) 20vw, 90px" style={{ objectFit: 'cover' }} />
+                    <Image src={s.src} alt={s.caption} fill unoptimized style={{ objectFit: 'cover' }} />
                   </button>
                 ))}
               </div>
@@ -406,20 +406,22 @@ export function EarlierPage({ side, folio, active }: { side: Side; folio: number
   )
 }
 
-export function SkillsPage({ side, folio, active }: { side: Side; folio: number; active?: boolean }) {
+export function HardwarePage({ side, folio, active }: { side: Side; folio: number; active?: boolean }) {
   return (
-    <Paper side={side} folio={folio} head={['Endorsements', 'Skills']} className="pp-skills">
-      {SKILL_GROUPS.map((g) => <Field key={g.k} k={g.k} v={g.v} />)}
+    <Paper side={side} folio={folio} head={['Endorsements', 'Hardware & Studies']} className="pp-annex pp-hardware-page">
+      <div className="pp-annex-title" style={{ marginBottom: '1.8cqw' }}>
+        <h3>Physical Computing & Studies</h3>
+        <p>Embedded systems prototyping, audio engineering & credentials.</p>
+      </div>
 
-      <div className="pp-rule" />
       <div className="pp-label">Physical computing & hardware prototyping</div>
-      <div className="pp-hardware-card">
+      <div className="pp-hardware-card" style={{ marginTop: '0.8cqw' }}>
         <OledDisplay active={active} />
-        <div className="pp-edu" style={{ marginTop: 6 }}>
+        <div className="pp-edu" style={{ marginTop: 8 }}>
           <b>{HARDWARE_PROJECT.name} — {HARDWARE_PROJECT.kind}</b>
-          <span>{HARDWARE_PROJECT.text}</span>
+          <span style={{ marginTop: 3 }}>{HARDWARE_PROJECT.text}</span>
         </div>
-        <div className="pp-hardware-specs">
+        <div className="pp-hardware-specs" style={{ marginTop: 6 }}>
           {HARDWARE_PROJECT.specs.map((s) => (
             <span key={s.label} className="pp-hw-chip">
               <em>{s.label}</em> {s.val}
@@ -428,7 +430,7 @@ export function SkillsPage({ side, folio, active }: { side: Side; folio: number;
         </div>
       </div>
 
-      <div className="pp-rule" />
+      <div className="pp-rule" style={{ margin: '2.4cqw 0 1.8cqw' }} />
       <div className="pp-label">Studies & credentials</div>
       <div className="pp-edu">
         <b>{EDUCATION_LINE.program}</b>
@@ -436,10 +438,25 @@ export function SkillsPage({ side, folio, active }: { side: Side; folio: number;
         <span>{EDUCATION_LINE.credentials}</span>
       </div>
 
-      <div className="pp-label" style={{ marginTop: 10 }}>Media & brand project</div>
+      <div className="pp-label" style={{ marginTop: '2cqw' }}>Media & brand project</div>
       <div className="pp-edu">
         <b>{PROJECT_LINE.name} — {PROJECT_LINE.kind}</b>
         <span>{PROJECT_LINE.text}</span>
+      </div>
+    </Paper>
+  )
+}
+
+export function SkillsPage({ side, folio }: { side: Side; folio: number }) {
+  return (
+    <Paper side={side} folio={folio} head={['Endorsements', 'Skills']} className="pp-skills">
+      <div className="pp-skills-list">
+        {SKILL_GROUPS.map((g) => (
+          <div key={g.k} className="pp-skill-group">
+            <div className="pp-label">{g.k}</div>
+            <div className="pp-value">{g.v}</div>
+          </div>
+        ))}
       </div>
     </Paper>
   )

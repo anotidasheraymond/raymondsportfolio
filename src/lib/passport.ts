@@ -58,7 +58,7 @@ export const IDENTITY = {
   // Raymond's bio, verbatim as he gave it (2026-10-21).
   bio: [
     'I’m a multidisciplinary marketer, product builder, and entrepreneur with experience spanning technology, SaaS, media, partnerships, community, and product development.',
-    'My career has taken me from building my own media business to roles with Shopify, Hostaway, Hostfully, and Edsby, where I’ve worked across social media, content, partnerships, community marketing, SEO, AIO, customer marketing, events, and digital growth. I’ve developed campaigns and experiences for audiences ranging from emerging businesses and creators to global technology companies and their customers.',
+    'My career has taken me from building my own media business to roles with Shopify, Hostaway, and Hostfully, where I’ve worked across social media, content, partnerships, community marketing, SEO, AIO, customer marketing, events, and digital growth. I’ve developed campaigns and experiences for audiences ranging from emerging businesses and creators to global technology companies and their customers.',
     'Alongside my marketing career, I’ve brought two technology products to market. I founded The Hoard, a social and collection-management platform for collectors, and Petworking, a pet technology platform connecting pet parents, professionals, businesses, and rescues through shared animal records, business software, services, and commerce.',
     'Building these products has expanded my work beyond marketing into product strategy, software development, UX, go-to-market strategy, pricing, partnerships, customer acquisition, and business development. I’m especially interested in the point where product, technology, community, and marketing intersect.',
     'My background also includes Audio Engineering and Business Management studies at Metalworks Institute, alongside earlier experience as an independent artist and entrepreneur. That combination of creative, commercial, and technical experience continues to shape how I approach building products, brands, communities, and growth strategies.',
@@ -69,7 +69,7 @@ export const VISAS: Visa[] = [
   {
     id: 'dfcc', no: '01', org: 'Durham FCC', orgLine: 'Durham Family & Cultural Centre · charity',
     title: 'Senior Marketing Consultant',
-    from: 'Oct 2026', until: 'Present', place: 'Ajax, ON', category: 'Contract · DOGHAIR Technologies',
+    from: 'Oct 2026', until: 'Present', place: 'Ajax, ON', category: 'Contract · DOGHAIR Technologies',
     remarks: [
       'Engaged through DOGHAIR Technologies as Senior Marketing Consultant to Durham Family & Cultural Centre, a charity in Ajax serving Black and racialized families in Durham Region.',
       'Wrote the website assessment: crawled every live page (32 pages, 198 sitemap URLs), checked all 384 links and 211 images, and read the analytics — 79% bounce, ~76% of visitors on phones, ~63% arriving from Instagram and Facebook.',
@@ -79,19 +79,7 @@ export const VISAS: Visa[] = [
     stamp: { die: 'octagon', country: 'CA', ink: INK.terracotta, business: 'Durham FCC', claim: 'Consultant', date: '2026-10-11', year: '2026', rot: -6 },
   },
   {
-    id: 'edsby', no: '02', org: 'Edsby', orgLine: 'K-12 education technology',
-    title: 'Social Media & Content Marketing Consultant',
-    from: 'Sep 8, 2026', until: 'Sep 15, 2026', place: 'Hybrid', category: 'Contract · Consultant',
-    remarks: [
-      'Led social media, content marketing, SEO, AI-search optimization and digital growth for a K-12 education technology company serving districts, educators, students and families.',
-      'Owned multi-channel social and editorial strategy across LinkedIn, Instagram, Facebook, X, Bluesky, YouTube, Reddit, Quora and Medium, producing and repurposing written, visual and video content.',
-      'Developed foundational SEO and answer-engine visibility through keyword and topic strategy, on-page and technical SEO, internal linking, content architecture, FAQs, schema and indexing.',
-      'Monitored social, content, website and search performance while researching customer pain points, competitor positioning, K-12 trends and emerging conversations.',
-    ],
-    stamp: { die: 'circle', country: 'CA', ink: INK.navy, business: 'Edsby', claim: 'Content', location: 'Mississauga', year: '2026', rot: 5 },
-  },
-  {
-    id: 'hostfully', no: '03', org: 'Hostfully', orgLine: 'Short-term-rental SaaS',
+    id: 'hostfully', no: '02', org: 'Hostfully', orgLine: 'Short-term-rental SaaS',
     title: 'Community & Integrated Marketing Manager',
     from: 'Dec 2023', until: 'May 2026', place: 'Remote · Canada & US', category: 'Work · Manager',
     remarks: [
@@ -103,7 +91,7 @@ export const VISAS: Visa[] = [
     stamp: { die: 'star', country: 'US', ink: INK.plum, business: 'Hostfully', claim: 'Marketing', location: 'Mississauga', year: '2023', rot: -3 },
   },
   {
-    id: 'hostaway', no: '04', org: 'Hostaway', orgLine: 'Vacation-rental software',
+    id: 'hostaway', no: '03', org: 'Hostaway', orgLine: 'Vacation-rental software',
     title: 'Senior Support Advisor & Technical Content Writer',
     from: 'Oct 2022', until: 'Jan 2024', place: 'Toronto, ON', category: 'Work · Senior',
     remarks: [
@@ -114,7 +102,7 @@ export const VISAS: Visa[] = [
     stamp: { die: 'hexagon', country: 'CA', ink: INK.clay, business: 'Hostaway', claim: 'Support', location: 'Toronto', year: '2022', rot: 4 },
   },
   {
-    id: 'shopify', no: '05', org: 'Shopify', orgLine: 'Commerce platform',
+    id: 'shopify', no: '04', org: 'Shopify', orgLine: 'Commerce platform',
     title: 'Support Advisor & Internal Copywriter',
     from: 'Oct 2021', until: 'Jul 2022', place: 'Remote', category: 'Work · Advisor',
     remarks: [
@@ -125,7 +113,7 @@ export const VISAS: Visa[] = [
     stamp: { die: 'rounded', country: 'CA', ink: INK.moss, business: 'Shopify', claim: 'Copywriter', location: 'Mississauga', year: '2021', rot: -5 },
   },
   {
-    id: 'c54', no: '06', org: 'Community 54', orgLine: 'New York / Toronto streetwear & cultural concept',
+    id: 'c54', no: '05', org: 'Community 54', orgLine: 'New York / Toronto streetwear & cultural concept',
     title: 'Store Manager, Brand & Community Operations',
     from: 'Aug 2017', until: 'Apr 2019', place: 'Toronto, ON', category: 'Work · Manager',
     remarks: [

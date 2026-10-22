@@ -225,16 +225,6 @@ export const ROLES: Role[] = [
     ],
   },
   {
-    dates: 'Sep 8 — Sep 15, 2026', span: 'Contract',
-    title: 'Social Media & Content Marketing Consultant', org: 'Edsby · Hybrid',
-    bullets: [
-      'Led social media, content marketing, SEO, AI-search optimization and digital growth for a K-12 education technology company serving districts, educators, students and families.',
-      'Owned multi-channel social and editorial strategy across LinkedIn, Instagram, Facebook, X, Bluesky, YouTube, Reddit, Quora and Medium, producing and repurposing written, visual and video content.',
-      'Developed foundational SEO and answer-engine visibility through keyword and topic strategy, on-page and technical SEO, internal linking, content architecture, FAQs, schema and indexing.',
-      'Monitored social, content, website and search performance while researching customer pain points, competitor positioning, K-12 trends and emerging conversations.',
-    ],
-  },
-  {
     dates: 'Dec 2023 — May 2026', span: '2 yrs 6 mos',
     title: 'Community & Integrated Marketing Manager', org: 'Hostfully · Remote',
     bullets: [

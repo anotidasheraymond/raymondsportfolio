@@ -7,7 +7,7 @@ import Word from './Lettering'
 import Overlay, { type OverlayState } from './Overlay'
 import {
   Cover, Endpaper, IdentityPage, VisaPage, HostfullyVisa, CampaignsPage, CaseFilesPage, MotionPage,
-  EarlierPage, SkillsPage, ContactPage, BeforeAfterPage, StoriesPage, IndependentPage, C54Visa, BioPage,
+  EarlierPage, SkillsPage, HardwarePage, ContactPage, BeforeAfterPage, StoriesPage, IndependentPage, C54Visa, BioPage,
   type Side, type Opener,
 } from './Pages'
 import { VentureVisa, DoghairAnnex, PetworkingAnnex, HoardAnnex, DuckAnnex } from './Ventures'
@@ -45,19 +45,19 @@ function renderPage(i: number, side: Side, active: boolean, open: Opener): React
     case 9: return <DuckAnnex side={side} folio={folio} active={active} />
     case 10: return <VisaPage visa={visa('dfcc')} side={side} folio={folio} active={active} />
     case 11: return <BeforeAfterPage side={side} folio={folio} open={open} />
-    case 12: return <VisaPage visa={visa('edsby')} side={side} folio={folio} active={active} />
-    case 13: return <HostfullyVisa side={side} folio={folio} active={active} />
-    case 14: return <CampaignsPage side={side} folio={folio} open={open} />
-    case 15: return <CaseFilesPage side={side} folio={folio} open={open} />
-    case 16: return <MotionPage side={side} folio={folio} />
-    case 17: return <StoriesPage side={side} folio={folio} open={open} />
-    case 18: return <VisaPage visa={visa('hostaway')} side={side} folio={folio} active={active} />
-    case 19: return <VisaPage visa={visa('shopify')} side={side} folio={folio} active={active} />
-    case 20: return <C54Visa side={side} folio={folio} active={active} open={open} />
-    case 21: return <EarlierPage side={side} folio={folio} active={active} />
-    case 22: return <IndependentPage ids={['pretty', 'crane']} head="Video & campaigns" side={side} folio={folio} open={open} />
-    case 23: return <IndependentPage ids={['vineland']} head="Photography" side={side} folio={folio} open={open} />
-    case 24: return <SkillsPage side={side} folio={folio} active={active} />
+    case 12: return <HostfullyVisa side={side} folio={folio} active={active} />
+    case 13: return <CampaignsPage side={side} folio={folio} open={open} />
+    case 14: return <CaseFilesPage side={side} folio={folio} open={open} />
+    case 15: return <MotionPage side={side} folio={folio} />
+    case 16: return <StoriesPage side={side} folio={folio} open={open} />
+    case 17: return <VisaPage visa={visa('hostaway')} side={side} folio={folio} active={active} />
+    case 18: return <VisaPage visa={visa('shopify')} side={side} folio={folio} active={active} />
+    case 19: return <C54Visa side={side} folio={folio} active={active} open={open} />
+    case 20: return <EarlierPage side={side} folio={folio} active={active} />
+    case 21: return <IndependentPage ids={['pretty', 'crane']} head="Video & campaigns" side={side} folio={folio} open={open} />
+    case 22: return <IndependentPage ids={['vineland']} head="Photography" side={side} folio={folio} open={open} />
+    case 23: return <HardwarePage side={side} folio={folio} active={active} />
+    case 24: return <SkillsPage side={side} folio={folio} />
     case 25: return <ContactPage side={side} folio={folio} />
     default: return null
   }
@@ -100,7 +100,7 @@ function Backdrop({ stage, opened }: { stage: Stage; opened: boolean }) {
   return (
     <div className="pp-bg" aria-hidden="true">
       <div className="pp-bg-dark" style={{ opacity: coinish ? 1 : 0 }} />
-      <div className="pp-bg-pattern" style={{ opacity: opened ? 1 : 0 }}>
+      <div className="pp-bg-pattern" style={{ opacity: opened ? 1 : (stage === 'burst' || stage === 'cover' ? 0.35 : 0) }}>
         <div className="pp-bg-waves a" style={{ backgroundImage: TILE_A }} />
         <div className="pp-bg-waves b" style={{ backgroundImage: TILE_B }} />
         <svg className="pp-bg-rosette" viewBox="0 0 840 840"><path d={ROSETTE} /></svg>
