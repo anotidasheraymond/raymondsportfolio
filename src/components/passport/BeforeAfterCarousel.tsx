@@ -3,21 +3,22 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { DFCC_BEFORE_AFTER, DFCC_SLIDE_ASPECT } from '@/lib/dfcc'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 
-const PER_PAGE = 4
-
-/** Durham FCC website refresh: 3 stacked comparisons per page for effortless browsing and zero dead space. */
+/** Durham FCC website refresh, every page before and after: four slides at a time on desktop, two on phones. */
 export default function BeforeAfterCarousel({ onOpen }: { onOpen: (src: string, caption: string) => void }) {
-  const [page, setPage] = useState(0)
+  const narrow = useMediaQuery('(max-width: 760px)')
+  const PER_PAGE = narrow ? 2 : 4
+  const [first, setFirst] = useState(0)
+  const page = Math.floor(first / PER_PAGE)
   const totalItems = DFCC_BEFORE_AFTER.length
   const totalPages = Math.ceil(totalItems / PER_PAGE)
 
   const startIdx = page * PER_PAGE
   const currentItems = DFCC_BEFORE_AFTER.slice(startIdx, startIdx + PER_PAGE)
 
-  const go = (d: number) => {
-    setPage((p) => Math.max(0, Math.min(totalPages - 1, p + d)))
-  }
+  // Track the first slide shown, so switching between two and four per view keeps your place.
+  const go = (d: number) => setFirst(Math.max(0, Math.min(totalPages - 1, page + d)) * PER_PAGE)
 
   return (
     <div className="pp-bac">

@@ -1000,6 +1000,7 @@
   gap: 1.4cqw 1.8cqw;
   flex: 1;
 }
+@media (max-width: 760px) { .pp-bac-list { grid-template-columns: 1fr; align-content: start; gap: 3cqw; } }
 .pp-bac-card {
   display: flex;
   flex-direction: column;
