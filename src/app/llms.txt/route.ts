@@ -26,7 +26,7 @@ export function GET() {
     `- Petworking: ${SOCIAL.petworking}`,
     '',
     '## Ventures founded',
-    ...VENTURES.flatMap((v) => [`### ${v.org} — ${v.title} (${v.from} to ${v.until})`, `${v.orgLine}.`, ...v.remarks.map((r) => `- ${r}`), ...v.links.map((l) => `- ${l.label}: ${l.href}`), '']),
+    ...VENTURES.flatMap((v) => [`### ${v.org} — ${v.title} (${/\d/.test(v.until) || v.until.startsWith('Present') ? `${v.from} to ${v.until}` : `since ${v.from}, ${v.until.toLowerCase()}`})`, `${v.orgLine}.`, ...v.remarks.map((r) => `- ${r}`), ...v.links.map((l) => `- ${l.label}: ${l.href}`), '']),
     '## Results',
     ...STATS.map((s) => `- ${s.final}: ${s.label} (Hostfully)`),
     '',
@@ -49,7 +49,6 @@ export function GET() {
     '',
     '## Pages',
     `- [Interactive portfolio passport](${site}/)`,
-    `- [Full text version](${site}/classic)`,
     '',
   ]
   return new Response(lines.join('\n'), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })

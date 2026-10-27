@@ -676,7 +676,6 @@
   font-size: clamp(18px, 5.6cqw, 30px); color: #22357a;
   border-bottom: 1px solid var(--label); padding: 0 6px 1px 2px; width: fit-content; transform: rotate(-2deg); transform-origin: left;
 }
-.pp-classic { margin-top: 3.4cqw; font-family: var(--pp-mono), monospace; font-size: clamp(7.5px, 1.8cqw, 10px); letter-spacing: .12em; text-transform: uppercase; color: var(--label) !important; text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- stamps ---------- */
 .pp-stamp {

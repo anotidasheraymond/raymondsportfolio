@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import type { ReactNode } from 'react'
 import Stamp from './Stamp'
 import Word, { WordInSvg } from './Lettering'
@@ -8,7 +7,7 @@ import BeforeAfterCarousel from './BeforeAfterCarousel'
 import OledDisplay from './OledDisplay'
 import FitBody from './FitBody'
 import {
-  IDENTITY, VISAS, EARLIER, EDUCATION_LINE, PROJECT_LINE, HARDWARE_PROJECT, SKILL_GROUPS, EXTRA_SHOTS, JUNCTION_HOUSE, LINKEDIN, mrz,
+  IDENTITY, VISAS, EARLIER, EDUCATION_LINE, HARDWARE_PROJECT, SKILL_GROUPS, EXTRA_SHOTS, JUNCTION_HOUSE, LINKEDIN, mrz,
   type Visa,
 } from '@/lib/passport'
 import { WORKS, STATS, STUDIES, FILMS, REELS, CONTACT, BEST_FIT, SOCIAL } from '@/lib/content'
@@ -481,7 +480,6 @@ export function ContactPage({ side, folio }: { side: Side; folio: number }) {
         <span className="pp-sign-name">Raymond Chizanga</span>
         <span className="pp-label">Signature of bearer</span>
       </div>
-      <Link className="pp-classic" href="/classic">Text-only version of this portfolio</Link>
     </Paper>
   )
 }

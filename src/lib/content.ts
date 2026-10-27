@@ -304,8 +304,10 @@ export const BEST_FIT = [
   'Teams where marketing, support and product signals have to talk to each other.',
 ]
 
+// Leads with what Raymond founded, in his bio's own description of himself (marketer, product builder,
+// entrepreneur); the rest are facts already on the site.
 export const HERO_LEDE =
-  'Integrated marketing, brand and community professional with 10 years across SaaS, ecommerce and consumer brands. Senior Marketing Consultant through DOGHAIR Technologies; grew Hostfully’s social audience 235%.'
+  'Founder of DOGHAIR Technologies, Petworking and The Hoard, and a multidisciplinary marketer, product builder and entrepreneur with 10 years across SaaS, ecommerce and consumer brands. Grew Hostfully’s social audience 235%.'
 
 export const CONTACT = {
   email: 'rc.chizanga@gmail.com',

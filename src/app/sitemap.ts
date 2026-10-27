@@ -26,7 +26,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
   return [
     { url: SITE, lastModified, changeFrequency: 'monthly', priority: 1, images: [...new Set(images)].map(abs), videos },
-    { url: abs('/classic'), lastModified, changeFrequency: 'monthly', priority: 0.8 },
     { url: abs('/llms.txt'), lastModified, changeFrequency: 'monthly', priority: 0.5 },
   ]
 }

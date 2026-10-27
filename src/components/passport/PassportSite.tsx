@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from 'react'
 import GlitchCoin from './GlitchCoin'
 import Word from './Lettering'
@@ -398,7 +397,6 @@ export default function PassportSite() {
           <span className="pp-top-mark" aria-label="Raymond Chizanga"><Word word="RC" height={17} /></span>
           <nav className="pp-top-links">
             <a href={CONTACT.resume} download>Resume ↓</a>
-            <Link href="/classic">Text version</Link>
           </nav>
         </header>
 
