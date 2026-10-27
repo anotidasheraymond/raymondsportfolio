@@ -70,7 +70,7 @@ export function Cover() {
       <div className="pp-cover-inner">
         <div className="pp-cover-top">
           <div className="pp-cover-name">Raymond<br />Chizanga</div>
-          <div className="pp-cover-word">Renaissance Man</div>
+          <div className="pp-cover-word">Passport</div>
         </div>
         <div className="pp-crest" aria-hidden="true">
           <svg viewBox="0 0 200 200">
