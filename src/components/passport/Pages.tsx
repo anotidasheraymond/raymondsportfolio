@@ -6,6 +6,7 @@ import Word, { WordInSvg } from './Lettering'
 import PetworkingWordmark from './PetworkingWordmark'
 import BeforeAfterCarousel from './BeforeAfterCarousel'
 import OledDisplay from './OledDisplay'
+import FitBody from './FitBody'
 import {
   IDENTITY, VISAS, EARLIER, EDUCATION_LINE, PROJECT_LINE, HARDWARE_PROJECT, SKILL_GROUPS, EXTRA_SHOTS, JUNCTION_HOUSE, LINKEDIN, mrz,
   type Visa,
@@ -22,8 +23,8 @@ export type Opener = {
 
 /* ---------- shared pieces ---------- */
 
-/** Binds a sentence's last two words so a line never ends the paragraph on one word. */
-export const noOrphan = (t: string) => t.replace(/\s+(\S+)$/, ' $1')
+/** Binds a sentence's last two words (and a trailing ·, | or — separator) so a line never ends on one word. */
+export const noOrphan = (t: string) => t.replace(/\s+((?:[·|—–]\s+)?\S+)$/, (_, tail: string) => ' ' + tail.replace(/\s+/g, ' '))
 
 export function Paper({ side, head, folio, children, className = '', mrzLines }: { side: Side; head: [string, string]; folio: number; children: ReactNode; className?: string; mrzLines?: string[] }) {
   return (
@@ -34,7 +35,7 @@ export function Paper({ side, head, folio, children, className = '', mrzLines }:
         <span>{head[0]}</span>
         <span>{head[1]}</span>
       </div>
-      <div className={`pp-body${mrzLines ? ' has-mrz' : ''}`}>{children}</div>
+      <FitBody className={`pp-body${mrzLines ? ' has-mrz' : ''}`}>{children}</FitBody>
       {mrzLines && <Mrz lines={mrzLines} />}
       <div className="pp-folio" aria-hidden="true">{String(folio).padStart(2, '0')}</div>
     </div>
@@ -107,7 +108,7 @@ export function BioPage({ side, folio }: { side: Side; folio: number }) {
     <Paper side={side} folio={folio} head={['Bio', 'Raymond Chizanga']} className="pp-bio">
       <h2 className="pp-bio-title">Bio</h2>
       <div className="pp-bio-text">
-        {IDENTITY.bio.slice(0, 3).map((t) => <p key={t.slice(0, 24)}>{noOrphan(t)}</p>)}
+        {IDENTITY.bio.map((t) => <p key={t.slice(0, 24)}>{noOrphan(t)}</p>)}
       </div>
     </Paper>
   )
@@ -171,7 +172,7 @@ export function VisaPage({ visa, side, folio, active, children }: { visa: Visa; 
       <div className="pp-rule" />
       <div className="pp-label">Remarks</div>
       <ul className="pp-remarks">
-        {visa.remarks.slice(0, 3).map((r) => <li key={r}>{noOrphan(r)}</li>)}
+        {visa.remarks.map((r) => <li key={r}>{noOrphan(r)}</li>)}
       </ul>
       {children}
     </Paper>

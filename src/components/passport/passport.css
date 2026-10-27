@@ -805,13 +805,14 @@
   .pp-single { position: relative; width: var(--pw); height: var(--ph); }
   .pp-track {
     position: absolute; inset: 0;
-    display: flex; overflow: hidden;
+    overflow: hidden;
     scroll-snap-type: none; scroll-behavior: auto; scrollbar-width: none; overscroll-behavior: none;
     border-radius: 0 6px 6px 0;
     box-shadow: 0 24px 50px rgba(51, 37, 29, .22);
-    opacity: 0; transition: opacity .45s ease .35s, transform .48s var(--turn);
+    opacity: 0; transition: opacity .45s ease .35s;
     touch-action: pan-y;
   }
+  .pp-strip { display: flex; height: 100%; transition: transform .48s var(--turn); }
   .pp-track::-webkit-scrollbar { display: none; }
   .pp-single.is-open .pp-track { opacity: 1; }
   .pp-slide { position: relative; flex: 0 0 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; }
@@ -1104,3 +1105,7 @@
 .pp-pageno { flex: 1; text-align: center; font-family: var(--pp-mono), monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
 .pp-pageno .pp-dim { color: var(--label); }
 .pp-visa-c54 .pp-remarks li { line-height: 1.36; }
+
+/* Pages fill their paper: FitBody sets --fit (0.75 to 1.45) so content grows into empty space without
+   overflowing. Absolutely placed pieces (visa stamp, identity ghost photo) keep their own size. */
+.pp-body > :not(.pp-visa-stamp):not(.pp-ghost) { zoom: var(--fit, 1); }

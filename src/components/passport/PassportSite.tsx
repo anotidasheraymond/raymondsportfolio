@@ -274,8 +274,10 @@ function SingleBook({
         className="pp-track"
         inert={!opened}
         aria-hidden={!opened}
-        style={{ transform: `translate3d(${-page * 100}%, 0, 0)` }}
       >
+        {/* The track stays put and clips; only this strip slides. Moving the clipping box itself
+            would carry its clip off-screen with it and hide every page after the first. */}
+        <div className="pp-strip" style={{ transform: `translate3d(${-page * 100}%, 0, 0)` }}>
         {Array.from({ length: PAGE_COUNT }, (_, i) => {
           const isNearby = Math.abs(i - page) <= 2
           return (
@@ -286,6 +288,7 @@ function SingleBook({
             </div>
           )
         })}
+        </div>
       </div>
       <div
         className="pp-single-cover"
