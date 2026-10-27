@@ -286,6 +286,8 @@
   overscroll-behavior: none;
 }
 .pp-body.has-mrz { padding-bottom: 3cqw; }
+/* Pages without a machine-readable strip keep clear of the page number. */
+.pp-body:not(.has-mrz) { padding-bottom: 7.4cqw; }
 .pp-folio {
   position: absolute; bottom: 2cqw; z-index: 2;
   font-family: var(--pp-mono), monospace; font-size: clamp(8.5px, 1.9cqw, 11px); letter-spacing: .14em; color: #a8957f;
@@ -324,8 +326,9 @@
 .pp-ghost { position: absolute; right: 7cqw; top: 4.4cqw; width: 11cqw; aspect-ratio: 40 / 50; opacity: .26; filter: grayscale(1) contrast(1.1); border-radius: 2px; overflow: hidden; }
 
 /* visas */
-.pp-visa-stamp { position: absolute; right: 4.5cqw; top: 2cqw; z-index: 3; pointer-events: none; }
-.pp-visa-stamp .pp-stamp { width: 31cqw !important; height: 31cqw !important; }
+/* The stamp sits in the corner above the dates, clear of the Valid until label. */
+.pp-visa-stamp { position: absolute; right: 3.4cqw; top: .4cqw; z-index: 3; pointer-events: none; }
+.pp-visa-stamp .pp-stamp { width: 26cqw !important; height: 26cqw !important; }
 .pp-visa-top { max-width: 62%; }
 .pp-org { font-size: clamp(24px, 7.8cqw, 42px); font-weight: 700; letter-spacing: -.035em; line-height: .98; margin: 3px 0 4px; }
 .pp-visa-title { font-size: clamp(12.5px, 3.1cqw, 17px); font-weight: 600; line-height: 1.25; margin: 2cqw 0 2cqw; max-width: 64%; text-wrap: balance; }
@@ -411,6 +414,7 @@
 .pp-chips b { font-family: var(--pp-mono), monospace; font-weight: 500; font-size: .85em; letter-spacing: .1em; text-transform: uppercase; color: var(--label); margin-right: 3px; }
 .pp-proj + .pp-proj { margin-top: 3cqw; padding-top: 3cqw; border-top: 1px solid var(--rule); }
 .pp-proj-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.pp-proj-head .pp-label { flex: none; white-space: nowrap; }
 .pp-proj-head h3 { font-size: clamp(15px, 4cqw, 22px); font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
 .pp-proj-lede { font-size: clamp(11.5px, 2.6cqw, 14.5px); line-height: 1.5; color: #2b241c; margin: 1.2cqw 0 2cqw; text-wrap: pretty; }
 .pp-proj-shots { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.2cqw; }
@@ -962,7 +966,7 @@
 .pp-venture-lede { font-size: clamp(10.5px, 2.5cqw, 13.5px); line-height: 1.45; color: var(--ink-2); max-width: 92%; text-wrap: pretty; }
 .pp-phones-pw { padding: 0 2cqw; gap: 2.2cqw 2.6cqw; }
 .pp-phones-pw .pp-phone { aspect-ratio: 520 / 1129; background: #f4efe6; }
-.pp-hoard-hero { display: grid; grid-template-columns: 40cqw 1fr; gap: 3cqw; align-items: center; }
+.pp-hoard-hero { display: grid; grid-template-columns: 38% 1fr; gap: 6%; align-items: center; }
 .pp-hoard-hero .pp-annex-title p { margin-bottom: 0; }
 .pp-model { position: relative; aspect-ratio: 1; }
 /* The duck is a floating render, not a framed card. Keep the stage short so the copy follows it. */
@@ -980,7 +984,8 @@
 /* No orphans: headings balance their lines, running text never leaves one word alone. */
 .pp-root h1, .pp-root h2, .pp-root h3, .pp-org, .pp-visa-title, .pp-toc-label { text-wrap: balance; }
 .pp-root p, .pp-root li, .pp-root .pp-sub, .pp-root .pp-toc-sub, .pp-root .pp-value, .pp-root .pp-chips span, .pp-root figcaption { text-wrap: pretty; }
-.pp-org.is-long { font-size: clamp(17px, 4.9cqw, 27px); white-space: nowrap; }
+/* A long one-line name keeps its size as the page scales, so it never caps the rest of the page. */
+.pp-org.is-long { font-size: calc(clamp(17px, 4.9cqw, 27px) / var(--fit, 1)); white-space: nowrap; }
 .pp-org-mark { display: flex; align-items: flex-end; min-height: 1em; }
 .pp-org-mark svg { display: block; }
 .pp-pw-mark { width: auto; margin: 2cqw 0 3cqw; }
@@ -996,12 +1001,14 @@
 }
 .pp-bac-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.4cqw 1.8cqw;
   flex: 1;
+  align-content: start;
 }
-@media (max-width: 760px) { .pp-bac-list { grid-template-columns: 1fr; align-content: start; gap: 3cqw; } }
+@media (max-width: 760px) { .pp-bac-list { grid-template-columns: minmax(0, 1fr); align-content: start; gap: 3cqw; } }
 .pp-bac-card {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 0.4cqw;
@@ -1014,6 +1021,8 @@
   font-family: var(--pp-mono), monospace;
 }
 .pp-bac-card-num {
+  flex: none;
+  white-space: nowrap;
   font-size: clamp(7.5px, 1.6cqw, 9.5px);
   letter-spacing: .12em;
   color: var(--label);
@@ -1109,4 +1118,10 @@
 
 /* Pages fill their paper: FitBody sets --fit (0.75 to 1.45) so content grows into empty space without
    overflowing. Absolutely placed pieces (visa stamp, identity ghost photo) keep their own size. */
-.pp-body > :not(.pp-visa-stamp):not(.pp-ghost) { zoom: var(--fit, 1); }
+/* The Petworking wordmark is sized to the page width on its own, so it never caps the page's scale. */
+.pp-body > :not(.pp-visa-stamp):not(.pp-ghost):not(.pp-placed):not(.pp-pw-mark) { zoom: var(--fit, 1); }
+/* Petworking's modules read as a two-column list rather than one long column. */
+.pp-venture-petworking .pp-remarks { display: grid; grid-template-columns: 1fr 1fr; column-gap: 4cqw; }
+/* Venture pages with little copy spread their blocks over the page height instead of stopping short. */
+.pp-venture .pp-body { justify-content: space-between; }
+.pp-venture .pp-body > .pp-rule { margin: 0; }

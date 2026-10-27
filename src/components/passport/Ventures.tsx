@@ -71,11 +71,12 @@ export function PetworkingAnnex({ side, folio }: { side: Side; folio: number }) 
   const v = venture('petworking')
   return (
     <Paper side={side} folio={folio} head={['Endorsement · Founder', 'Petworking']} className="pp-annex pp-venture pp-venture-petworking">
-      <div className="pp-pw-mark"><PetworkingWordmark size={72} style={{ fontSize: 'min(72px, 13cqw)' }} /></div>
+      <div className="pp-pw-mark"><PetworkingWordmark size={72} style={{ fontSize: '15.2cqw' }} /></div>
       <p className="pp-venture-lede">The Pet Passport this whole site is styled after, and the Stamp Studio that cut every stamp in it, are Petworking’s.</p>
-      <div className="pp-rule" />
-      <div className="pp-label">Modules</div>
-      <ul className="pp-remarks">{v.chips[0].v.split(' · ').map((m) => <li key={m}>{m}</li>)}</ul>
+      <div>
+        <div className="pp-label">Modules</div>
+        <ul className="pp-remarks">{v.chips[0].v.split(' · ').map((m) => <li key={m}>{m}</li>)}</ul>
+      </div>
       <Chips chips={v.chips.slice(1)} />
     </Paper>
   )

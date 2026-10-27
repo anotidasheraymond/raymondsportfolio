@@ -5,10 +5,10 @@ import { useState } from 'react'
 import { DFCC_BEFORE_AFTER, DFCC_SLIDE_ASPECT } from '@/lib/dfcc'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
-/** Durham FCC website refresh, every page before and after: four slides at a time on desktop, two on phones. */
+/** Durham FCC website refresh, every page before and after: six slides at a time on desktop, two on phones. */
 export default function BeforeAfterCarousel({ onOpen }: { onOpen: (src: string, caption: string) => void }) {
   const narrow = useMediaQuery('(max-width: 760px)')
-  const PER_PAGE = narrow ? 2 : 4
+  const PER_PAGE = narrow ? 2 : 6
   const [first, setFirst] = useState(0)
   const page = Math.floor(first / PER_PAGE)
   const totalItems = DFCC_BEFORE_AFTER.length
@@ -30,7 +30,6 @@ export default function BeforeAfterCarousel({ onOpen }: { onOpen: (src: string, 
               <div className="pp-bac-card-header">
                 <span className="pp-bac-card-num">PAGE {String(itemNo).padStart(2, '0')}</span>
                 <span className="pp-bac-card-caption">{item.caption}</span>
-                <span className="pp-bac-card-badge">Before / After</span>
               </div>
               <button
                 className="pp-bac-slide"

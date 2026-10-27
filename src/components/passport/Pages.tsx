@@ -35,7 +35,7 @@ export function Paper({ side, head, folio, children, className = '', mrzLines }:
         <span>{head[0]}</span>
         <span>{head[1]}</span>
       </div>
-      <FitBody className={`pp-body${mrzLines ? ' has-mrz' : ''}`}>{children}</FitBody>
+      <FitBody className={`pp-body${mrzLines ? ' has-mrz' : ''}`} group={className.includes('pp-visa') ? `visa-spread-${Math.floor((folio - 1) / 2)}` : undefined}>{children}</FitBody>
       {mrzLines && <Mrz lines={mrzLines} />}
       <div className="pp-folio" aria-hidden="true">{String(folio).padStart(2, '0')}</div>
     </div>
@@ -160,7 +160,7 @@ export function VisaPage({ visa, side, folio, active, children }: { visa: Visa; 
         ) : (
           <h2 className={`pp-org${visa.org.length > 14 ? ' is-long' : ''}`}>{visa.org}</h2>
         )}
-        <div className="pp-sub">{visa.orgLine}</div>
+        <div className="pp-sub">{noOrphan(visa.orgLine.replace(/-/g, '‑'))}</div>
       </div>
       <div className="pp-visa-title">{visa.title}</div>
       <div className="pp-visa-grid">
@@ -295,7 +295,7 @@ export function MotionPage({ side, folio }: { side: Side; folio: number }) {
         {REELS.map((r, i) => (
           <li key={r.href}>
             <a href={r.href} target="_blank" rel="noopener noreferrer">
-              <span>{String(i + 1).padStart(2, '0')}</span> {r.handle} ↗
+              <span>{String(i + 1).padStart(2, '0')}</span> {r.handle}{' '}↗
             </a>
           </li>
         ))}

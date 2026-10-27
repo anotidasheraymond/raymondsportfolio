@@ -200,7 +200,7 @@ export const VENTURES: Venture[] = [
     stamp: { die: 'octagon', country: 'CA', ink: INK.oxblood, business: 'The Hoard', claim: 'Founder', date: '2026-05-16', year: '2026', rot: -5 },
   },
   {
-    id: 'duck', no: 'F4', org: 'D.U.C.K AI', orgLine: 'Deterministic Uptake Computation Kicker · on-device LLM',
+    id: 'duck', no: 'F4', org: 'D.U.C.K AI', orgLine: 'Deterministic Uptake Computation Kicker · on‑device LLM',
     title: 'Founder & engine developer',
     from: 'Jul 2026', until: 'In development', place: 'Mississauga, ON', category: 'In development · DOGHAIR Technologies',
     remarks: [
