@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { WORKS, STUDIES } from '@/lib/content'
-import { JUNCTION_HOUSE, DFCC_BEFORE_AFTER, EXTRA_SHOTS } from '@/lib/passport'
+import { JUNCTION_HOUSE, EXTRA_SHOTS } from '@/lib/passport'
+import { DFCC_BEFORE_AFTER } from '@/lib/dfcc'
 
 const SITE = 'https://raymondchizanga.work'
 const abs = (p: string) => `${SITE}${p}`

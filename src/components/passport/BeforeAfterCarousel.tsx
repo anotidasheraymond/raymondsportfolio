@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { DFCC_BEFORE_AFTER } from '@/lib/passport'
+import { DFCC_BEFORE_AFTER, DFCC_SLIDE_ASPECT } from '@/lib/dfcc'
 
 const PER_PAGE = 4
 
@@ -33,6 +33,7 @@ export default function BeforeAfterCarousel({ onOpen }: { onOpen: (src: string, 
               </div>
               <button
                 className="pp-bac-slide"
+                style={{ aspectRatio: DFCC_SLIDE_ASPECT }}
                 onClick={() => onOpen(item.src, `Durham FCC · ${item.caption} · before / after`)}
                 aria-label={`View ${item.caption} before and after, full screen`}
               >
