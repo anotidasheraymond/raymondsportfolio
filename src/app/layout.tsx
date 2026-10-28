@@ -18,7 +18,7 @@ const mono = JetBrains_Mono({ subsets: ['latin'], display: 'swap', variable: '--
 
 const siteUrl = 'https://raymondchizanga.work'
 
-const TITLE = 'Raymond Chizanga — Integrated Marketing, Brand & Community'
+const TITLE = 'Raymond Chizanga — Founder of DOGHAIR Technologies, Petworking & The Hoard'
 const PHOTO = `${siteUrl}/img/passport/raymond-jeep.webp`
 
 export const metadata: Metadata = {

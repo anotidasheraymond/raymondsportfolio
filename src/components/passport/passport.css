@@ -1124,3 +1124,9 @@
 /* Venture pages with little copy spread their blocks over the page height instead of stopping short. */
 .pp-venture .pp-body { justify-content: space-between; }
 .pp-venture .pp-body > .pp-rule { margin: 0; }
+/* A lone last photo in a three-column gallery spans the row as a wide banner. */
+.pp-proj-shots > .pp-thumb:last-child:nth-child(3n + 1) { grid-column: 1 / -1; aspect-ratio: 3 / 1; }
+/* Page headers stay on one line: the right label keeps its width, the left one trims if it must. */
+.pp-head > span { white-space: nowrap; }
+.pp-head > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.pp-head > span:last-child { flex: none; }

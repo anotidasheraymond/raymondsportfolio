@@ -42,7 +42,7 @@ export default async function OpengraphImage() {
               <Word word="RAYMOND" height={96} color={foil} />
               <Word word="CHIZANGA" height={96} color={foil} />
             </div>
-            <div style={{ fontFamily: 'Grotesk', fontSize: 28, marginTop: 34, color: '#f3e6c4', whiteSpace: 'nowrap' }}>Integrated marketing · Brand &amp; community</div>
+            <div style={{ fontFamily: 'Grotesk', fontSize: 28, marginTop: 34, color: '#f3e6c4', whiteSpace: 'nowrap' }}>Founder · DOGHAIR Technologies · Petworking · The Hoard</div>
             <div style={{ fontFamily: 'Plex', fontSize: 20, marginTop: 12, letterSpacing: 4, opacity: 0.8 }}>RAYMONDCHIZANGA.WORK</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 300, marginRight: 60 }}>
