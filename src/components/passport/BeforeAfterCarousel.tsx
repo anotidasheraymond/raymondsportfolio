@@ -17,7 +17,7 @@ export default function BeforeAfterCarousel({ onOpen }: { onOpen: (src: string, 
   const startIdx = page * PER_PAGE
   const currentItems = DFCC_BEFORE_AFTER.slice(startIdx, startIdx + PER_PAGE)
 
-  // Track the first slide shown, so switching between two and four per view keeps your place.
+  // Track the first slide shown, so switching between two and six per view keeps your place.
   const go = (d: number) => setFirst(Math.max(0, Math.min(totalPages - 1, page + d)) * PER_PAGE)
 
   return (
@@ -25,24 +25,26 @@ export default function BeforeAfterCarousel({ onOpen }: { onOpen: (src: string, 
       <div className="pp-bac-list">
         {currentItems.map((item, idx) => {
           const itemNo = startIdx + idx + 1
+          const description = item.kind === 'new' ? 'new page' : 'before and after'
           return (
             <div key={item.src} className="pp-bac-card">
               <div className="pp-bac-card-header">
                 <span className="pp-bac-card-num">PAGE {String(itemNo).padStart(2, '0')}</span>
                 <span className="pp-bac-card-caption">{item.caption}</span>
+                {item.kind === 'new' && <span className="pp-bac-card-new">New</span>}
               </div>
               <button
                 className="pp-bac-slide"
                 style={{ aspectRatio: DFCC_SLIDE_ASPECT }}
-                onClick={() => onOpen(item.src, `Durham FCC · ${item.caption} · before / after`)}
-                aria-label={`View ${item.caption} before and after, full screen`}
+                onClick={() => onOpen(item.src, `Durham FCC · ${item.caption} · ${item.kind === 'new' ? 'new page' : 'before / after'}`)}
+                aria-label={`View ${item.caption} ${description}, full screen`}
               >
                 <Image
                   src={item.src}
-                  alt={`${item.caption}: durhamfcc.org before and after`}
+                  alt={`${item.caption}: durhamfcc.org ${description}`}
                   fill
                   unoptimized
-                  style={{ objectFit: 'contain' }}
+                  style={{ objectFit: item.kind === 'new' ? 'cover' : 'contain', objectPosition: 'top' }}
                 />
               </button>
             </div>
@@ -60,8 +62,8 @@ export default function BeforeAfterCarousel({ onOpen }: { onOpen: (src: string, 
         >
           ← Prev
         </button>
-        <span className="pp-bac-paging-info">
-          Pages {startIdx + 1}–{Math.min(startIdx + PER_PAGE, totalItems)} <span className="pp-dim">/ {totalItems}</span>
+        <span className="pp-bac-paging-info" aria-live="polite" aria-atomic="true">
+          {currentItems.length === 1 ? `Page ${startIdx + 1}` : `Pages ${startIdx + 1}–${Math.min(startIdx + PER_PAGE, totalItems)}`} <span className="pp-dim">/ {totalItems}</span>
         </span>
         <button
           type="button"

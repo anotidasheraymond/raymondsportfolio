@@ -201,7 +201,7 @@ export function BeforeAfterPage({ side, folio, open }: { side: Side; folio: numb
     <Paper side={side} folio={folio} head={['Annex · Before / After', 'Durham FCC']} className="pp-annex">
       <div className="pp-annex-title">
         <h3>Website refresh</h3>
-        <p>durhamfcc.org, every page before and after. Tap a slide to see it full screen.</p>
+        <p>durhamfcc.org, rebuilt and live: every page before and after, plus the six pages it added. Tap a slide to see it full screen.</p>
       </div>
       <BeforeAfterCarousel onOpen={open.openImage} />
     </Paper>

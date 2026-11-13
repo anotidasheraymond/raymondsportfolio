@@ -989,7 +989,7 @@
 .pp-org-mark svg { display: block; }
 .pp-pw-mark { width: auto; margin: 2cqw 0 3cqw; }
 
-/* Durham FCC before/after comparisons: 4 comparisons in a 2x2 grid per view */
+/* Durham FCC comparisons: six slides on desktop, two stacked slides on phones. */
 .pp-bac {
   display: flex;
   flex-direction: column;
@@ -1130,3 +1130,5 @@
 .pp-head > span { white-space: nowrap; }
 .pp-head > span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .pp-head > span:last-child { flex: none; }
+
+.pp-bac-card-new { flex: none; font-family: var(--pp-mono), monospace; font-size: clamp(6.5px, 1.4cqw, 8.5px); letter-spacing: .12em; text-transform: uppercase; color: #fff; background: var(--ox); padding: 1px 5px; border-radius: 2px; }
