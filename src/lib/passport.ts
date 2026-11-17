@@ -166,7 +166,7 @@ export const VENTURES: Venture[] = [
       'Founded Petworking, an all-in-one pet care network for pet parents, pet professionals, businesses and animal rescues, built around a portable digital Pet Passport.',
       'Pet records, bookings, marketplace discovery, business software, payments and professional networking: one Expo codebase for iPhone, iPad, Apple Watch and Android, plus a Next.js web platform on Supabase with Stripe.',
       'In beta in Canada, the United States, the United Kingdom, Australia and Japan through TestFlight and Google Play testing; listed on Capterra and GetApp, with the G2 profile claimed.',
-      'Scale of the build: 1,310 commits since August 27, 2026, 533 database migrations, 169 web routes and 17 server functions covering checkout, payouts, subscriptions, refunds and shipping.',
+      'Designed the brand assets, UI and UX for every surface. Scale of the build: 2,004 commits since August 27, 2026, 687 database migrations, 281 web routes and 20 server functions covering checkout, payouts, subscriptions, refunds and shipping.',
     ],
     links: [
       { label: 'petworking.pet', href: 'https://petworking.pet' },
@@ -185,7 +185,7 @@ export const VENTURES: Venture[] = [
     title: 'Founder · design & build',
     from: 'May 2026', until: 'Present', place: 'Mississauga, ON', category: 'Founder · DOGHAIR Technologies',
     remarks: [
-      '“The world’s first and only all-encompassing fan network.” Built as a collector, solo, from concept and architecture through UX/UI, the marketplace and a hand-built pricing tool.',
+      '“The world’s first and only all-encompassing fan network.” Built as a collector, solo, from concept and architecture through the brand assets, UX/UI, the marketplace and a hand-built pricing tool.',
       'Live on the web at thehoard.social and on the App Store, with Android in Play testing: iPhone, iPad and Android apps from one Expo codebase, web on Next.js with Stripe and Sentry.',
       'Proprietary systems Nyami Nyami Market Guard, Gideon (a self-hosted visual identification service) and Linda; Collector, Manager and Commissioner Pro subscriptions.',
       'Launch audit: zero critical or high findings, row-level security on 100% of tables, Sign in with Apple and in-app account deletion. 824 migrations, 26 server functions, 252 web routes.',

@@ -9,7 +9,7 @@ import {
   EarlierPage, SkillsPage, HardwarePage, ContactPage, BeforeAfterPage, StoriesPage, IndependentPage, C54Visa, BioPage,
   type Side, type Opener,
 } from './Pages'
-import { VentureVisa, DoghairAnnex, PetworkingAnnex, HoardAnnex, DuckAnnex } from './Ventures'
+import { VentureVisa, DoghairAnnex, PetworkingAnnex, HoardAnnex, DuckAnnex, PetworkingScreens, PetworkingBuild, HoardScreens, HoardBuild } from './Ventures'
 import { VISAS } from '@/lib/passport'
 import { CONTACT } from '@/lib/content'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
@@ -17,7 +17,7 @@ import './passport.css'
 
 type Stage = 'coin' | 'charging' | 'burst' | 'cover'
 
-const PAGE_COUNT = 26
+const PAGE_COUNT = 30
 const LEAF_COUNT = PAGE_COUNT / 2 + 1
 const LAST_SPREAD_PAGE = PAGE_COUNT - 2
 
@@ -38,26 +38,30 @@ function renderPage(i: number, side: Side, active: boolean, open: Opener): React
     case 3: return <DoghairAnnex side={side} folio={folio} />
     case 4: return <VentureVisa id="petworking" side={side} folio={folio} active={active} />
     case 5: return <PetworkingAnnex side={side} folio={folio} />
-    case 6: return <VentureVisa id="hoard" side={side} folio={folio} active={active} />
-    case 7: return <HoardAnnex side={side} folio={folio} active={active} open={open} />
-    case 8: return <VentureVisa id="duck" side={side} folio={folio} active={active} />
-    case 9: return <DuckAnnex side={side} folio={folio} active={active} />
-    case 10: return <VisaPage visa={visa('dfcc')} side={side} folio={folio} active={active} />
-    case 11: return <BeforeAfterPage side={side} folio={folio} open={open} />
-    case 12: return <HostfullyVisa side={side} folio={folio} active={active} />
-    case 13: return <CampaignsPage side={side} folio={folio} open={open} />
-    case 14: return <CaseFilesPage side={side} folio={folio} open={open} />
-    case 15: return <MotionPage side={side} folio={folio} />
-    case 16: return <StoriesPage side={side} folio={folio} open={open} />
-    case 17: return <VisaPage visa={visa('hostaway')} side={side} folio={folio} active={active} />
-    case 18: return <VisaPage visa={visa('shopify')} side={side} folio={folio} active={active} />
-    case 19: return <C54Visa side={side} folio={folio} active={active} open={open} />
-    case 20: return <EarlierPage side={side} folio={folio} active={active} />
-    case 21: return <IndependentPage ids={['pretty', 'crane']} head="Video & campaigns" side={side} folio={folio} open={open} />
-    case 22: return <IndependentPage ids={['vineland']} head="Photography" side={side} folio={folio} open={open} />
-    case 23: return <HardwarePage side={side} folio={folio} active={active} />
-    case 24: return <SkillsPage side={side} folio={folio} />
-    case 25: return <ContactPage side={side} folio={folio} />
+    case 6: return <PetworkingScreens side={side} folio={folio} open={open} />
+    case 7: return <PetworkingBuild side={side} folio={folio} />
+    case 8: return <VentureVisa id="hoard" side={side} folio={folio} active={active} />
+    case 9: return <HoardAnnex side={side} folio={folio} active={active} open={open} />
+    case 10: return <HoardScreens side={side} folio={folio} open={open} />
+    case 11: return <HoardBuild side={side} folio={folio} />
+    case 12: return <VentureVisa id="duck" side={side} folio={folio} active={active} />
+    case 13: return <DuckAnnex side={side} folio={folio} active={active} />
+    case 14: return <VisaPage visa={visa('dfcc')} side={side} folio={folio} active={active} />
+    case 15: return <BeforeAfterPage side={side} folio={folio} open={open} />
+    case 16: return <HostfullyVisa side={side} folio={folio} active={active} />
+    case 17: return <CampaignsPage side={side} folio={folio} open={open} />
+    case 18: return <CaseFilesPage side={side} folio={folio} open={open} />
+    case 19: return <MotionPage side={side} folio={folio} />
+    case 20: return <StoriesPage side={side} folio={folio} open={open} />
+    case 21: return <VisaPage visa={visa('hostaway')} side={side} folio={folio} active={active} />
+    case 22: return <VisaPage visa={visa('shopify')} side={side} folio={folio} active={active} />
+    case 23: return <C54Visa side={side} folio={folio} active={active} open={open} />
+    case 24: return <EarlierPage side={side} folio={folio} active={active} />
+    case 25: return <IndependentPage ids={['pretty', 'crane']} head="Video & campaigns" side={side} folio={folio} open={open} />
+    case 26: return <IndependentPage ids={['vineland']} head="Photography" side={side} folio={folio} open={open} />
+    case 27: return <HardwarePage side={side} folio={folio} active={active} />
+    case 28: return <SkillsPage side={side} folio={folio} />
+    case 29: return <ContactPage side={side} folio={folio} />
     default: return null
   }
 }

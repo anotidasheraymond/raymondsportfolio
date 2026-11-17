@@ -1132,3 +1132,17 @@
 .pp-head > span:last-child { flex: none; }
 
 .pp-bac-card-new { flex: none; font-family: var(--pp-mono), monospace; font-size: clamp(6.5px, 1.4cqw, 8.5px); letter-spacing: .12em; text-transform: uppercase; color: #fff; background: var(--ox); padding: 1px 5px; border-radius: 2px; }
+
+/* Venture design & build annex: what Raymond designed, then the engineering behind it. */
+.pp-build .pp-label { margin-top: 1.2cqw; }
+.pp-build-design { display: flex; flex-direction: column; gap: 1.6cqw; margin: 1.4cqw 0 3cqw; }
+.pp-build-design > div { display: grid; grid-template-columns: 11cqw minmax(0, 1fr); gap: 2cqw; align-items: baseline; padding-bottom: 1.6cqw; border-bottom: 1px dashed var(--edge); }
+.pp-build-design > div:last-child { border-bottom: 0; padding-bottom: 0; }
+.pp-build-design dt { font-family: var(--pp-mono), monospace; font-size: clamp(8.5px, 1.9cqw, 11px); letter-spacing: .14em; text-transform: uppercase; color: var(--ox); }
+.pp-build-design dd { font-size: clamp(10px, 2.3cqw, 13px); line-height: 1.4; color: #231c15; text-wrap: pretty; }
+.pp-build-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6cqw; margin-top: 1.4cqw; }
+.pp-build-stats > div { display: flex; flex-direction: column; gap: .4cqw; padding: 1.8cqw 2.2cqw; border: 1px solid var(--edge); border-radius: 1.2cqw; background: rgba(255, 255, 255, .35); }
+.pp-build-stats b { font-size: clamp(18px, 5.6cqw, 30px); font-weight: 700; letter-spacing: -.03em; line-height: 1; color: var(--ink); }
+.pp-build-stats span { font-family: var(--pp-mono), monospace; font-size: clamp(7.5px, 1.7cqw, 10px); letter-spacing: .1em; text-transform: uppercase; color: var(--label); line-height: 1.3; }
+.pp-build-eng { font-size: clamp(10px, 2.25cqw, 12.5px); line-height: 1.45; color: var(--ink-2); margin-top: 2.4cqw; text-wrap: pretty; }
+.pp-build .pp-chips { margin-top: 2cqw; }

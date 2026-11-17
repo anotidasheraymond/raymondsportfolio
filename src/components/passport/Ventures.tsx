@@ -9,6 +9,8 @@ import Word from './Lettering'
 import { VisaPage, Paper, type Side, type Opener } from './Pages'
 import { VENTURES } from '@/lib/passport'
 import { WORKS } from '@/lib/content'
+import { HOARD_SITE, PW_SITE, type SiteSlide } from '@/lib/ventureSites'
+import SiteCarousel from './SiteCarousel'
 
 // Founder visas: one per venture, each with its own Stamp Studio stamp and an annex page.
 // The Hoard's glitch coin and the D.U.C.K duck mount only while their page is open.
@@ -140,3 +142,99 @@ export function DuckAnnex({ side, folio, active }: { side: Side; folio: number; 
     </Paper>
   )
 }
+
+/* ---------- live platforms and the build behind them ---------- */
+
+function ScreensPage({ side, folio, open, name, site, slides, lede }: { side: Side; folio: number; open: Opener; name: string; site: string; slides: SiteSlide[]; lede: string }) {
+  return (
+    <Paper side={side} folio={folio} head={['Annex · Live platform', name]} className="pp-annex pp-screens">
+      <div className="pp-annex-title">
+        <h3>{site}</h3>
+        <p>{lede}</p>
+      </div>
+      <SiteCarousel slides={slides} site={site} onOpen={open.openImage} />
+    </Paper>
+  )
+}
+
+type Build = {
+  name: string
+  title: string
+  lede: string
+  design: { k: string; v: string }[]
+  stats: { n: string; k: string }[]
+  engineering: string
+  stack: string
+}
+
+function BuildPage({ side, folio, b }: { side: Side; folio: number; b: Build }) {
+  return (
+    <Paper side={side} folio={folio} head={['Annex · Design & build', b.name]} className="pp-annex pp-build">
+      <div className="pp-annex-title">
+        <h3>{b.title}</h3>
+        <p>{b.lede}</p>
+      </div>
+      <div className="pp-label">Designed by Raymond</div>
+      <dl className="pp-build-design">
+        {b.design.map((d) => (
+          <div key={d.k}><dt>{d.k}</dt><dd>{d.v}</dd></div>
+        ))}
+      </dl>
+      <div className="pp-label">Under the hood</div>
+      <div className="pp-build-stats">
+        {b.stats.map((s) => (
+          <div key={s.k}><b>{s.n}</b><span>{s.k}</span></div>
+        ))}
+      </div>
+      <p className="pp-build-eng">{b.engineering}</p>
+      <div className="pp-chips"><span><b>Stack</b> {b.stack}</span></div>
+    </Paper>
+  )
+}
+
+const PW_BUILD: Build = {
+  name: 'Petworking',
+  title: 'Designed and engineered solo.',
+  lede: 'Brand, product design and engineering for every surface of Petworking: one designer, one engineer, the same person.',
+  design: [
+    { k: 'Assets', v: 'The heart wordmark, app icon, Pet Passport and every stamp the Stamp Studio cuts.' },
+    { k: 'UI', v: 'Every screen on iPhone, iPad, Apple Watch, Android and the web platform.' },
+    { k: 'UX', v: 'Flows for pet parents, professionals, businesses and rescues: records, bookings, marketplace, checkout and payouts.' },
+  ],
+  stats: [
+    { n: '2,004', k: 'commits since Aug 27, 2026' },
+    { n: '687', k: 'database migrations' },
+    { n: '281', k: 'web routes' },
+    { n: '20', k: 'server functions' },
+  ],
+  engineering: 'One Expo codebase ships five surfaces. The web platform runs on Next.js and Supabase with row-level security by default, and Stripe handles checkout, payouts, subscriptions, refunds and shipping. In beta in five countries.',
+  stack: 'Expo · React Native · Next.js · Supabase · Stripe',
+}
+
+const HOARD_BUILD: Build = {
+  name: 'The Hoard',
+  title: 'Designed and engineered solo.',
+  lede: 'Concept, brand, product design and engineering for The Hoard, from architecture to App Store release.',
+  design: [
+    { k: 'Assets', v: 'The glitch coin, the Founding coins, the lettering and the marks for Gideon, Nyami Nyami and Rooms.' },
+    { k: 'UI', v: 'Every screen on the web, iPhone, iPad and Android, designed in Figma and in code.' },
+    { k: 'UX', v: 'The Vault, Rooms, the marketplace, Gideon Scan and a hand-built pricing tool.' },
+  ],
+  stats: [
+    { n: '252', k: 'web routes' },
+    { n: '824', k: 'database migrations' },
+    { n: '26', k: 'server functions' },
+    { n: '100%', k: 'tables under row-level security' },
+  ],
+  engineering: 'Next.js on the web with Stripe and Sentry, Expo apps for iPhone, iPad and Android, Supabase underneath, and Gideon, a self-hosted visual identification service on Python inference. Launch audit: zero critical or high findings.',
+  stack: 'Next.js · Expo · Supabase · Stripe · Sentry · Python',
+}
+
+export const PetworkingScreens = (p: { side: Side; folio: number; open: Opener }) => (
+  <ScreensPage {...p} name="Petworking" site="petworking.pet" slides={PW_SITE} lede="The live web platform, captured from production. Tap a page to see it full screen." />
+)
+export const PetworkingBuild = (p: { side: Side; folio: number }) => <BuildPage {...p} b={PW_BUILD} />
+export const HoardScreens = (p: { side: Side; folio: number; open: Opener }) => (
+  <ScreensPage {...p} name="The Hoard" site="thehoard.social" slides={HOARD_SITE} lede="The live web platform, captured from production. Tap a page to see it full screen." />
+)
+export const HoardBuild = (p: { side: Side; folio: number }) => <BuildPage {...p} b={HOARD_BUILD} />
